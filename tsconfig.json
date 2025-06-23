@@ -2,5 +2,33 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./apps/react-e2e"
+    },
+    {
+      "path": "./apps/react"
+    },
+    {
+      "path": "./apps/webcomponents-e2e"
+    },
+    {
+      "path": "./apps/webcomponents"
+    },
+    {
+      "path": "./apps/nextjs-e2e"
+    },
+    {
+      "path": "./apps/nextjs"
+    },
+    {
+      "path": "./apps/reactnative"
+    },
+    {
+      "path": "./apps/vue-e2e"
+    },
+    {
+      "path": "./apps/vue"
+    }
+  ]
 }
