@@ -32,8 +32,11 @@ jobs:
           node-version: 22.16.0
           cache: 'npm'
 
-      - run: npm ci --verbose --legacy-peer-deps
+      - run: npm ci --verbose
       # This command does exist ignore the linting errors
       - uses: nrwl/nx-set-shas@v4
 
       - run: npm test
+
+      - run: npx nx-cloud stop-ci-run
+        if: always()
