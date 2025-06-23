@@ -29,6 +29,9 @@
     },
     {
       "path": "./apps/vue"
+    },
+    {
+      "path": "./apps/vue-e2e"
     }
   ]
 }

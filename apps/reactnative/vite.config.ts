@@ -52,7 +52,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 4200,
+    port: 4201,
     host: 'localhost',
     fs: {
       // Allow serving files from one level up to the project root
@@ -60,7 +60,7 @@ export default defineConfig({
     },
   },
   preview: {
-    port: 4300,
+    port: 4301,
     host: 'localhost',
   },
   optimizeDeps: {
