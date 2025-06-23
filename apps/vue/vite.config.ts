@@ -19,7 +19,7 @@ export default defineConfig(() => ({
   //  plugins: [ nxViteTsPaths() ],
   // },
   build: {
-    outDir: './dist',
+    outDir: '../../dist/vue',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {

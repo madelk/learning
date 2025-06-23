@@ -16,12 +16,6 @@
       "path": "./apps/webcomponents"
     },
     {
-      "path": "./apps/nextjs-e2e"
-    },
-    {
-      "path": "./apps/nextjs"
-    },
-    {
       "path": "./apps/reactnative"
     },
     {

@@ -112,10 +112,6 @@ yarn-error.log
 # testing
 /coverage
 
-# Next.js
-.next
-out
-
 # Expo
 node_modules/
 .expo/
