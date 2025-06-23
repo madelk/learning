@@ -32,7 +32,7 @@ jobs:
           node-version: 22.16.0
           cache: 'npm'
 
-      - run: npm ci --ignore-scripts
+      - run: npm ci
       # This command does exist ignore the linting errors
       - uses: nrwl/nx-set-shas@v4
 
