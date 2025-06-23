@@ -9,13 +9,17 @@
     "@nx/expo": "^21.2.1",
     "@nx/js": "21.2.1",
     "@nx/next": "^21.2.1",
+    "@nx/nuxt": "^21.2.1",
     "@nx/react-native": "^21.2.1",
     "@nx/remix": "^21.2.1",
+    "@nx/vite": "21.2.1",
+    "@nx/vue": "^21.2.1",
     "@nx/web": "21.2.1",
     "@remix-run/dev": "^2.15.0",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "nuxt": "^3.10.0",
     "nx": "21.2.1",
     "prettier": "^2.6.2",
     "tslib": "^2.3.0",
@@ -30,6 +34,7 @@
     "next": "~15.2.4",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
-    "react-native": "~0.76.3"
+    "react-native": "~0.76.3",
+    "vue": "^3.5.13"
   }
 }
