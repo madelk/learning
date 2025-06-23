@@ -35,8 +35,6 @@ jobs:
       # This command does exist ignore the linting errors
       - uses: nrwl/nx-set-shas@v4
 
-      - run: npm nx report
-      
       - run: npm test
 
       - run: npx nx-cloud stop-all-agents
