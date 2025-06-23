@@ -14,13 +14,13 @@ describe('App', () => {
   });
 
   it('should have a greeting as the title', () => {
-    const { getAllByText } = render(
+    const { getByText } = render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
     );
     expect(
-      getAllByText(/Woo! We got a website people!/i)[0].textContent
+      getByText('Woo! We got a website people! 🎉', { exact: false })
     ).toBeTruthy();
   });
 });
