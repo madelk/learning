@@ -8,7 +8,7 @@ on:
 # Cancel any in-progress job or previous runs
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   actions: read
