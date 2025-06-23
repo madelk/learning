@@ -23,7 +23,6 @@ jobs:
         with:
           filter: tree:0
           fetch-depth: 0
-
       - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after=typescript,lint,test,build
 
       # This command does exist ignore the linting errors
@@ -36,6 +35,8 @@ jobs:
       # This command does exist ignore the linting errors
       - uses: nrwl/nx-set-shas@v4
 
+      - run: npm nx report
+      
       - run: npm test
 
       - run: npx nx-cloud stop-all-agents
