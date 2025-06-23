@@ -14,13 +14,13 @@ describe('App', () => {
   });
 
   it('should have a greeting as the title', () => {
-    const { getAllByText } = render(
+    const { getByText } = render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
     );
     expect(
-      getAllByText(new RegExp('Welcome @study/react', 'gi')).length > 0
+      getByText('Woo! We got a website people!')
     ).toBeTruthy();
   });
 });
