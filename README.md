@@ -1,6 +1,6 @@
 # Frontend Technology Study Workspace
 
-[![Deploy](https://github.com/madelk/learning/actions/workflows/deploy.yml/badge.svg)](https://github.com/madelk/learning/actions/workflows/deploy.yml)
+[![Azure Static Web Apps CI/CD](https://github.com/madelk/learning/actions/workflows/azure-static-web-apps-ambitious-plant-067cbd51e.yml/badge.svg)](https://github.com/madelk/learning/actions/workflows/azure-static-web-apps-ambitious-plant-067cbd51e.yml)
 
 This monorepo contains multiple frontend applications built with different frameworks, managed using Nx. It serves as a study and comparison environment for various frontend technologies.
 
