@@ -20,7 +20,7 @@ describe('App', () => {
       </BrowserRouter>
     );
     expect(
-      getByText('Woo! We got a website people! 🎉', { exact: false })
+      getByText('Woo! We got a website people!')
     ).toBeTruthy();
   });
 });
