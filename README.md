@@ -6,13 +6,12 @@ This monorepo contains multiple frontend applications built with different frame
 
 The workspace includes the following applications:
 
-- `apps/nextjs`: Next.js application
 - `apps/react`: React application with Vite and Tailwind CSS
 - `apps/reactnative`: React Native application
 - `apps/vue`: Vue.js application
 - `apps/webcomponents`: Web Components application
 
-Each application has its corresponding e2e testing project (e.g., `nextjs-e2e`, `react-e2e`).
+Each application has its corresponding e2e testing project (e.g., `react-e2e`)
 
 ## Development
 

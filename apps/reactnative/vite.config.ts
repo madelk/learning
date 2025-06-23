@@ -46,7 +46,7 @@ export default defineConfig({
   build: {
     reportCompressedSize: true,
     commonjsOptions: { transformMixedEsModules: true },
-    outDir: '../../dist/apps/reactnative/web',
+    outDir: '../../dist/reactnative',
     rollupOptions: {
       plugins: [rollupPlugin([/react-native-vector-icons/])],
     },
