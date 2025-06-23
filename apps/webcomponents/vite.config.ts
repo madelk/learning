@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
   root: __dirname,
+  base: '/webcomponents/',
   cacheDir: '../../node_modules/.vite/apps/webcomponents',
   server: {
     port: 4202,

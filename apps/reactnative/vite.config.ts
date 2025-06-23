@@ -30,6 +30,7 @@ const rollupPlugin = (matchers: RegExp[]) => ({
 
 export default defineConfig({
   root: __dirname,
+  base: '/reactnative/',
   cacheDir: '../../node_modules/.vite/apps/reactnative',
   define: {
     global: 'window',

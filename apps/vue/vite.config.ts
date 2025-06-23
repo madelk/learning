@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig(() => ({
   root: __dirname,
+  base: '/vue/',
   cacheDir: '../../node_modules/.vite/apps/vue',
   server: {
     port: 4203,
