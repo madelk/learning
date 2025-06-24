@@ -2,11 +2,7 @@
   "routes": [
     {
       "route": "/react/*",
-      "methods": [
-        "get"
-      ],
-      "rewrite": "/react/index.html",
-      "statusCode": 404
+      "rewrite": "/react/index.html"
     }
   ]
 }
