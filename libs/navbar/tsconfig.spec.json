@@ -8,9 +8,7 @@
       "vite/client",
       "node",
       "vitest"
-    ],
-    "module": "esnext",
-    "moduleResolution": "bundler"
+    ]
   },
   "include": [
     "vite.config.ts",
@@ -26,10 +24,5 @@
     "src/**/*.test.jsx",
     "src/**/*.spec.jsx",
     "src/**/*.d.ts"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
   ]
 }

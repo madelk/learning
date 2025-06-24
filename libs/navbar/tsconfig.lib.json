@@ -1,14 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist/out-tsc",
     "types": ["node"],
     "rootDir": "src",
-    "lib": ["dom"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
+    "lib": ["dom"]
   },
+  "include": ["src/**/*.ts"],
   "exclude": [
     "out-tsc",
     "dist",
@@ -27,6 +25,5 @@
     "eslint.config.js",
     "eslint.config.cjs",
     "eslint.config.mjs"
-  ],
-  "include": ["src/**/*.ts"]
+  ]
 }
