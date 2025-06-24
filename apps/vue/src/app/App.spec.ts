@@ -7,6 +7,6 @@ describe('App', () => {
   it('renders properly', async () => {
     const wrapper = mount(App, { global: { plugins: [router] } });
     await router.isReady();
-    expect(wrapper.text()).toContain('Welcome @study/vue 👋');
+    expect(wrapper.text()).toContain('We got Vue working!');
   });
 });
