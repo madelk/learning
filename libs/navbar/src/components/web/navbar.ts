@@ -1,4 +1,6 @@
-import { DEFAULT_NAVBAR_CONFIG, generateCSS, generateNavHTML, type NavBarConfig } from './shared-config';
+import { DEFAULT_NAVBAR_CONFIG } from '../../config';
+import { generateCSS, generateNavHTML } from '../../utils';
+import type { NavBarConfig } from '../../types';
 
 export class NavBar extends HTMLElement {
   private config: NavBarConfig = DEFAULT_NAVBAR_CONFIG;
