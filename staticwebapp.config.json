@@ -13,7 +13,10 @@
     {
       "route": "/vue/*",
       "rewrite": "/vue/index.html",
-      "statusCode": 200
+      "statusCode": 200,
+      "headers": {
+        "test": "testing"
+      }
     },
     {
       "route": "/reactnative/*",
