@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import * as ReactDOM from 'react-dom/client';
 import App from './app/app';
+import '@study/navbar';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,6 +11,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <BrowserRouter>
+      {/* @ts-expect-error: Custom element type workaround for Nx/TS */}
+      <custom-navbar></custom-navbar>
       <App />
     </BrowserRouter>
   </StrictMode>
