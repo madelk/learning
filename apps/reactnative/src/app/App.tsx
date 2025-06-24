@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,14 +6,10 @@ import {
   View,
   Text,
   StatusBar,
-  TouchableOpacity,
-  Linking,
 } from 'react-native';
-import Svg, { G, Path } from 'react-native-svg';
 import { NavBarNative } from '@study/navbar/src/native';
 
 export const App = () => {
-  const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
 
   return (
@@ -41,6 +37,9 @@ export const App = () => {
             >
               We got react native working!
             </Text>
+          </View>
+          <View style={{ alignItems: 'center', marginTop: 40, marginBottom: 20 }}>
+            {/* Footer link removed, now handled by shared custom-footer in main-web.tsx */}
           </View>
         </ScrollView>
       </SafeAreaView>

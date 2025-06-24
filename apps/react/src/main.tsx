@@ -14,6 +14,8 @@ root.render(
       {/* @ts-expect-error: Custom element type workaround for Nx/TS */}
       <custom-navbar></custom-navbar>
       <App />
+      {/* @ts-expect-error: Custom element type workaround for Nx/TS */}
+      <custom-footer></custom-footer>
     </BrowserRouter>
   </StrictMode>
 );
