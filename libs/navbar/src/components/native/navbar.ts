@@ -67,13 +67,16 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
         },
         type: 'button',
       },
-      React.createElement('span', { style: { fontSize: '1.2em' } }, currentIcon),
+      React.createElement('span', {
+        style: { display: 'inline-flex', verticalAlign: 'middle' },
+        dangerouslySetInnerHTML: { __html: currentIcon }
+      }),
       React.createElement('span', {}, currentName),
-      React.createElement('span', { 
-        style: { 
+      React.createElement('span', {
+        style: {
           transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
           transition: 'transform 0.2s'
-        } 
+        }
       }, '▼')
     );
   };
@@ -180,7 +183,10 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
                 }
               },
             },
-            React.createElement('span', { style: { fontSize: '1.2em' } }, app.icon),
+            React.createElement('span', {
+              style: { display: 'inline-flex', verticalAlign: 'middle' },
+              dangerouslySetInnerHTML: { __html: app.icon }
+            }),
             React.createElement('span', {}, app.name),
             isCurrent && React.createElement('span', { style: { marginLeft: 'auto' } }, '✓')
           );
