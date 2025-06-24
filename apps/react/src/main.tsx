@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/react">
       {/* @ts-expect-error: Custom element type workaround for Nx/TS */}
       <custom-navbar></custom-navbar>
       <App />

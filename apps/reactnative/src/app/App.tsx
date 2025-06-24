@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,11 +6,35 @@ import {
   View,
   Text,
   StatusBar,
+  Linking
 } from 'react-native';
 import { NavBarNative } from '@study/navbar/src/native';
+import About from './About';
 
 export const App = () => {
   const scrollViewRef = useRef<null | ScrollView>(null);
+  const [showAbout, setShowAbout] = useState(false);
+
+  useEffect(() => {
+    const handleUrl = (event: { url: string }) => {
+      const url = event.url;
+      if (typeof url === 'string' && url.includes('/reactnative/about')) {
+        setShowAbout(true);
+      } else {
+        setShowAbout(false);
+      }
+    };
+    const subscription = Linking.addEventListener('url', handleUrl);
+    // Check initial URL
+    Linking.getInitialURL().then((url) => {
+      if (typeof url === 'string' && url.includes('/reactnative/about')) {
+        setShowAbout(true);
+      }
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   return (
     <>
@@ -21,27 +45,28 @@ export const App = () => {
         }}
       >
         <NavBarNative />
-        <ScrollView
-          ref={(ref) => {
-            scrollViewRef.current = ref;
-          }}
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}
-        >
-          <View style={styles.section}>
-            <Text style={styles.textLg}>Hello there,</Text>
-            <Text
-              style={[styles.textXL, styles.appTitleText]}
-              testID="heading"
-              role="heading"
-            >
-              We got react native working!
-            </Text>
-          </View>
-          <View style={{ alignItems: 'center', marginTop: 40, marginBottom: 20 }}>
-            {/* Footer link removed, now handled by shared custom-footer in main-web.tsx */}
-          </View>
-        </ScrollView>
+        {showAbout ? (
+          <About />
+        ) : (
+          <ScrollView
+            ref={(ref) => {
+              scrollViewRef.current = ref;
+            }}
+            contentInsetAdjustmentBehavior="automatic"
+            style={styles.scrollView}
+          >
+            <View style={styles.section}>
+              <Text style={styles.textLg}>Hello there,</Text>
+              <Text
+                style={[styles.textXL, styles.appTitleText]}
+                testID="heading"
+                role="heading"
+              >
+                We got react native working!
+              </Text>
+            </View>
+          </ScrollView>
+        )}
       </SafeAreaView>
     </>
   );
