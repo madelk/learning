@@ -20,17 +20,6 @@ nav > a {
   padding-right: 1rem;
 }
 
-.footer {
-  width: 100%;
-  padding: 1rem;
-  text-align: center;
-  background: #f3f4f6;
-  border-top: 1px solid #e5e7eb;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-}
-
 @media (min-width: 768px) {
   header {
     display: flex;
