@@ -9,3 +9,6 @@ export * from './utils';
 
 // Export web component
 export * from './components/web/navbar';
+
+// Export Footer component
+export * from './components/web/footer';
