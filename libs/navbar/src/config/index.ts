@@ -40,83 +40,83 @@ function getCurrentApp(): string {
 
 // Default shared configuration
 export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
-  items: [
-    { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-  ],
-  appSelector: {
-    enabled: true,
-    currentApp: getCurrentApp(),
-    apps: [
-      {
-        id: 'react',
-        name: 'React',
-        icon: FRAMEWORK_ICONS.react,
-        localUrl: 'http://localhost:4200/react/',
-        prodUrl: 'https://www.madelk.co.uk/react'
-      },
-      {
-        id: 'vue',
-        name: 'Vue',
-        icon: FRAMEWORK_ICONS.vue,
-        localUrl: 'http://localhost:4203/vue/',
-        prodUrl: 'https://www.madelk.co.uk/vue'
-      },
-      {
-        id: 'webcomponents',
-        name: 'Web Components',
-        icon: FRAMEWORK_ICONS.webcomponents,
-        localUrl: 'http://localhost:4202/webcomponents/',
-        prodUrl: 'https://www.madelk.co.uk/webcomponents'
-      },
-      {
-        id: 'reactnative',
-        name: 'React Native',
-        icon: FRAMEWORK_ICONS.reactnative,
-        localUrl: 'http://localhost:4201/reactnative/',
-        prodUrl: 'https://www.madelk.co.uk/reactnative'
-      }
-    ]
-  },
-  styles: {
-    container: {
-      backgroundColor: '#333',
-      padding: '1rem',
-      gap: '1rem',
-      display: 'flex',
-      flexDirection: 'row',
+    items: [
+        { label: 'Home', href: `/${getCurrentApp()}/` },
+        { label: 'About', href: `/${getCurrentApp()}/about` },
+    ],
+    appSelector: {
+        enabled: true,
+        currentApp: getCurrentApp(),
+        apps: [
+            {
+                id: 'react',
+                name: 'React',
+                icon: FRAMEWORK_ICONS.react,
+                localUrl: 'http://localhost:4200/react/',
+                prodUrl: 'https://www.madelk.co.uk/react'
+            },
+            {
+                id: 'vue',
+                name: 'Vue',
+                icon: FRAMEWORK_ICONS.vue,
+                localUrl: 'http://localhost:4203/vue/',
+                prodUrl: 'https://www.madelk.co.uk/vue'
+            },
+            {
+                id: 'webcomponents',
+                name: 'Web Components',
+                icon: FRAMEWORK_ICONS.webcomponents,
+                localUrl: 'http://localhost:4202/webcomponents/',
+                prodUrl: 'https://www.madelk.co.uk/webcomponents'
+            },
+            {
+                id: 'reactnative',
+                name: 'React Native',
+                icon: FRAMEWORK_ICONS.reactnative,
+                localUrl: 'http://localhost:4201/reactnative/',
+                prodUrl: 'https://www.madelk.co.uk/reactnative'
+            }
+        ]
     },
-    link: {
-      color: 'white',
-      padding: '0.5rem',
-      backgroundColor: 'transparent',
-      border: 'none',
-      fontSize: '16px',
-      cursor: 'pointer',
-      textDecoration: 'none',
+    styles: {
+        container: {
+            backgroundColor: '#333',
+            padding: '1rem',
+            gap: '1rem',
+            display: 'flex',
+            flexDirection: 'row',
+        },
+        link: {
+            color: 'white',
+            padding: '0.5rem',
+            backgroundColor: 'transparent',
+            border: 'none',
+            fontSize: '16px',
+            cursor: 'pointer',
+            textDecoration: 'none',
+        },
+        dropdown: {
+            backgroundColor: '#444',
+            border: '1px solid #555',
+            borderRadius: '4px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+            color: 'white',
+            padding: '0.5rem',
+            fontSize: '16px',
+            cursor: 'pointer',
+            minWidth: '150px',
+        },
+        dropdownItem: {
+            padding: '0.5rem',
+            cursor: 'pointer',
+            backgroundColor: 'transparent',
+            color: 'white',
+            hoverBackgroundColor: '#555',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+        },
     },
-    dropdown: {
-      backgroundColor: '#444',
-      border: '1px solid #555',
-      borderRadius: '4px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-      color: 'white',
-      padding: '0.5rem',
-      fontSize: '16px',
-      cursor: 'pointer',
-      minWidth: '150px',
-    },
-    dropdownItem: {
-      padding: '0.5rem',
-      cursor: 'pointer',
-      backgroundColor: 'transparent',
-      color: 'white',
-      hoverBackgroundColor: '#555',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-    },
-  },
 };
 
 export { getCurrentApp, isLocalhost };
