@@ -4,11 +4,16 @@ import './about.element';
 export class AppElement extends HTMLElement {
   public static observedAttributes = [];
 
+  private hashChangeListener = () => this.render();
+
   connectedCallback() {
     this.render();
-    window.addEventListener('hashchange', () => this.render());
+    window.addEventListener('hashchange', this.hashChangeListener);
   }
 
+  disconnectedCallback() {
+    window.removeEventListener('hashchange', this.hashChangeListener);
+  }
   render() {
     // Support for /webcomponents base path
     const basePath = '/webcomponents';
