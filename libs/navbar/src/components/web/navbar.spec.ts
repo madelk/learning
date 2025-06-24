@@ -28,10 +28,32 @@ describe('NavBar', () => {
     expect(links?.[1].textContent).toBe('About');
   });
 
+  it('should render app selector when enabled', () => {
+    const appSelector = element.shadowRoot?.querySelector('.app-selector');
+    expect(appSelector).toBeTruthy();
+    
+    const toggleButton = element.shadowRoot?.querySelector('#app-selector-toggle');
+    expect(toggleButton).toBeTruthy();
+    
+    const dropdown = element.shadowRoot?.querySelector('#app-selector-dropdown');
+    expect(dropdown).toBeTruthy();
+  });
+
+  it('should have app selector items for all frameworks', () => {
+    const appItems = element.shadowRoot?.querySelectorAll('.app-selector-item');
+    expect(appItems?.length).toBe(4); // React, Vue, Web Components, React Native
+    
+    // Check that framework icons are present
+    const icons = element.shadowRoot?.querySelectorAll('.app-icon');
+    expect(icons?.length).toBeGreaterThan(0);
+  });
+
   it('should have the correct styles', () => {
     const style = element.shadowRoot?.querySelector('style');
     expect(style).toBeTruthy();
     expect(style?.textContent).toContain('background: #333');
     expect(style?.textContent).toContain('color: white');
+    expect(style?.textContent).toContain('.app-selector');
+    expect(style?.textContent).toContain('.app-selector-dropdown');
   });
 });
