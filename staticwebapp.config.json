@@ -2,7 +2,7 @@
   "routes": [
     {
       "navigationFallback": {
-        "rewrite": "/index.html",
+        "rewrite": "/react/index.html",
         "exclude": [
           "/images/*.{png,jpg,gif}",
           "/css/*"
