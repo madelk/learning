@@ -26,6 +26,9 @@
     },
     {
       "path": "./apps/vue-e2e"
+    },
+    {
+      "path": "./libs/navbar"
     }
   ]
 }

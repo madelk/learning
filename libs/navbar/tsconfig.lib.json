@@ -1,13 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist/out-tsc",
     "types": ["node"],
     "rootDir": "src",
     "lib": ["dom"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
   },
   "exclude": [
     "out-tsc",
