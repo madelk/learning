@@ -18,7 +18,13 @@ function getCurrentApp(): string {
   
   const path = window.location.pathname;
   const port = window.location.port;
-  
+  const userAgent = window.navigator.userAgent.toLowerCase();
+
+  // Try to detect React Native web by user agent or path
+  if (userAgent.includes('reactnative') || path.includes('/reactnative')) {
+    return 'reactnative';
+  }
+
   if (isLocalhost) {
     // Local development - detect by port
     switch (port) {
@@ -26,14 +32,20 @@ function getCurrentApp(): string {
       case '4201': return 'reactnative';
       case '4202': return 'webcomponents';
       case '4203': return 'vue';
-      default: return 'react';
+      default:
+        // Fallback: check path for app name
+        if (path.includes('/reactnative')) return 'reactnative';
+        if (path.includes('/webcomponents')) return 'webcomponents';
+        if (path.includes('/vue')) return 'vue';
+        if (path.includes('/react')) return 'react';
+        return 'react';
     }
   } else {
     // Production - detect by path
-    if (path.includes('/react')) return 'react';
     if (path.includes('/reactnative')) return 'reactnative';
     if (path.includes('/webcomponents')) return 'webcomponents';
     if (path.includes('/vue')) return 'vue';
+    if (path.includes('/react')) return 'react';
     return 'react';
   }
 }
