@@ -40,6 +40,7 @@ export class AppElement extends HTMLElement {
         <div class="container">
           ${content}
         </div>
+        <custom-footer></custom-footer>
       </div>
     `;
   }
