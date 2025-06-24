@@ -13,7 +13,7 @@
           "rewrite": "/custom-forbidden-page.html"
         },
         "404": {
-          "rewrite": "/custom-404.html"
+          "rewrite": "/react/index.html"
         }
       }
     },
