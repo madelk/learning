@@ -14,6 +14,16 @@ const DOMAINS = {
   production: 'https://www.madelk.co.uk',
 } as const;
 
+// Path configuration
+const APP_PATHS = {
+  react: '/react',
+  vue: '/vue',
+  webcomponents: '/webcomponents',
+  reactnative: '/reactnative',
+} as const;
+
+const FAVICON_FILE_NAME = '/favicon.png';
+
 // Get icons for all frameworks (local and production)
 export function getIcons(): Record<string, string> {
   if (typeof window === 'undefined') return {};
@@ -22,17 +32,17 @@ export function getIcons(): Record<string, string> {
   
   if (isLocal) {
     return {
-      react: `${DOMAINS.local}:${APP_PORTS.react}/react/favicon.png`,
-      vue: `${DOMAINS.local}:${APP_PORTS.vue}/vue/favicon.png`,
-      webcomponents: `${DOMAINS.local}:${APP_PORTS.webcomponents}/webcomponents/favicon.png`,
-      reactnative: `${DOMAINS.local}:${APP_PORTS.reactnative}/reactnative/favicon.png`,
+      react: `${DOMAINS.local}:${APP_PORTS.react}${APP_PATHS.react}${FAVICON_FILE_NAME}`,
+      vue: `${DOMAINS.local}:${APP_PORTS.vue}${APP_PATHS.vue}${FAVICON_FILE_NAME}`,
+      webcomponents: `${DOMAINS.local}:${APP_PORTS.webcomponents}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`,
+      reactnative: `${DOMAINS.local}:${APP_PORTS.reactnative}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`,
     };
   } else {
     return {
-      react: `${DOMAINS.production}/react/favicon.png`,
-      vue: `${DOMAINS.production}/vue/favicon.png`,
-      webcomponents: `${DOMAINS.production}/webcomponents/favicon.png`,
-      reactnative: `${DOMAINS.production}/reactnative/favicon.png`,
+      react: `${DOMAINS.production}${APP_PATHS.react}${FAVICON_FILE_NAME}`,
+      vue: `${DOMAINS.production}${APP_PATHS.vue}${FAVICON_FILE_NAME}`,
+      webcomponents: `${DOMAINS.production}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`,
+      reactnative: `${DOMAINS.production}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`,
     };
   }
 }
@@ -97,29 +107,29 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
                 id: 'react',
                 name: 'React',
                 icon: FRAMEWORK_ICONS.react,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.react}/react${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}/react${getCurrentSubPath()}`
+                localUrl: `${DOMAINS.local}:${APP_PORTS.react}${APP_PATHS.react}${getCurrentSubPath()}`,
+                prodUrl: `${DOMAINS.production}${APP_PATHS.react}${getCurrentSubPath()}`
             },
             {
                 id: 'vue',
                 name: 'Vue',
                 icon: FRAMEWORK_ICONS.vue,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.vue}/vue${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}/vue${getCurrentSubPath()}`
+                localUrl: `${DOMAINS.local}:${APP_PORTS.vue}${APP_PATHS.vue}${getCurrentSubPath()}`,
+                prodUrl: `${DOMAINS.production}${APP_PATHS.vue}${getCurrentSubPath()}`
             },
             {
                 id: 'webcomponents',
                 name: 'Web Components',
                 icon: FRAMEWORK_ICONS.webcomponents,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.webcomponents}/webcomponents${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}/webcomponents${getCurrentSubPath()}`
+                localUrl: `${DOMAINS.local}:${APP_PORTS.webcomponents}${APP_PATHS.webcomponents}${getCurrentSubPath()}`,
+                prodUrl: `${DOMAINS.production}${APP_PATHS.webcomponents}${getCurrentSubPath()}`
             },
             {
                 id: 'reactnative',
                 name: 'React Native',
                 icon: FRAMEWORK_ICONS.reactnative,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.reactnative}/reactnative${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}/reactnative${getCurrentSubPath()}`
+                localUrl: `${DOMAINS.local}:${APP_PORTS.reactnative}${APP_PATHS.reactnative}${getCurrentSubPath()}`,
+                prodUrl: `${DOMAINS.production}${APP_PATHS.reactnative}${getCurrentSubPath()}`
             }
         ]
     },
