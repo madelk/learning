@@ -1,32 +1,6 @@
 {
   "routes": [
     {
-      "responseOverrides": {
-        "400": {
-          "rewrite": "/invalid-invitation-error.html"
-        },
-        "401": {
-          "statusCode": 302,
-          "redirect": "/login"
-        },
-        "403": {
-          "rewrite": "/custom-forbidden-page.html"
-        },
-        "404": {
-          "rewrite": "/react/index.html"
-        }
-      }
-    },
-    {
-      "navigationFallback": {
-        "rewrite": "/react/index.html",
-        "exclude": [
-          "/images/*.{png,jpg,gif}",
-          "/css/*"
-        ]
-      }
-    },
-    {
       "route": "/react/*",
       "rewrite": "/react/index.html",
       "statusCode": 200
@@ -40,14 +14,6 @@
       "route": "/vue/*",
       "rewrite": "/vue/index.html",
       "statusCode": 200
-    },
-    {
-      "route": "/vue/about",
-      "rewrite": "/vue/index.html",
-      "statusCode": 200,
-      "headers": {
-        "test": "testing"
-      }
     },
     {
       "route": "/reactnative/*",
