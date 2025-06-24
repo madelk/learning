@@ -6,7 +6,7 @@
         "get"
       ],
       "rewrite": "/react/index.html",
-      "statusCode": 402
+      "statusCode": 404
     }
   ]
 }
