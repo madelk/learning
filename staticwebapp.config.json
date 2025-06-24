@@ -2,10 +2,6 @@
   "routes": [
     {
       "route": "/react/*",
-      "rewrite": "/react/"
-    },
-    {
-      "route": "/react/*",
       "methods": [
         "get"
       ],
