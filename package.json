@@ -6,7 +6,7 @@
     "test": "nx affected -t typecheck,lint,test,build",
     "lint": "nx affected --target lint --fix",
     "build": "nx affected --target build",
-    "start": "nx run-many --target serve --open",
+    "start": "nx run-many --target serve",
     "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && npm install"
   },
   "private": true,
