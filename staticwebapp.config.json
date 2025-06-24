@@ -10,7 +10,8 @@
     },
     {
       "route": "/vue/*",
-      "rewrite": "/vue/index.html"
+      "rewrite": "/vue/index.html",
+      "statusCode": 200
     },
     {
       "route": "/reactnative/*",
