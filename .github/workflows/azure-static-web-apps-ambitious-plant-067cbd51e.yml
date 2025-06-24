@@ -39,7 +39,10 @@ jobs:
       - run: npx nx run-many --target=build --all
 
       - name: Copy index.html to dist
-        run: cp apps/index.html dist/
+        run: cp index.html dist/
+
+      - name: Copy staticwebapp.config.json to dist
+        run: cp staticwebapp.config.json dist/
 
       - name: Build And Deploy
         id: builddeploy
