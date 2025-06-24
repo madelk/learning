@@ -2,23 +2,19 @@
   "routes": [
     {
       "route": "/react/*",
-      "rewrite": "/react/index.html",
-      "statusCode": 200
+      "rewrite": "/react/index.html"
     },
     {
       "route": "/webcomponents/*",
-      "rewrite": "/webcomponents/index.html",
-      "statusCode": 200
+      "rewrite": "/webcomponents/index.html"
     },
     {
       "route": "/vue/*",
-      "rewrite": "/vue/index.html",
-      "statusCode": 200
+      "rewrite": "/vue/index.html"
     },
     {
       "route": "/reactnative/*",
-      "rewrite": "/reactnative/index.html",
-      "statusCode": 200
+      "rewrite": "/reactnative/index.html"
     }
   ]
 }
