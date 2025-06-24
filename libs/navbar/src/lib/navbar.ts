@@ -1,4 +1,8 @@
+import { DEFAULT_NAVBAR_CONFIG, generateCSS, generateNavHTML, type NavBarConfig } from './shared-config';
+
 export class NavBar extends HTMLElement {
+  private config: NavBarConfig = DEFAULT_NAVBAR_CONFIG;
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -8,25 +12,9 @@ export class NavBar extends HTMLElement {
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = `
         <style>
-          :host {
-            display: block;
-            background: #333;
-            color: white;
-            padding: 1rem;
-          }
-          nav {
-            display: flex;
-            gap: 1rem;
-          }
-          a {
-            color: white;
-            text-decoration: none;
-          }
+          ${generateCSS(this.config.styles)}
         </style>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-        </nav>
+        ${generateNavHTML(this.config.items)}
       `;
     }
   }
