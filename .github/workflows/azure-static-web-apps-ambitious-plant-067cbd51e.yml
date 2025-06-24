@@ -38,6 +38,9 @@ jobs:
       # Build the applications
       - run: npx nx run-many --target=build --all
 
+      - name: Ensure dist folder exists
+        run: mkdir -p dist
+
       - name: Copy index.html to dist
         run: cp index.html dist/
 
