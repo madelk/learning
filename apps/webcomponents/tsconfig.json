@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../libs/navbar"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {
