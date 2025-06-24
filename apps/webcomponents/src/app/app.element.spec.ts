@@ -15,7 +15,7 @@ describe('AppElement', () => {
     app.connectedCallback();
 
     expect(app.querySelector('h1')?.innerHTML).toContain(
-      'Welcome @study/webcomponents'
+      'We got web components working!'
     );
   });
 });

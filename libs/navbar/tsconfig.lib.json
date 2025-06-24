@@ -2,9 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "types": ["node"],
+    "types": ["node", "react"],
     "rootDir": "src",
     "lib": ["dom"],
+    "jsx": "react-jsx"
   },
   "exclude": [
     "out-tsc",
@@ -25,5 +26,5 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
