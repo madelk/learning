@@ -1,0 +1,8 @@
+{
+  "routes": [
+    {
+      "route": "/react/*",
+      "rewrite": "/react/"
+    }
+  ]
+}
