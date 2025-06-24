@@ -24,11 +24,17 @@ const APP_PATHS = {
 
 const FAVICON_FILE_NAME = '/favicon.png';
 
+// Helper to check if running on localhost
+export function isLocalhost(): boolean {
+  if (typeof window === 'undefined') return false;
+  const { hostname } = window.location;
+  return hostname === 'localhost' || hostname === '127.0.0.1';
+}
+
 // Get icons for all frameworks (local and production)
 export function getIcons(): Record<string, string> {
   if (typeof window === 'undefined') return {};
-  const { hostname } = window.location;
-  const isLocal = hostname === 'localhost' || hostname === '127.0.0.1';
+  const isLocal = isLocalhost();
   
   if (isLocal) {
     return {
