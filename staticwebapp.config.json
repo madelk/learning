@@ -3,6 +3,18 @@
     {
       "route": "/react/*",
       "rewrite": "/react/index.html"
+    },
+    {
+      "route": "/webcomponents/*",
+      "rewrite": "/webcomponents/index.html"
+    },
+    {
+      "route": "/vue/*",
+      "rewrite": "/vue/index.html"
+    },
+    {
+      "route": "/reactnative/*",
+      "rewrite": "/reactnative/index.html"
     }
   ]
 }
