@@ -1,3 +1,6 @@
+// @ts-expect-error: Vite CSS import as string for shadow DOM injection
+import footerStyles from '../../footer.css?inline';
+
 export class Footer extends HTMLElement {
   constructor() {
     super();
@@ -11,38 +14,7 @@ export class Footer extends HTMLElement {
   render() {
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = `
-        <style>
-          .footer {
-            width: 100%;
-            padding: 1rem;
-            text-align: center;
-            background: #f3f4f6;
-            border-top: 1px solid #e5e7eb;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-          }
-
-          .footer-link-button {
-            display: inline-block;
-            padding: 0.5rem 1.25rem;
-            font-size: 1rem;
-            color: #fff;
-            background: #0366d6;
-            border: none;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-            transition: background 0.2s;
-            cursor: pointer;
-          }
-
-          .footer-link-button:hover, .footer-link-button:focus {
-            background: #024ea2;
-            outline: none;
-          }
-        </style>
+        <style>${footerStyles}</style>
         <footer class="footer">
           <a class="footer-link-button" href="https://github.com/madelk/learning" target="_blank" rel="noopener noreferrer">
             View on GitHub
