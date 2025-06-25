@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './app';
+import { getHomepageText } from '@study/pagetext';
 
 describe('App', () => {
   it('should render successfully', () => {
@@ -14,13 +15,14 @@ describe('App', () => {
   });
 
   it('should have a greeting as the title', () => {
+   const text = getHomepageText()
     const { getByText } = render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
     );
     expect(
-      getByText('Woo! We got a website people!')
+      getByText(text.title.text)
     ).toBeTruthy();
   });
 });
