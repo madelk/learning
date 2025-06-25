@@ -8,8 +8,9 @@ const text = getHomepageText()
       {{ text.title.text }}
     </h1>
     <p
-      v-for="(p, i) in text.paragraphs"
+      v-for="(p, i) in text.paragraphs.text"
       :key="i"
+      :class="text.paragraphs.className"
     >
       {{ p }}
     </p>
