@@ -105,7 +105,7 @@ export function generateAppSelectorHTML(appSelector: AppSelectorConfig): string 
   const dropdownItems = appSelector.apps
     .map(app => {
       const isCurrent = app.id === appSelector.currentApp;
-      const url = isLocalhost() ? app.localUrl : app.prodUrl;
+      const url = isLocalhost ? app.localUrl : app.prodUrl;
       return `
         <button class="app-selector-item ${isCurrent ? 'current' : ''}" 
                 data-url="${url}" 
@@ -134,7 +134,7 @@ export function generateAppSelectorHTML(appSelector: AppSelectorConfig): string 
 
 // Helper function to get the URL for an app
 export function getAppUrl(app: AppOption): string {
-  return isLocalhost() ? app.localUrl : app.prodUrl;
+  return isLocalhost ? app.localUrl : app.prodUrl;
 }
 
 // Helper function to convert shared styles to web-compatible styles
