@@ -4,7 +4,7 @@ const text = getHomepageText()
 </script>
 <template>
   <main>
-    <h1 class="{{text.title.className}}">
+    <h1 :class="text.title.className">
       {{ text.title.text }}
     </h1>
     <p
