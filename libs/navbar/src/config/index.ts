@@ -1,4 +1,5 @@
 import type { NavBarConfig } from '../types';
+import {  getCurrentApp } from '@study/helpers'
 
 // Framework SVG icons (official SVGs as strings)
 const FRAMEWORK_ICONS = {
@@ -7,49 +8,6 @@ const FRAMEWORK_ICONS = {
   webcomponents: `<svg width="20" height="20" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g><rect x="2" y="6" width="28" height="20" rx="3" fill="#29ABE2"/><rect x="6" y="10" width="20" height="12" rx="2" fill="#fff"/><rect x="10" y="14" width="12" height="4" rx="1" fill="#29ABE2"/></g></svg>`,
   reactnative: `<svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><g><ellipse cx="20" cy="20" rx="3.5" ry="3.5" fill="#61DAFB"/><g stroke="#61DAFB" stroke-width="2" fill="none"><ellipse rx="18" ry="7.5" transform="matrix(.866 .5 -.866 .5 20 20)"/><ellipse rx="18" ry="7.5" transform="matrix(-.866 .5 .866 .5 20 20)"/><ellipse rx="18" ry="7.5" transform="matrix(0 1 1 0 20 20)"/></g><rect x="16" y="32" width="8" height="3" rx="1.5" fill="#61DAFB"/></g></svg>` // React Native: React logo + bar for mobile
 };
-
-// Detect current environment (local vs production)
-const isLocalhost = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-
-// Helper to detect app from path
-function detectAppFromPath(path: string): string {
-  if (path.includes('/reactnative')) return 'reactnative';
-  if (path.includes('/webcomponents')) return 'webcomponents';
-  if (path.includes('/vue')) return 'vue';
-  if (path.includes('/react')) return 'react';
-  return 'react';
-}
-
-// Detect current app from URL
-function getCurrentApp(): string {
-  if (typeof window === 'undefined') return 'react';
-  
-  const path = window.location.pathname;
-  const port = window.location.port;
-  const userAgent = window.navigator.userAgent.toLowerCase();
-
-  // Try to detect React Native web by user agent or path
-  if (userAgent.includes('reactnative') || path.includes('/reactnative')) {
-    return 'reactnative';
-  }
-
-  if (isLocalhost) {
-    // Local development - detect by port
-    switch (port) {
-      case '4200': return 'react';
-      case '4201': return 'reactnative';
-      case '4202': return 'webcomponents';
-      case '4203': return 'vue';
-      default:
-        // Fallback: check path for app name
-        return detectAppFromPath(path);
-    }
-  } else {
-    // Production - detect by path
-    return detectAppFromPath(path);
-  }
-}
 
 // Helper to get the current subpath after the app segment
 function getCurrentSubPath(): string {
@@ -141,4 +99,4 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
     },
 };
 
-export { getCurrentApp, isLocalhost };
+export { getCurrentApp };

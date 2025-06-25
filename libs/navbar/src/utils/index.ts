@@ -1,5 +1,5 @@
 import type { NavBarStyles, NavBarItem, AppSelectorConfig, AppOption } from '../types';
-import { isLocalhost } from '../config';
+import { isLocalhost } from '@study/helpers';
 
 // Helper function to generate CSS string from styles
 export function generateCSS(styles: NavBarStyles): string {
