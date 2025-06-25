@@ -14,7 +14,8 @@
     "./package.json": "./package.json"
   },
   "nx": {
-    "name": "pageText"
+    "name": "pageText",
+    "sourceRoot": "libs/pagetext/src"
   },
   "dependencies": {}
 }
