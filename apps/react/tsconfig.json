@@ -6,6 +6,9 @@
       "path": "../../libs/navbar"
     },
     {
+      "path": "../../libs/pagetext"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {

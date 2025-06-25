@@ -38,6 +38,9 @@
   "references": [
     {
       "path": "../../libs/navbar/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/pagetext/tsconfig.lib.json"
     }
   ]
 }
