@@ -35,6 +35,9 @@
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"],
   "references": [
     {
+      "path": "../../libs/pagetext/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/navbar/tsconfig.lib.json"
     }
   ]

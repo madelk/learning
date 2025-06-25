@@ -4,13 +4,7 @@
   "include": [],
   "references": [
     {
-      "path": "../../libs/pagetext"
-    },
-    {
-      "path": "../../libs/navbar"
-    },
-    {
-      "path": "./tsconfig.app.json"
+      "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"

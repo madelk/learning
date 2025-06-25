@@ -1,4 +1,5 @@
 import type { NavBarConfig } from '../types';
+import {  getCurrentApp } from '@study/helpers'
 
 // Port configuration for local development
 const APP_PORTS = {
@@ -65,30 +66,6 @@ function getFrameworkIcons(): Record<string, string> {
 }
 
 const FRAMEWORK_ICONS = getFrameworkIcons();
-
-// Helper to detect app from path
-function detectAppFromPath(path: string): string {
-  if (path.includes('/reactnative')) return 'reactnative';
-  if (path.includes('/webcomponents')) return 'webcomponents';
-  if (path.includes('/vue')) return 'vue';
-  if (path.includes('/react')) return 'react';
-  return 'react';
-}
-
-// Detect current app from URL
-function getCurrentApp(): string {
-  if (typeof window === 'undefined') return 'react';
-  
-  const path = window.location.pathname;
-  const userAgent = window.navigator.userAgent.toLowerCase();
-
-  // Try to detect React Native web by user agent or path
-  if (userAgent.includes('reactnative') || path.includes('/reactnative')) {
-    return 'reactnative';
-  }
-
-  return detectAppFromPath(path);
-}
 
 // Helper to get the current subpath after the app segment
 function getCurrentSubPath(): string {
