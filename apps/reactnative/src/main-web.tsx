@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import '@study/navbar';
+// Import tailwind CSS for web
+import './styles.css';
 
 import App from './app/App';
 
