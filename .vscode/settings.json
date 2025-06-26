@@ -1,3 +1,5 @@
 {
-    "nxConsole.generateAiAgentRules": true
+    "nxConsole.generateAiAgentRules": true,
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": true
 }
