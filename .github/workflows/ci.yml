@@ -24,7 +24,7 @@ jobs:
         with:
           filter: tree:0
           fetch-depth: 0
-      - run: npx nx-cloud start-ci-run --distribute-on="1 linux-small-js" --stop-agents-after=typescript,lint,test,build
+      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-small-js" --stop-agents-after=typescript,lint,test,build
 
       # This command does exist ignore the linting errors
       - uses: actions/setup-node@v4
