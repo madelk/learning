@@ -1,6 +1,6 @@
 <template>
   <div class="calculator p-4 max-w-md mx-auto">
-    <h1>This is an calculator page</h1>
+    <h1>This is a calculator page</h1>
     <input id="result" class="font-mono border border-gray-300 rounded p-2 mb-4 w-full bg-green-700 text-black"
       v-model="displayValue" type="text" disabled>
     <div class="grid grid-cols-5 gap-2">
