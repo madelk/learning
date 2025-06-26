@@ -59,9 +59,39 @@
 </template>
 
 <script>
-const appendToResult = (value) => {
-  const resultInput = document.getElementById('result');
-  resultInput.value += value;
+export default {
+  setup() {
+    const appendToResult = (value) => {
+      const resultInput = document.getElementById('result');
+      if (resultInput) {
+        resultInput.value += value;
+      }
+    };
+
+    const clearResult = () => {
+      const resultInput = document.getElementById('result');
+      if (resultInput) {
+        resultInput.value = '';
+      }
+    };
+
+    const calculateResult = () => {
+      const resultInput = document.getElementById('result');
+      if (resultInput && resultInput.value) {
+        try {
+          resultInput.value = eval(resultInput.value);
+        } catch (e) {
+          resultInput.value = 'Error';
+        }
+      }
+    };
+
+    return {
+      appendToResult,
+      clearResult,
+      calculateResult,
+    };
+  },
 };
 </script>
 
