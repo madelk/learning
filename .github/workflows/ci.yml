@@ -16,6 +16,7 @@ permissions:
 
 jobs:
   main:
+    timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
       # This command does exist ignore the linting errors
@@ -23,7 +24,7 @@ jobs:
         with:
           filter: tree:0
           fetch-depth: 0
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after=typescript,lint,test,build
+      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-small-js" --stop-agents-after=typescript,lint,test,build
 
       # This command does exist ignore the linting errors
       - uses: actions/setup-node@v4
