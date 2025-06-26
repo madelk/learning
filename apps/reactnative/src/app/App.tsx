@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { NavBarNative } from '@study/navbar/src/native';
 import About from './About';
+import { TailwindHomepage } from './TailwindHomepage';
 
 export const App = () => {
   const scrollViewRef = useRef<null | ScrollView>(null);
@@ -48,24 +49,7 @@ export const App = () => {
         {showAbout ? (
           <About />
         ) : (
-          <ScrollView
-            ref={(ref) => {
-              scrollViewRef.current = ref;
-            }}
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}
-          >
-            <View style={styles.section}>
-              <Text style={styles.textLg}>Hello there,</Text>
-              <Text
-                style={[styles.textXL, styles.appTitleText]}
-                testID="heading"
-                role="heading"
-              >
-                We got react native working!
-              </Text>
-            </View>
-          </ScrollView>
+          <TailwindHomepage />
         )}
       </SafeAreaView>
     </>
