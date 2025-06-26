@@ -1,7 +1,8 @@
 <template>
-  <div class="calculator">
+  <div class="calculator p-4 max-w-md mx-auto">
     <h1>This is an calculator page</h1>
-    <input id="result" class="border border-gray-300 rounded p-2 mb-4 w-full" type="text" disabled></input>
+    <input id="result" class="font-mono border border-gray-300 rounded p-2 mb-4 w-full bg-green-700 text-black"
+      type="text" disabled></input>
     <div class="grid grid-cols-4 gap-2">
       <button class="bg-blue-500 text-white p-4 rounded" @click="appendToResult('7')">
         7
@@ -79,7 +80,10 @@ export default {
       const resultInput = document.getElementById('result');
       if (resultInput && resultInput.value) {
         try {
-          resultInput.value = eval(resultInput.value);
+          // sanitise input to prevent code injection
+          const valueToCalulate = resultInput.value.replace(/[^0-9+\-*/.()\s]/g, '');
+          // evaluate the expression
+          resultInput.value = eval(valueToCalulate);
         } catch (e) {
           resultInput.value = 'Error';
         }
@@ -94,14 +98,3 @@ export default {
   },
 };
 </script>
-
-<style>
-@media (min-width: 768px) {
-  .calculator {
-    max-width: 768px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 1rem;
-  }
-}
-</style>
