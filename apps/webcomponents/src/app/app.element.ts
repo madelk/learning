@@ -1,5 +1,6 @@
 import './app.element.scss';
 import './about.element';
+import './main.element';
 
 export class AppElement extends HTMLElement {
   public static observedAttributes = [];
@@ -33,7 +34,7 @@ export class AppElement extends HTMLElement {
     if (route === '/about') {
       content = '<about-page></about-page>';
     } else {
-      content = `<h1>We got web components working!</h1>`;
+      content = `<main-page></main-page>`;
     }
     this.innerHTML = `
       <div class="wrapper">
