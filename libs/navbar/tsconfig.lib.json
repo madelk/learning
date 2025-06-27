@@ -1,9 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "types": ["node", "react"],
+    "baseUrl": ".",
     "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "emitDeclarationOnly": false,
+    "types": ["node", "react"],
     "lib": ["dom"],
     "jsx": "react-jsx"
   },

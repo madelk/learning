@@ -1,4 +1,4 @@
-import type { NavBarStyles, NavBarItem, AppSelectorConfig, AppOption } from '../types';
+import type { NavBarStyles, NavBarItem, AppSelectorConfig, AppOption } from '../types/index.js';
 import { isLocalhost } from '@study/helpers';
 
 // Helper function to generate CSS string from styles

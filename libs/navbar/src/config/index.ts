@@ -1,4 +1,4 @@
-import type { NavBarConfig } from '../types';
+import type { NavBarConfig } from '../types/index.js';
 import {  getCurrentApp } from '@study/helpers'
 
 // Port configuration for local development

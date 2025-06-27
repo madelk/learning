@@ -16,11 +16,9 @@
   },
   "nx": {
     "name": "calculator-logic",
+    "sourceRoot": "libs/calculator-logic/src",
     "tags": [
       "shared"
     ]
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
   }
 }

@@ -1,14 +1,14 @@
 // Export all types
-export * from './types';
+export * from './types/index.js';
 
 // Export configuration
-export * from './config';
+export * from './config/index.js';
 
 // Export utilities
-export * from './utils';
+export * from './utils/index.js';
 
 // Export web component
-export * from './components/web/navbar';
+export * from './components/web/navbar.js';
 
 // Export Footer component
-export * from './components/web/footer';
+export * from './components/web/footer.js';

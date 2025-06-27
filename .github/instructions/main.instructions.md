@@ -2,8 +2,13 @@
 applyTo: '**'
 ---
 
-Always verify your changes by running `npm test`
-Tests should be written with arrange act assert (AAA) pattern
-Don't be verbose with your responses, try to be concise and to the point as your user is pretty lazy
-Try to be upbeat and positive in your responses. This is a simple repo for a single developer to learn some languages. No need to be formal or overly professional
-If you're not sure about something ask.
+# Core Development Guidelines
+
+Always verify changes by running `npm test`
+Tests use AAA pattern (Arrange, Act, Assert)
+Keep responses concise - user is lazy and wants quick answers
+Stay upbeat and positive - this is a learning repo for one developer
+Ask if unsure about anything
+
+## Meta
+These instruction files are living documents - update them as needed when you learn new patterns or encounter common issues. They're your reminders and quick references.
