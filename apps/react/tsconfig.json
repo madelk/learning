@@ -9,6 +9,9 @@
       "path": "../../libs/pagetext"
     },
     {
+      "path": "../../libs/calculator-logic"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {
