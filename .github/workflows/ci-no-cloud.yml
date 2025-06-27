@@ -1,15 +1,14 @@
-name: CI (Disabled - using ci-no-cloud.yml instead)
+name: CI (No Cloud)
 
 on:
-  # pull_request:
-  #   branches:
-  #     - main
-  workflow_dispatch: # Manual trigger only
+  pull_request:
+    branches:
+      - main
 
 # Cancel any in-progress job or previous runs
-# concurrency:
-# group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-# cancel-in-progress: true
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   actions: read
@@ -25,8 +24,6 @@ jobs:
         with:
           filter: tree:0
           fetch-depth: 0
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-small-js" --stop-agents-after=typescript,lint,test,build
-
       # This command does exist ignore the linting errors
       - uses: actions/setup-node@v4
         with:
@@ -37,7 +34,11 @@ jobs:
       # This command does exist ignore the linting errors
       - uses: nrwl/nx-set-shas@v4
 
-      - run: npm test
+      # Run tests
+      - run: npx nx run-many --target=test --all --skip-nx-cache
 
-      - run: npx nx-cloud stop-all-agents
-        if: always()
+      # Run linting
+      - run: npx nx run-many --target=lint --all --skip-nx-cache
+
+      # Build applications
+      - run: npx nx run-many --target=build --all --skip-nx-cache
