@@ -2,7 +2,7 @@ import { mount, VueWrapper } from '@vue/test-utils';
 import CalculatorView from './CalculatorView.vue';
 
 describe('CalculatorView UI Integration', () => {
-  let wrapper: VueWrapper<any>;
+  let wrapper: VueWrapper<typeof CalculatorView>;
 
   beforeEach(() => {
     wrapper = mount(CalculatorView);
@@ -14,7 +14,7 @@ describe('CalculatorView UI Integration', () => {
 
   describe('UI Rendering', () => {
     it('should render calculator title', () => {
-      expect(wrapper.text()).toContain('This is a calculator page');
+      expect(wrapper.text()).toContain('Vue Calculator');
     });
 
     it('should render display input', () => {

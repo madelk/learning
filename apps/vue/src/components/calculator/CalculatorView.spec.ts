@@ -19,7 +19,7 @@ describe('CalculatorView', () => {
       const wrapper = mount(CalculatorView);
 
       // Act & Assert
-      expect(wrapper.text()).toContain('This is a calculator page');
+      expect(wrapper.text()).toContain('Vue Calculator');
       expect(wrapper.find('#result').exists()).toBe(true);
     });
   });
