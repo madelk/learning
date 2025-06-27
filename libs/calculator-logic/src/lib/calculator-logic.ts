@@ -20,6 +20,7 @@ export interface CalculatorState {
 }
 
 export class CalculatorLogic {
+  private static readonly EXPONENTIAL_THRESHOLD = 1e8;
   private state: CalculatorState;
 
   constructor() {
