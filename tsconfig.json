@@ -35,6 +35,9 @@
     },
     {
       "path": "./libs/helpers"
+    },
+    {
+      "path": "./libs/calculator-logic"
     }
   ]
 }

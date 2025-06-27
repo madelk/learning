@@ -81,6 +81,7 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
     items: [
         { label: 'Home', href: `/${getCurrentApp()}/` },
         { label: 'About', href: `/${getCurrentApp()}/about` },
+        { label: 'Calculator', href: `/${getCurrentApp()}/calculator` },
     ],
     appSelector: {
         enabled: true,

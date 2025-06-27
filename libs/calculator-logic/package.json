@@ -1,0 +1,26 @@
+{
+  "name": "@study/calculator-logic",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "nx": {
+    "name": "calculator-logic",
+    "tags": [
+      "shared"
+    ]
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
