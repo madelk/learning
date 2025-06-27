@@ -19,13 +19,16 @@ describe('NavBar', () => {
 
   it('should render navigation links', () => {
     const links = element.shadowRoot?.querySelectorAll('a');
-    expect(links?.length).toBe(2);
+    expect(links?.length).toBe(3);
     
     expect(links?.[0].getAttribute('href')).toBe('/react/');
     expect(links?.[0].textContent).toBe('Home');
     
     expect(links?.[1].getAttribute('href')).toBe('/react/about');
     expect(links?.[1].textContent).toBe('About');
+
+    expect(links?.[2].getAttribute('href')).toBe('/react/calculator');
+    expect(links?.[2].textContent).toBe('Calculator');
   });
 
   it('should render app selector when enabled', () => {
