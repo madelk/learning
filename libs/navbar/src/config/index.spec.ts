@@ -1,4 +1,4 @@
-import { getIcons, getCurrentApp, isLocalhost } from './index';
+import { getIcons, getCurrentApp, isLocalhost } from './index.js';
 
 describe('navbar config functions', () => {
   const originalWindow = { ...window };

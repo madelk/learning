@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { DEFAULT_NAVBAR_CONFIG } from '../../config';
-import { getAppUrl, convertToWebStyles } from '../../utils';
-import type { NavBarConfig, NavBarNativeProps, AppOption } from '../../types';
+import { DEFAULT_NAVBAR_CONFIG } from '../../config/index.js';
+import { getAppUrl, convertToWebStyles } from '../../utils/index.js';
+import type { NavBarConfig, NavBarNativeProps, AppOption } from '../../types/index.js';
 
 export const NavBarNative: React.FC<NavBarNativeProps> = ({
   config: userConfig,

@@ -31,8 +31,7 @@
           "buildDepsName": "build-deps",
           "watchDepsName": "watch-deps"
         }
-      },
-      "exclude": ["libs/pagetext/*", "libs/helpers/*"]
+      }
     },
     {
       "plugin": "@nx/react-native/plugin",
@@ -54,7 +53,7 @@
         "startTargetName": "start",
         "buildTargetName": "build",
         "prebuildTargetName": "prebuild",
-        "serveTargetName": "serve",
+        "devTargetName": "dev",
         "installTargetName": "install",
         "exportTargetName": "export",
         "submitTargetName": "submit",
@@ -68,7 +67,7 @@
       "plugin": "@nx/nuxt/plugin",
       "options": {
         "buildTargetName": "build",
-        "serveTargetName": "serve",
+        "devTargetName": "dev",
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
       }
@@ -92,13 +91,28 @@
     },
     {
       "plugin": "@nx/vite/plugin",
+      "include": ["apps/*/vite.config.ts"],
       "options": {
         "buildTargetName": "build",
         "testTargetName": "test",
-        "serveTargetName": "serve",
         "devTargetName": "dev",
         "previewTargetName": "preview",
         "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "include": ["libs/*/vite.config.ts"],
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": false,
+        "devTargetName": false,
+        "previewTargetName": false,
+        "serveStaticTargetName": false,
         "typecheckTargetName": "typecheck",
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
@@ -135,15 +149,6 @@
         "typecheckTargetName": "typecheck",
         "buildDepsTargetName": "build-deps",
         "watchDepsTargetName": "watch-deps"
-      }
-    },
-    {
-      "plugin": "@nx/js/typescript",
-      "include": ["libs/pagetext/*", "libs/helpers/*"],
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck"
-        }
       }
     }
   ],
