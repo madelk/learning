@@ -11,6 +11,9 @@ export default [
         parser: await import('@typescript-eslint/parser'),
       },
     },
+    rules: {
+      'vue/html-self-closing': 'off',
+    },
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],

@@ -1,5 +1,9 @@
 {
-    "nxConsole.generateAiAgentRules": true,
-    "files.autoSave": "onFocusChange",
-    "editor.formatOnSave": true
+  "nxConsole.generateAiAgentRules": true,
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

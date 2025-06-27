@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {getHomepageText} from '@study/pagetext';
-const text = getHomepageText()
+import { getHomepageText } from '@study/pagetext';
+const text = getHomepageText();
 </script>
 <template>
   <main>
