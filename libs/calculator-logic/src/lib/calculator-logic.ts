@@ -55,7 +55,7 @@ export class CalculatorLogic {
 
     // Handle very large numbers with exponential notation
     // Switch to exponential when result would exceed 8-9 digits display capacity
-    if (Math.abs(result) >= 1e8) {
+    if (Math.abs(result) >= CalculatorLogic.EXPONENTIAL_THRESHOLD) {
       return result.toExponential(8).toUpperCase();
     }
 
