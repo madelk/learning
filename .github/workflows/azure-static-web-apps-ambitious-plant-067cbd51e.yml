@@ -36,7 +36,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       # Build the applications
-      - run: npx nx run-many --target=build --all
+      - run: npx nx run-many --target=build --all --skip-nx-cache
 
       - name: Ensure dist folder exists
         run: mkdir -p dist
