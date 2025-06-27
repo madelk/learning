@@ -2,11 +2,31 @@
   "name": "@study/navbar",
   "version": "1.0.0",
   "private": true,
-  "main": "src/index.ts",
-  "types": "custom-elements.d.ts",
-  "react-native": "src/native.ts",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./src/native": {
+      "types": "./dist/native.d.ts",
+      "import": "./dist/native.js",
+      "default": "./dist/native.js"
+    }
+  },
   "nx": {
     "name": "navbar",
-    "sourceRoot": "libs/navbar/src"
+    "sourceRoot": "libs/navbar/src",
+    "tags": [
+      "shared"
+    ]
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
   }
 }

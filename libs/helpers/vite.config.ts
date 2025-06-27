@@ -1,13 +1,31 @@
+/// <reference types='vitest' />
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+import { resolve } from 'path';
 
-export default defineConfig(() => ({
+export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/libs/helpers',
-  plugins: [],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //  plugins: [ nxViteTsPaths() ],
-  // },
+  
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      formats: ['es'],
+      fileName: 'index',
+    },
+    outDir: 'dist',
+    emptyOutDir: true,
+  },
+  
+  plugins: [
+    dts({
+      entryRoot: 'src',
+      outDir: 'dist',
+      exclude: ['**/*.spec.ts', '**/*.test.ts'],
+      insertTypesEntry: true,
+    }),
+  ],
+  
   test: {
     watch: false,
     globals: true,
@@ -19,4 +37,4 @@ export default defineConfig(() => ({
       provider: 'v8' as const,
     },
   },
-}));
+});

@@ -5,19 +5,13 @@ import { resolve } from 'path';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/libs/navbar',
+  cacheDir: '../../node_modules/.vite/libs/calculator-logic',
   
   build: {
     lib: {
-      entry: {
-        index: resolve(__dirname, 'src/index.ts'),
-        native: resolve(__dirname, 'src/native.ts'),
-      },
+      entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
-      fileName: (format, entryName) => `${entryName}.js`,
-    },
-    rollupOptions: {
-      external: ['react', 'react-dom', '@study/helpers'],
+      fileName: 'index',
     },
     outDir: 'dist',
     emptyOutDir: true,
@@ -35,7 +29,7 @@ export default defineConfig({
   test: {
     watch: false,
     globals: true,
-    environment: 'jsdom',
+    environment: 'node',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     reporters: ['default'],
     coverage: {
