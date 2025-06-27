@@ -1,6 +1,6 @@
 <template>
   <div class="calculator p-4 max-w-md mx-auto">
-    <h1 className="text-2xl font-bold mb-4">Vue Calculator</h1>
+    <h1 class="text-2xl font-bold mb-4">Vue Calculator</h1>
     <input
       id="result"
       v-model="displayValue"
@@ -10,7 +10,7 @@
     />
     <div class="grid grid-cols-5 gap-2">
       <button
-        v-for="(button, index) in buttons.filter(b => !b.fullWidth)"
+        v-for="(button, index) in buttons.filter((b) => !b.fullWidth)"
         :key="`${button.label}-${index}`"
         :class="button.style"
         @click="button.action"
@@ -19,7 +19,7 @@
       </button>
       <!-- Equals button spanning full width -->
       <button
-        v-for="(button, index) in buttons.filter(b => b.fullWidth)"
+        v-for="(button, index) in buttons.filter((b) => b.fullWidth)"
         :key="`${button.label}-fullwidth-${index}`"
         :class="button.style + ' col-span-5'"
         @click="button.action"
@@ -32,12 +32,12 @@
 
 <script lang="ts">
 import { ref } from 'vue';
-import { 
-  CalculatorLogic, 
-  CALCULATOR_BUTTONS, 
-  createButtonHandler, 
+import {
+  CalculatorLogic,
+  CALCULATOR_BUTTONS,
+  createButtonHandler,
   DEFAULT_STYLE_CLASSES,
-  type ButtonConfig 
+  type ButtonConfig,
 } from '@study/calculator-logic';
 
 interface CalculatorButton {
@@ -60,12 +60,14 @@ export default {
     };
 
     // Map shared button config to Vue-specific buttons
-    const buttons: CalculatorButton[] = CALCULATOR_BUTTONS.map((config: ButtonConfig) => ({
-      label: config.label,
-      action: createButtonHandler(config, calculator, updateDisplay),
-      style: DEFAULT_STYLE_CLASSES[config.styleType],
-      fullWidth: config.fullWidth,
-    }));
+    const buttons: CalculatorButton[] = CALCULATOR_BUTTONS.map(
+      (config: ButtonConfig) => ({
+        label: config.label,
+        action: createButtonHandler(config, calculator, updateDisplay),
+        style: DEFAULT_STYLE_CLASSES[config.styleType],
+        fullWidth: config.fullWidth,
+      })
+    );
 
     return {
       buttons,
