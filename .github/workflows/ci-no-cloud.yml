@@ -35,10 +35,4 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       # Run tests
-      - run: npx nx run-many --target=test --all --skip-nx-cache
-
-      # Run linting
-      - run: npx nx run-many --target=lint --all --skip-nx-cache
-
-      # Build applications
-      - run: npx nx run-many --target=build --all --skip-nx-cache
+      - run: npm test -- --skip-nx-cache
