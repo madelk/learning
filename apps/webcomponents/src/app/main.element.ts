@@ -1,5 +1,5 @@
 import {getHomepageText} from '@study/pagetext';
-const text = getHomepageText()
+const text = getHomepageText();
 
 export class MainElement extends HTMLElement {
   connectedCallback() {
@@ -7,8 +7,8 @@ export class MainElement extends HTMLElement {
       <div class="wrapper">
         <div class="container">
           <h1 class="${text.title.className}">${text.title.text}</h1>
-          ${text.paragraphs.text.map((paragraph, index) => `
-            <p class="${text.paragraphs.className}" key="${index}">${paragraph}</p>
+          ${text.paragraphs.text.map((paragraph: string, index: number) => `
+            <p class="${text.paragraphs.className}">${paragraph}</p>
           `).join('')}
         </div>
       </div>
