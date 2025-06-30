@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { workspaceRoot } from '@nx/devkit';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -10,7 +11,16 @@ export default defineConfig(() => ({
   server: {
     port: 4200,
     host: 'localhost',
-    open: true
+    open: true,
+    fs: {
+      // Allow serving files from one level up to the project root
+      allow: [workspaceRoot],
+    },
+    watch: {
+      usePolling: true,
+      // Make sure Vite watches library source files, not just the built output
+      ignored: ['!**/node_modules/**', '!**/dist/**'],
+    },
   },
   preview: {
     port: 4200,
