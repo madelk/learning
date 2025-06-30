@@ -1,5 +1,5 @@
-import type { NavBarConfig } from '../types/index.js';
-import {  getCurrentApp } from '@study/helpers'
+import type { NavBarConfig, FrameworkIcons } from '../types/index.js';
+import { getCurrentApp } from '@study/helpers';
 
 // Port configuration for local development
 const APP_PORTS = {
@@ -33,10 +33,10 @@ export function isLocalhost(): boolean {
 }
 
 // Get icons for all frameworks (local and production)
-export function getIcons(): Record<string, string> {
-  if (typeof window === 'undefined') return {};
+export function getIcons(): FrameworkIcons {
+  if (typeof window === 'undefined') return {} as FrameworkIcons;
   const isLocal = isLocalhost();
-  
+
   if (isLocal) {
     return {
       react: `${DOMAINS.local}:${APP_PORTS.react}${APP_PATHS.react}${FAVICON_FILE_NAME}`,
@@ -55,13 +55,19 @@ export function getIcons(): Record<string, string> {
 }
 
 // Framework favicon PNGs as <img> tags using getIcons
-function getFrameworkIcons(): Record<string, string> {
+function getFrameworkIcons(): FrameworkIcons {
   const icons = getIcons();
   return {
-    react: `<img src="${icons.react || ''}" alt="React" width="20" height="20" />`,
+    react: `<img src="${
+      icons.react || ''
+    }" alt="React" width="20" height="20" />`,
     vue: `<img src="${icons.vue || ''}" alt="Vue" width="20" height="20" />`,
-    webcomponents: `<img src="${icons.webcomponents || ''}" alt="Web Components" width="20" height="20" />`,
-    reactnative: `<img src="${icons.reactnative || ''}" alt="React Native" width="20" height="20" />`
+    webcomponents: `<img src="${
+      icons.webcomponents || ''
+    }" alt="Web Components" width="20" height="20" />`,
+    reactnative: `<img src="${
+      icons.reactnative || ''
+    }" alt="React Native" width="20" height="20" />`
   };
 }
 
@@ -78,84 +84,96 @@ function getCurrentSubPath(): string {
 
 // Default shared configuration
 export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
-    items: [
-        { label: 'Home', href: `/${getCurrentApp()}/` },
-        { label: 'About', href: `/${getCurrentApp()}/about` },
-        { label: 'Calculator', href: `/${getCurrentApp()}/calculator` }
-    ],
-    appSelector: {
-        enabled: true,
-        currentApp: getCurrentApp(),
-        apps: [
-            {
-                id: 'react',
-                name: 'React',
-                icon: FRAMEWORK_ICONS.react,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.react}${APP_PATHS.react}${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}${APP_PATHS.react}${getCurrentSubPath()}`
-            },
-            {
-                id: 'vue',
-                name: 'Vue',
-                icon: FRAMEWORK_ICONS.vue,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.vue}${APP_PATHS.vue}${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}${APP_PATHS.vue}${getCurrentSubPath()}`
-            },
-            {
-                id: 'webcomponents',
-                name: 'Web Components',
-                icon: FRAMEWORK_ICONS.webcomponents,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.webcomponents}${APP_PATHS.webcomponents}${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}${APP_PATHS.webcomponents}${getCurrentSubPath()}`
-            },
-            {
-                id: 'reactnative',
-                name: 'React Native',
-                icon: FRAMEWORK_ICONS.reactnative,
-                localUrl: `${DOMAINS.local}:${APP_PORTS.reactnative}${APP_PATHS.reactnative}${getCurrentSubPath()}`,
-                prodUrl: `${DOMAINS.production}${APP_PATHS.reactnative}${getCurrentSubPath()}`
-            }
-        ]
+  items: [
+    { label: 'Home', href: `/${getCurrentApp()}/` },
+    { label: 'About', href: `/${getCurrentApp()}/about` },
+    { label: 'Calculator', href: `/${getCurrentApp()}/calculator` }
+  ],
+  appSelector: {
+    enabled: true,
+    currentApp: getCurrentApp(),
+    apps: [
+      {
+        id: 'react',
+        name: 'React',
+        icon: FRAMEWORK_ICONS.react,
+        localUrl: `${DOMAINS.local}:${APP_PORTS.react}${
+          APP_PATHS.react
+        }${getCurrentSubPath()}`,
+        prodUrl: `${DOMAINS.production}${APP_PATHS.react}${getCurrentSubPath()}`
+      },
+      {
+        id: 'vue',
+        name: 'Vue',
+        icon: FRAMEWORK_ICONS.vue,
+        localUrl: `${DOMAINS.local}:${APP_PORTS.vue}${
+          APP_PATHS.vue
+        }${getCurrentSubPath()}`,
+        prodUrl: `${DOMAINS.production}${APP_PATHS.vue}${getCurrentSubPath()}`
+      },
+      {
+        id: 'webcomponents',
+        name: 'Web Components',
+        icon: FRAMEWORK_ICONS.webcomponents,
+        localUrl: `${DOMAINS.local}:${APP_PORTS.webcomponents}${
+          APP_PATHS.webcomponents
+        }${getCurrentSubPath()}`,
+        prodUrl: `${DOMAINS.production}${
+          APP_PATHS.webcomponents
+        }${getCurrentSubPath()}`
+      },
+      {
+        id: 'reactnative',
+        name: 'React Native',
+        icon: FRAMEWORK_ICONS.reactnative,
+        localUrl: `${DOMAINS.local}:${APP_PORTS.reactnative}${
+          APP_PATHS.reactnative
+        }${getCurrentSubPath()}`,
+        prodUrl: `${DOMAINS.production}${
+          APP_PATHS.reactnative
+        }${getCurrentSubPath()}`
+      }
+    ]
+  },
+  styles: {
+    container: {
+      backgroundColor: '#333',
+      padding: '1rem',
+      gap: '1rem',
+      display: 'flex',
+      flexDirection: 'row'
     },
-    styles: {
-        container: {
-            backgroundColor: '#333',
-            padding: '1rem',
-            gap: '1rem',
-            display: 'flex',
-            flexDirection: 'row'
-        },
-        link: {
-            color: 'white',
-            padding: '0.5rem',
-            backgroundColor: 'transparent',
-            border: 'none',
-            fontSize: '16px',
-            cursor: 'pointer',
-            textDecoration: 'none'
-        },
-        dropdown: {
-            backgroundColor: '#444',
-            border: '1px solid #555',
-            borderRadius: '4px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-            color: 'white',
-            padding: '0.5rem',
-            fontSize: '16px',
-            cursor: 'pointer',
-            minWidth: '150px'
-        },
-        dropdownItem: {
-            padding: '0.5rem',
-            cursor: 'pointer',
-            backgroundColor: 'transparent',
-            color: 'white',
-            hoverBackgroundColor: '#555',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-        }
+    link: {
+      color: 'white',
+      padding: '0.5rem',
+      backgroundColor: 'transparent',
+      border: 'none',
+      fontSize: '16px',
+      cursor: 'pointer',
+      textDecoration: 'none'
+    },
+    dropdown: {
+      backgroundColor: '#444',
+      border: '1px solid #555',
+      borderRadius: '4px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+      color: 'white',
+      padding: '0.5rem',
+      fontSize: '16px',
+      cursor: 'pointer',
+      minWidth: '150px'
+    },
+    dropdownItem: {
+      padding: '0.5rem',
+      cursor: 'pointer',
+      backgroundColor: 'transparent',
+      color: 'white',
+      hoverBackgroundColor: '#555',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
     }
+  }
 };
 
 export { getCurrentApp };

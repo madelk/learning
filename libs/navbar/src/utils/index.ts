@@ -1,4 +1,10 @@
-import type { NavBarStyles, NavBarItem, AppSelectorConfig, AppOption } from '../types/index.js';
+import type {
+  NavBarStyles,
+  NavBarItem,
+  AppSelectorConfig,
+  AppOption
+} from '../types/index.js';
+import type { CSSProperties } from 'react';
 import { isLocalhost } from '@study/helpers';
 
 // Helper function to generate CSS string from styles
@@ -89,21 +95,25 @@ export function generateCSS(styles: NavBarStyles): string {
 // Helper function to generate nav items HTML
 export function generateNavHTML(items: NavBarItem[]): string {
   const links = items
-    .map(item => `<a href="${item.href || '#'}">${item.label}</a>`)
+    .map((item) => `<a href="${item.href || '#'}">${item.label}</a>`)
     .join('');
   return `<nav>${links}</nav>`;
 }
 
 // Helper function to generate app selector HTML
-export function generateAppSelectorHTML(appSelector: AppSelectorConfig): string {
+export function generateAppSelectorHTML(
+  appSelector: AppSelectorConfig
+): string {
   if (!appSelector.enabled) return '';
 
-  const currentApp = appSelector.apps.find(app => app.id === appSelector.currentApp);
+  const currentApp = appSelector.apps.find(
+    (app) => app.id === appSelector.currentApp
+  );
   const currentIcon = currentApp?.icon || '🔧';
   const currentName = currentApp?.name || 'Unknown';
 
   const dropdownItems = appSelector.apps
-    .map(app => {
+    .map((app) => {
       const isCurrent = app.id === appSelector.currentApp;
       const url = isLocalhost ? app.localUrl : app.prodUrl;
       return `
@@ -138,33 +148,8 @@ export function getAppUrl(app: AppOption): string {
 }
 
 // Helper function to convert shared styles to web-compatible styles
-export function convertToWebStyles(styles: Record<string, string | undefined>): React.CSSProperties {
-  return {
-    display: styles.display,
-    flexDirection: styles.flexDirection as React.CSSProperties['flexDirection'],
-    backgroundColor: styles.backgroundColor,
-    padding: styles.padding,
-    gap: styles.gap,
-    color: styles.color,
-    border: styles.border,
-    fontSize: styles.fontSize,
-    cursor: styles.cursor,
-    textDecoration: styles.textDecoration,
-    borderRadius: styles.borderRadius,
-    boxShadow: styles.boxShadow,
-    minWidth: styles.minWidth,
-    alignItems: styles.alignItems,
-    justifyContent: styles.justifyContent,
-    position: styles.position as React.CSSProperties['position'],
-    top: styles.top,
-    left: styles.left,
-    zIndex: styles.zIndex ? parseInt(styles.zIndex) : undefined,
-    width: styles.width,
-    textAlign: styles.textAlign as React.CSSProperties['textAlign'],
-    fontWeight: styles.fontWeight,
-    marginLeft: styles.marginLeft,
-    marginRight: styles.marginRight,
-    transition: styles.transition,
-    transform: styles.transform
-  };
+export function convertToWebStyles(
+  styles: CSSProperties
+): React.CSSProperties {
+  return styles;
 }

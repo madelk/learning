@@ -60,7 +60,7 @@ export class NavBar extends HTMLElement {
       appItems.forEach(item => {
         item.addEventListener('click', (e) => {
           e.stopPropagation();
-          const url = (item as HTMLElement).dataset.url;
+          const url = (item as HTMLElement).dataset['url'];
           if (url) {
             window.location.href = url;
           }

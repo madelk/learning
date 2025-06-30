@@ -14,7 +14,7 @@ export default defineConfig({
         native: resolve(__dirname, 'src/native.ts')
       },
       formats: ['es'],
-      fileName: (format, entryName) => `${entryName}.js`
+      fileName: (_format, entryName) => `${entryName}.js`
     },
     rollupOptions: {
       external: ['react', 'react-dom', '@study/helpers']

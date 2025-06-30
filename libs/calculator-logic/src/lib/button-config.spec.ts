@@ -29,7 +29,7 @@ describe('Calculator Button Configuration', () => {
         (button) => button.fullWidth
       );
       expect(equalsButtons).toHaveLength(1);
-      expect(equalsButtons[0].label).toBe('=');
+      expect(equalsButtons[0]?.label).toBe('=');
     });
 
     it('should have all required memory buttons', () => {
