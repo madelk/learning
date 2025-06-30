@@ -11,5 +11,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "npm.packageManager": "npm"
+  "npm.packageManager": "npm",
+  "prettier.requireConfig": true,
+  "editor.formatOnSaveMode": "file"
 }
