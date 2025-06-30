@@ -16,6 +16,13 @@
     "noUnusedLocals": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2022"
+    "target": "es2022",
+    "baseUrl": ".",
+    "paths": {
+      "@study/calculator-logic": ["libs/calculator-logic/src/index.ts"],
+      "@study/helpers": ["libs/helpers/src/index.ts"],
+      "@study/navbar": ["libs/navbar/src/index.ts"],
+      "@study/pagetext": ["libs/pagetext/src/index.ts"]
+    }
   }
 }

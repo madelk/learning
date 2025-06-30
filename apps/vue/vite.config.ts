@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { workspaceRoot } from '@nx/devkit';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -10,6 +11,15 @@ export default defineConfig(() => ({
   server: {
     port: 4203,
     host: 'localhost',
+    fs: {
+      // Allow serving files from one level up to the project root
+      allow: [workspaceRoot],
+    },
+    watch: {
+      usePolling: true,
+      // Make sure Vite watches library source files, not just the built output
+      ignored: ['!**/node_modules/**', '!**/dist/**'],
+    },
   },
   preview: {
     port: 4303,
