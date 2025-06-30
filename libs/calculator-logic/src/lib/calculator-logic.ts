@@ -32,7 +32,7 @@ export class CalculatorLogic {
       previouslySetAction: false,
       lastOperand: null,
       lastOperation: null,
-      justCalculated: false,
+      justCalculated: false
     };
   }
 

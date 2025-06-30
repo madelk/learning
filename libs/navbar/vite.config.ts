@@ -11,16 +11,16 @@ export default defineConfig({
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
-        native: resolve(__dirname, 'src/native.ts'),
+        native: resolve(__dirname, 'src/native.ts')
       },
       formats: ['es'],
-      fileName: (format, entryName) => `${entryName}.js`,
+      fileName: (format, entryName) => `${entryName}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', '@study/helpers'],
+      external: ['react', 'react-dom', '@study/helpers']
     },
     outDir: 'dist',
-    emptyOutDir: true,
+    emptyOutDir: true
   },
   
   plugins: [
@@ -28,8 +28,8 @@ export default defineConfig({
       entryRoot: 'src',
       outDir: 'dist',
       exclude: ['**/*.spec.ts', '**/*.test.ts'],
-      insertTypesEntry: true,
-    }),
+      insertTypesEntry: true
+    })
   ],
   
   test: {
@@ -40,7 +40,7 @@ export default defineConfig({
     reporters: ['default'],
     coverage: {
       reportsDirectory: './test-output/vitest/coverage',
-      provider: 'v8' as const,
-    },
-  },
+      provider: 'v8' as const
+    }
+  }
 });

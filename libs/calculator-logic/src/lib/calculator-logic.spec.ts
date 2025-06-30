@@ -11,7 +11,7 @@ describe('CalculatorLogic', () => {
     it('should enter single digits correctly', () => {
       // Arrange & Act
       calc.appendToResult(5);
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5');
     });
@@ -21,7 +21,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendToResult(2);
       calc.appendToResult(3);
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('123');
     });
@@ -31,7 +31,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendDecimalPoint();
       calc.appendToResult(5);
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('1.5');
     });
@@ -39,7 +39,7 @@ describe('CalculatorLogic', () => {
     it('should start with "0." when decimal is first input', () => {
       // Arrange & Act
       calc.appendDecimalPoint();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0.');
     });
@@ -51,7 +51,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(5);
       calc.appendDecimalPoint(); // Second decimal point
       calc.appendToResult(2);
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('1.52');
     });
@@ -59,7 +59,7 @@ describe('CalculatorLogic', () => {
     it('should replace "0" when entering non-zero digit', () => {
       // Arrange & Act
       calc.appendToResult(5);
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5');
     });
@@ -69,7 +69,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendToResult(0);
       calc.appendToResult(5);
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('105');
     });
@@ -82,7 +82,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('add');
       calc.appendToResult(3);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('8');
     });
@@ -93,7 +93,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('subtract');
       calc.appendToResult(3);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5');
     });
@@ -104,7 +104,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('multiply');
       calc.appendToResult(7);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('28');
     });
@@ -116,7 +116,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('divide');
       calc.appendToResult(3);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5');
     });
@@ -127,7 +127,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('divide');
       calc.appendToResult(0);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('Error');
     });
@@ -142,7 +142,7 @@ describe('CalculatorLogic', () => {
       calc.appendDecimalPoint();
       calc.appendToResult(2);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0.3');
     });
@@ -157,7 +157,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('multiply'); // Should calculate 5+3=8 first
       calc.appendToResult(2);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('16'); // (5+3)*2 = 16
     });
@@ -169,7 +169,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('multiply'); // Replace + with *
       calc.appendToResult(3);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('15'); // 5*3 = 15
     });
@@ -184,7 +184,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('add');
       calc.appendToResult(4);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('10'); // ((1+2)+3)+4 = 10
     });
@@ -199,7 +199,7 @@ describe('CalculatorLogic', () => {
       calc.calculateResult(); // 5+3=8
       calc.calculateResult(); // 8+3=11
       calc.calculateResult(); // 11+3=14
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('14');
     });
@@ -212,7 +212,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(3);
       calc.calculateResult(); // 10-3=7
       calc.calculateResult(); // 7-3=4
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('4');
     });
@@ -224,7 +224,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(3);
       calc.calculateResult(); // 2*3=6
       calc.calculateResult(); // 6*3=18
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('18');
     });
@@ -237,7 +237,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(3);
       calc.calculateResult(); // 27/3=9
       calc.calculateResult(); // 9/3=3
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('3');
     });
@@ -246,7 +246,7 @@ describe('CalculatorLogic', () => {
       // Arrange & Act
       calc.appendToResult(5);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5');
     });
@@ -257,7 +257,7 @@ describe('CalculatorLogic', () => {
       // Arrange & Act
       calc.appendToResult(9);
       calc.setAction('sqroot');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('3');
     });
@@ -267,7 +267,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(5);
       calc.setAction('signchange'); // Make it -5
       calc.setAction('sqroot');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('Error');
     });
@@ -276,7 +276,7 @@ describe('CalculatorLogic', () => {
       // Arrange & Act
       calc.appendToResult(4);
       calc.setAction('reciprocal');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0.25');
     });
@@ -284,7 +284,7 @@ describe('CalculatorLogic', () => {
     it('should handle reciprocal of zero', () => {
       // Arrange & Act
       calc.setAction('reciprocal'); // Default is 0
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('Error');
     });
@@ -293,7 +293,7 @@ describe('CalculatorLogic', () => {
       // Arrange & Act
       calc.appendToResult(5);
       calc.setAction('signchange');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('-5');
     });
@@ -303,7 +303,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(5);
       calc.setAction('signchange');
       calc.setAction('signchange');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5');
     });
@@ -311,7 +311,7 @@ describe('CalculatorLogic', () => {
     it('should change sign of zero', () => {
       // Arrange & Act
       calc.setAction('signchange'); // Default is 0
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0');
     });
@@ -323,7 +323,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(5);
       calc.appendToResult(0);
       calc.setAction('percentage');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0.5'); // 50% = 0.5
     });
@@ -336,7 +336,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendToResult(0);
       calc.setAction('percentage');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5'); // 50 * 10% = 5
     });
@@ -349,7 +349,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendToResult(0);
       calc.setAction('percentage');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5'); // 50 * 10% = 5
     });
@@ -362,7 +362,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendToResult(0);
       calc.setAction('percentage');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0.1'); // 10% = 0.1
     });
@@ -375,7 +375,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendToResult(0);
       calc.setAction('percentage');
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0.1'); // 10% = 0.1
     });
@@ -387,10 +387,10 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(5);
       calc.setAction('add');
       calc.appendToResult(3);
-      
+
       // Act
       calc.clearAll();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0');
     });
@@ -401,10 +401,10 @@ describe('CalculatorLogic', () => {
       calc.setAction('add');
       calc.appendToResult(3);
       calc.appendToResult(7);
-      
+
       // Act
       calc.clearEntry();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0');
       // Previous operation should still be intact
@@ -419,11 +419,11 @@ describe('CalculatorLogic', () => {
       calc.setAction('add');
       calc.appendToResult(8);
       calc.clearEntry();
-      
+
       // Act
       calc.appendToResult(3);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('8'); // 5+3=8
     });
@@ -434,10 +434,10 @@ describe('CalculatorLogic', () => {
       // Arrange
       calc.appendToResult(5);
       calc.addToMemory();
-      
+
       // Act
       calc.clearMemory();
-      
+
       // Assert
       expect(calc.getMemoryValue()).toBeNull();
     });
@@ -446,7 +446,7 @@ describe('CalculatorLogic', () => {
       // Arrange & Act
       calc.appendToResult(5);
       calc.addToMemory();
-      
+
       // Assert
       expect(calc.getMemoryValue()).toBe('5');
     });
@@ -457,7 +457,7 @@ describe('CalculatorLogic', () => {
       calc.addToMemory();
       calc.appendToResult(3);
       calc.addToMemory();
-      
+
       // Assert
       expect(calc.getMemoryValue()).toBe('8'); // 5+3=8
     });
@@ -467,11 +467,11 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(1);
       calc.appendToResult(0);
       calc.addToMemory();
-      
+
       // Act
       calc.appendToResult(3);
       calc.subtractFromMemory();
-      
+
       // Assert
       expect(calc.getMemoryValue()).toBe('7'); // 10-3=7
     });
@@ -481,10 +481,10 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(5);
       calc.addToMemory();
       calc.appendToResult(3);
-      
+
       // Act
       calc.recallMemory();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('5');
     });
@@ -493,7 +493,7 @@ describe('CalculatorLogic', () => {
       // Arrange & Act
       calc.appendToResult(5);
       calc.subtractFromMemory(); // Memory was null, should become 0-5=-5
-      
+
       // Assert
       expect(calc.getMemoryValue()).toBe('-5');
     });
@@ -501,7 +501,7 @@ describe('CalculatorLogic', () => {
     it('should recall "0" when memory is empty', () => {
       // Arrange & Act
       calc.recallMemory();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('0');
     });
@@ -531,7 +531,7 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(9);
       calc.appendToResult(9);
       calc.calculateResult();
-      
+
       // Assert result is in exponential format or a very large number
       const result = calc.getDisplayValue();
       expect(result.includes('e') || result.length > 10).toBe(true);
@@ -544,12 +544,12 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(0);
       calc.calculateResult();
       expect(calc.getDisplayValue()).toBe('Error');
-      
+
       // Act - Try to perform operation on Error
       calc.setAction('add');
       calc.appendToResult(5);
       calc.calculateResult();
-      
+
       // Assert - Should handle gracefully (exact behavior may vary)
       expect(calc.getDisplayValue()).toBeDefined();
     });
@@ -561,10 +561,10 @@ describe('CalculatorLogic', () => {
       calc.appendToResult(0);
       calc.calculateResult();
       expect(calc.getDisplayValue()).toBe('Error');
-      
+
       // Act
       calc.appendToResult(3);
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('3');
     });
@@ -577,7 +577,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('divide');
       calc.appendToResult(3);
       calc.calculateResult();
-      
+
       // Assert - Should show reasonable precision
       const result = calc.getDisplayValue();
       expect(result.startsWith('0.33333')).toBe(true);
@@ -590,7 +590,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('divide');
       calc.appendToResult(2);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('2.5'); // Not "2.50000"
     });
@@ -601,7 +601,7 @@ describe('CalculatorLogic', () => {
       calc.setAction('divide');
       calc.appendToResult(2);
       calc.calculateResult();
-      
+
       // Assert
       expect(calc.getDisplayValue()).toBe('3'); // Not "3.0"
     });

@@ -15,7 +15,7 @@ const extensions = [
   '.web.js',
   '.js',
   '.css',
-  '.json',
+  '.json'
 ];
 
 const rollupPlugin = (matchers: RegExp[]) => ({
@@ -25,7 +25,7 @@ const rollupPlugin = (matchers: RegExp[]) => ({
       const file = readFileSync(id, { encoding: 'utf-8' });
       return esbuild.transformSync(file, { loader: 'jsx', jsx: 'automatic' });
     }
-  },
+  }
 });
 
 export default defineConfig({
@@ -33,7 +33,7 @@ export default defineConfig({
   base: '/reactnative/',
   cacheDir: '../../node_modules/.vite/apps/reactnative',
   define: {
-    global: 'window',
+    global: 'window'
   },
   resolve: {
     extensions,
@@ -41,37 +41,37 @@ export default defineConfig({
       'react-native': 'react-native-web',
       'react-native-svg': 'react-native-svg-web',
       '@react-native/assets-registry/registry':
-        'react-native-web/dist/modules/AssetRegistry/index',
-    },
+        'react-native-web/dist/modules/AssetRegistry/index'
+    }
   },
   build: {
     reportCompressedSize: true,
     commonjsOptions: { transformMixedEsModules: true },
     outDir: '../../dist/reactnative',
     rollupOptions: {
-      plugins: [rollupPlugin([/react-native-vector-icons/])],
-    },
+      plugins: [rollupPlugin([/react-native-vector-icons/])]
+    }
   },
   server: {
     port: 4201,
     host: 'localhost',
     fs: {
       // Allow serving files from one level up to the project root
-      allow: ['..'],
-    },
+      allow: ['..']
+    }
   },
   preview: {
     port: 4301,
-    host: 'localhost',
+    host: 'localhost'
   },
   optimizeDeps: {
     esbuildOptions: {
       resolveExtensions: extensions,
       jsx: 'automatic',
-      loader: { '.js': 'jsx' },
-    },
+      loader: { '.js': 'jsx' }
+    }
   },
-  plugins: [react(), nxViteTsPaths()],
+  plugins: [react(), nxViteTsPaths()]
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

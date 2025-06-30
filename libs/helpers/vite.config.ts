@@ -11,10 +11,10 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
-      fileName: 'index',
+      fileName: 'index'
     },
     outDir: 'dist',
-    emptyOutDir: true,
+    emptyOutDir: true
   },
   
   plugins: [
@@ -22,8 +22,8 @@ export default defineConfig({
       entryRoot: 'src',
       outDir: 'dist',
       exclude: ['**/*.spec.ts', '**/*.test.ts'],
-      insertTypesEntry: true,
-    }),
+      insertTypesEntry: true
+    })
   ],
   
   test: {
@@ -34,7 +34,7 @@ export default defineConfig({
     reporters: ['default'],
     coverage: {
       reportsDirectory: './test-output/vitest/coverage',
-      provider: 'v8' as const,
-    },
-  },
+      provider: 'v8' as const
+    }
+  }
 });

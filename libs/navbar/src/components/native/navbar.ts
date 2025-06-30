@@ -5,7 +5,7 @@ import type { NavBarConfig, NavBarNativeProps, AppOption } from '../../types/ind
 
 export const NavBarNative: React.FC<NavBarNativeProps> = ({
   config: userConfig,
-  onItemPress,
+  onItemPress
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -18,21 +18,21 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
       ...userConfig?.styles,
       container: {
         ...DEFAULT_NAVBAR_CONFIG.styles.container,
-        ...userConfig?.styles?.container,
+        ...userConfig?.styles?.container
       },
       link: {
         ...DEFAULT_NAVBAR_CONFIG.styles.link,
-        ...userConfig?.styles?.link,
+        ...userConfig?.styles?.link
       },
       dropdown: {
         ...DEFAULT_NAVBAR_CONFIG.styles.dropdown,
-        ...userConfig?.styles?.dropdown,
+        ...userConfig?.styles?.dropdown
       },
       dropdownItem: {
         ...DEFAULT_NAVBAR_CONFIG.styles.dropdownItem,
-        ...userConfig?.styles?.dropdownItem,
-      },
-    },
+        ...userConfig?.styles?.dropdownItem
+      }
+    }
   };
 
   const handleAppSelect = (app: AppOption) => {
@@ -63,9 +63,9 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '0.5rem',
-          marginRight: 'auto',
+          marginRight: 'auto'
         },
-        type: 'button',
+        type: 'button'
       },
       React.createElement('span', {
         style: { display: 'inline-flex', verticalAlign: 'middle' },
@@ -109,7 +109,7 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
             ...convertToWebStyles(config.styles.container),
             alignItems: 'center',
             position: 'relative',
-            zIndex: 1,
+            zIndex: 1
           }
         },
         renderAppSelector(),
@@ -120,7 +120,7 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
               key: index,
               onClick: () => onItemPress?.(item) || (item.href && (window.location.href = item.href)),
               style: convertToWebStyles(config.styles.link),
-              type: 'button',
+              type: 'button'
             },
             item.label
           )
@@ -142,8 +142,8 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
             minWidth: '200px',
             maxWidth: '300px',
             // Ensure it doesn't affect document flow
-            pointerEvents: 'auto',
-          },
+            pointerEvents: 'auto'
+          }
         },
         ...config.appSelector.apps.map((app, index) => {
           const isCurrent = app.id === config.appSelector?.currentApp;
@@ -169,7 +169,7 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
                 border: 'none',
                 cursor: 'pointer',
                 borderRadius: '4px',
-                margin: '2px',
+                margin: '2px'
               },
               type: 'button',
               onMouseEnter: (e: React.MouseEvent) => {
@@ -181,7 +181,7 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
                 if (!isCurrent) {
                   (e.target as HTMLElement).style.backgroundColor = config.styles.dropdownItem.backgroundColor || 'transparent';
                 }
-              },
+              }
             },
             React.createElement('span', {
               style: { display: 'inline-flex', verticalAlign: 'middle' },

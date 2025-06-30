@@ -12,17 +12,17 @@ export default defineConfig(() => ({
     host: 'localhost',
     fs: {
       // Allow serving files from one level up to the project root
-      allow: [workspaceRoot],
+      allow: [workspaceRoot]
     },
     watch: {
       usePolling: true,
       // Make sure Vite watches library source files, not just the built output
-      ignored: ['!**/node_modules/**', '!**/dist/**'],
-    },
+      ignored: ['!**/node_modules/**', '!**/dist/**']
+    }
   },
   preview: {
     port: 4302,
-    host: 'localhost',
+    host: 'localhost'
   },
   plugins: [nxViteTsPaths()],
   // Uncomment this if you are using workers.
@@ -34,8 +34,8 @@ export default defineConfig(() => ({
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+      transformMixedEsModules: true
+    }
   },
   test: {
     watch: false,
@@ -45,7 +45,7 @@ export default defineConfig(() => ({
     reporters: ['default'],
     coverage: {
       reportsDirectory: './test-output/vitest/coverage',
-      provider: 'v8' as const,
-    },
-  },
+      provider: 'v8' as const
+    }
+  }
 }));

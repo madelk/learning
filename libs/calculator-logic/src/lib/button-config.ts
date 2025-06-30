@@ -78,7 +78,7 @@ export const CALCULATOR_BUTTONS: ButtonConfig[] = [
   { label: '+', actionType: 'operation', styleType: 'default', actionData: 'add' },
   
   // Row 6: Equals button (spans full width)
-  { label: '=', actionType: 'calculate', styleType: 'default', fullWidth: true },
+  { label: '=', actionType: 'calculate', styleType: 'default', fullWidth: true }
 ];
 
 /**
@@ -148,5 +148,5 @@ export const DEFAULT_STYLE_CLASSES = {
   default: 'bg-slate-500 text-white p-4 rounded',
   memory: 'bg-blue-500 text-white p-4 rounded',
   clear: 'bg-red-500 text-white p-4 rounded',
-  danger: 'bg-red-500 text-white p-4 rounded',
+  danger: 'bg-red-500 text-white p-4 rounded'
 } as const;

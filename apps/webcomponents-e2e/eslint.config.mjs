@@ -6,6 +6,6 @@ export default [
   ...baseConfig,
   {
     // Override or add rules here
-    rules: {},
-  },
+    rules: {}
+  }
 ];

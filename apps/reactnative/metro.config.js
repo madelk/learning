@@ -13,12 +13,12 @@ const { assetExts, sourceExts } = defaultConfig.resolver;
 const customConfig = {
   cacheVersion: '@study/reactnative',
   transformer: {
-    babelTransformerPath: require.resolve('react-native-svg-transformer'),
+    babelTransformerPath: require.resolve('react-native-svg-transformer')
   },
   resolver: {
     assetExts: assetExts.filter((ext) => ext !== 'svg'),
-    sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg'],
-  },
+    sourceExts: [...sourceExts, 'cjs', 'mjs', 'svg']
+  }
 };
 
 module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
@@ -28,5 +28,5 @@ module.exports = withNxMetro(mergeConfig(defaultConfig, customConfig), {
   // all the file extensions used for imports other than 'ts', 'tsx', 'js', 'jsx', 'json'
   extensions: [],
   // Specify folders to watch, in addition to Nx defaults (workspace libraries and node_modules)
-  watchFolders: [],
+  watchFolders: []
 });

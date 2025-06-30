@@ -8,11 +8,11 @@ export default defineConfig({
       bundler: 'vite',
       webServerCommands: {
         default: 'npx nx run @study/webcomponents:dev',
-        production: 'npx nx run @study/webcomponents:preview',
+        production: 'npx nx run @study/webcomponents:preview'
       },
       ciWebServerCommand: 'npx nx run @study/webcomponents:preview',
-      ciBaseUrl: 'http://localhost:4300',
+      ciBaseUrl: 'http://localhost:4300'
     }),
-    baseUrl: 'http://localhost:4200',
-  },
+    baseUrl: 'http://localhost:4200'
+  }
 });

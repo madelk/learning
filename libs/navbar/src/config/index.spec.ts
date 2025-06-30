@@ -7,18 +7,18 @@ describe('navbar config functions', () => {
     // Restore window.location after each test
     Object.defineProperty(window, 'location', {
       value: originalWindow.location,
-      writable: true,
+      writable: true
     });
   });
 
   function mockLocation(hostname: string, pathname = '/') {
     Object.defineProperty(window, 'location', {
       value: { hostname, pathname },
-      writable: true,
+      writable: true
     });
     Object.defineProperty(window, 'navigator', {
       value: { userAgent: 'test-browser' },
-      writable: true,
+      writable: true
     });
   }
 
@@ -76,7 +76,7 @@ describe('navbar config functions', () => {
       mockLocation('localhost', '/other');
       Object.defineProperty(window, 'navigator', {
         value: { userAgent: 'ReactNative/test' },
-        writable: true,
+        writable: true
       });
       expect(getCurrentApp()).toBe('reactnative');
     });
