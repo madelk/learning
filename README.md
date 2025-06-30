@@ -4,6 +4,16 @@
 
 This monorepo contains multiple frontend applications built with different frameworks, managed using Nx. It serves as a study and comparison environment for various frontend technologies.
 
+## Run locally
+- Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
+``` bash
+git clone https://github.com/madelk/learning.git
+cd learning
+nvm install
+npm i
+npm start
+```
+
 ## Project Structure
 
 The workspace includes the following applications:
