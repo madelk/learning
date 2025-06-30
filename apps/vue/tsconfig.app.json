@@ -10,7 +10,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
-    "lib": ["dom", "es2022"]
+    "lib": ["dom", "ESNext"]
   },
   "exclude": [
     "out-tsc",
