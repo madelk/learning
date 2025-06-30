@@ -17,4 +17,8 @@ import { helper } from '@study/helpers'  // ✅ Correct
 
 All package.json have `"type": "module"` + NodeNext resolution.
 
+**Jest vs Vitest difference:**
+- **Jest with SWC**: Auto-resolves `.ts` files, no `.js` extension needed in test imports
+- **Vitest**: Strict ESM, requires `.js` extensions for relative imports
+
 *Update with other common import issues you encounter*
