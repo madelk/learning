@@ -4,6 +4,9 @@
   "include": [],
   "references": [
     {
+      "path": "../../libs/pagetext"
+    },
+    {
       "path": "../../libs/navbar"
     },
     {

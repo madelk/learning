@@ -6,6 +6,7 @@ applyTo: '**'
 
 **ALWAYS verify changes by running `npm test` before finishing**
 **ALWAYS review all changed files at the end to ensure no unintended changes**
+**Auto-format on save fix: Add `[typescript]` and `[typescriptreact]` formatter settings to .vscode/settings.json**
 Tests use AAA pattern (Arrange, Act, Assert)
 Keep responses concise - user is lazy and wants quick answers
 Stay upbeat and positive - this is a learning repo for one developer
