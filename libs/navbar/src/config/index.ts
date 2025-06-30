@@ -6,13 +6,13 @@ const APP_PORTS = {
   react: 4200,
   vue: 4203,
   webcomponents: 4202,
-  reactnative: 4201,
+  reactnative: 4201
 } as const;
 
 // Domain configuration
 const DOMAINS = {
   local: 'http://localhost',
-  production: 'https://www.madelk.co.uk',
+  production: 'https://www.madelk.co.uk'
 } as const;
 
 // Path configuration
@@ -20,7 +20,7 @@ const APP_PATHS = {
   react: '/react',
   vue: '/vue',
   webcomponents: '/webcomponents',
-  reactnative: '/reactnative',
+  reactnative: '/reactnative'
 } as const;
 
 const FAVICON_FILE_NAME = '/favicon.png';
@@ -42,14 +42,14 @@ export function getIcons(): Record<string, string> {
       react: `${DOMAINS.local}:${APP_PORTS.react}${APP_PATHS.react}${FAVICON_FILE_NAME}`,
       vue: `${DOMAINS.local}:${APP_PORTS.vue}${APP_PATHS.vue}${FAVICON_FILE_NAME}`,
       webcomponents: `${DOMAINS.local}:${APP_PORTS.webcomponents}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`,
-      reactnative: `${DOMAINS.local}:${APP_PORTS.reactnative}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`,
+      reactnative: `${DOMAINS.local}:${APP_PORTS.reactnative}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`
     };
   } else {
     return {
       react: `${DOMAINS.production}${APP_PATHS.react}${FAVICON_FILE_NAME}`,
       vue: `${DOMAINS.production}${APP_PATHS.vue}${FAVICON_FILE_NAME}`,
       webcomponents: `${DOMAINS.production}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`,
-      reactnative: `${DOMAINS.production}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`,
+      reactnative: `${DOMAINS.production}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`
     };
   }
 }
@@ -81,7 +81,7 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
     items: [
         { label: 'Home', href: `/${getCurrentApp()}/` },
         { label: 'About', href: `/${getCurrentApp()}/about` },
-        { label: 'Calculator', href: `/${getCurrentApp()}/calculator` },
+        { label: 'Calculator', href: `/${getCurrentApp()}/calculator` }
     ],
     appSelector: {
         enabled: true,
@@ -123,7 +123,7 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
             padding: '1rem',
             gap: '1rem',
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'row'
         },
         link: {
             color: 'white',
@@ -132,7 +132,7 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
             border: 'none',
             fontSize: '16px',
             cursor: 'pointer',
-            textDecoration: 'none',
+            textDecoration: 'none'
         },
         dropdown: {
             backgroundColor: '#444',
@@ -143,7 +143,7 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
             padding: '0.5rem',
             fontSize: '16px',
             cursor: 'pointer',
-            minWidth: '150px',
+            minWidth: '150px'
         },
         dropdownItem: {
             padding: '0.5rem',
@@ -153,9 +153,9 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
             hoverBackgroundColor: '#555',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem',
-        },
-    },
+            gap: '0.5rem'
+        }
+    }
 };
 
 export { getCurrentApp };

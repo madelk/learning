@@ -165,6 +165,6 @@ export function convertToWebStyles(styles: Record<string, string | undefined>): 
     marginLeft: styles.marginLeft,
     marginRight: styles.marginRight,
     transition: styles.transition,
-    transform: styles.transform,
+    transform: styles.transform
   };
 }

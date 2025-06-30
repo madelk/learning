@@ -10,16 +10,16 @@ module.exports = function (api) {
         [
           '@nx/react/babel',
           {
-            runtime: 'automatic',
-          },
-        ],
-      ],
+            runtime: 'automatic'
+          }
+        ]
+      ]
     };
   }
 
   return {
     presets: [
-      ['module:@react-native/babel-preset', { useTransformReactJSX: true }],
-    ],
+      ['module:@react-native/babel-preset', { useTransformReactJSX: true }]
+    ]
   };
 };

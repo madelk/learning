@@ -10,7 +10,7 @@ const About = () => (
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 8 },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 8 }
 });
 
 export default About;

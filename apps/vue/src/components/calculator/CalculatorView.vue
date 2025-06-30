@@ -1,6 +1,8 @@
 <template>
   <div class="calculator p-4 max-w-md mx-auto">
-    <h1 class="text-2xl font-bold mb-4">Vue Calculator</h1>
+    <h1 class="text-2xl font-bold mb-4">
+      Vue Calculator
+    </h1>
     <input
       id="result"
       v-model="displayValue"
