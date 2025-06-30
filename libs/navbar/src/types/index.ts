@@ -1,4 +1,15 @@
 // Shared navbar types and interfaces
+import type { CSSProperties } from 'react';
+
+// Framework types
+export type FrameworkId = 'react' | 'vue' | 'webcomponents' | 'reactnative';
+export type FrameworkIcons = Record<FrameworkId, string>;
+
+// Extended CSS properties for custom styling needs
+export interface ExtendedCSSProperties extends CSSProperties {
+  hoverBackgroundColor?: string;
+}
+
 export interface NavBarConfig {
   items: NavBarItem[];
   styles: NavBarStyles;
@@ -26,43 +37,10 @@ export interface AppOption {
 }
 
 export interface NavBarStyles {
-  container: {
-    backgroundColor: string;
-    padding: string;
-    gap: string;
-    display?: string;
-    flexDirection?: string;
-  };
-  link: {
-    color: string;
-    padding: string;
-    backgroundColor?: string;
-    border?: string;
-    fontSize?: string;
-    cursor?: string;
-    textDecoration?: string;
-  };
-  dropdown: {
-    backgroundColor?: string;
-    border?: string;
-    borderRadius?: string;
-    boxShadow?: string;
-    color?: string;
-    padding?: string;
-    fontSize?: string;
-    cursor?: string;
-    minWidth?: string;
-  };
-  dropdownItem: {
-    padding?: string;
-    cursor?: string;
-    backgroundColor?: string;
-    color?: string;
-    hoverBackgroundColor?: string;
-    display?: string;
-    alignItems?: string;
-    gap?: string;
-  };
+  container: CSSProperties;
+  link: CSSProperties;
+  dropdown: CSSProperties;
+  dropdownItem: ExtendedCSSProperties;
 }
 
 // React Native specific props

@@ -7,7 +7,7 @@ export class MainElement extends HTMLElement {
       <div class="wrapper">
         <div class="container">
           <h1 class="${text.title.className}">${text.title.text}</h1>
-          ${text.paragraphs.text.map((paragraph: string, index: number) => `
+          ${text.paragraphs.text.map((paragraph: string) => `
             <p class="${text.paragraphs.className}">${paragraph}</p>
           `).join('')}
         </div>

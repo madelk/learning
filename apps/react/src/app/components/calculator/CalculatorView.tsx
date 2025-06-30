@@ -28,7 +28,7 @@ export function CalculatorView() {
     label: config.label,
     action: createButtonHandler(config, calculator, updateDisplay),
     style: DEFAULT_STYLE_CLASSES[config.styleType],
-    fullWidth: config.fullWidth
+    ...(config.fullWidth !== undefined && { fullWidth: config.fullWidth })
   }));
 
   return (

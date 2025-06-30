@@ -10,9 +10,10 @@ export const NavBarNative: React.FC<NavBarNativeProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Merge user config with defaults
+  const appSelector = userConfig?.appSelector || DEFAULT_NAVBAR_CONFIG.appSelector;
   const config: NavBarConfig = {
     items: userConfig?.items || DEFAULT_NAVBAR_CONFIG.items,
-    appSelector: userConfig?.appSelector || DEFAULT_NAVBAR_CONFIG.appSelector,
+    ...(appSelector && { appSelector }),
     styles: {
       ...DEFAULT_NAVBAR_CONFIG.styles,
       ...userConfig?.styles,
