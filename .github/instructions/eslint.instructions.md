@@ -4,6 +4,26 @@ applyTo: '**/eslint.config.mjs'
 
 # ESLint Quick Fixes
 
+## Prettier Integration
+To prevent ESLint and Prettier conflicts, use `eslint-config-prettier`:
+
+```javascript
+import prettier from 'eslint-config-prettier';
+
+export default [
+  // ...other configs
+  prettier // Apply last to override conflicting rules
+];
+```
+
+Ensure `.prettierrc` matches ESLint style rules:
+```json
+{
+  "singleQuote": true,
+  "trailingComma": "none"
+}
+```
+
 ## Vite Dependency Error Fix
 When libraries use Vite build tools, add this to eslint.config.mjs:
 
@@ -13,10 +33,10 @@ When libraries use Vite build tools, add this to eslint.config.mjs:
     '@nx/dependency-checks': [
       'error',
       {
-        ignoredDependencies: ['vite', 'vite-plugin-dts'],
-      },
-    ],
-  },
+        ignoredDependencies: ['vite', 'vite-plugin-dts']
+      }
+    ]
+  }
 }
 ```
 
@@ -33,11 +53,11 @@ Rules in the root eslint.config.mjs apply to all files in the workspace:
     '**/*.js',
     '**/*.jsx',
     '**/*.cjs',
-    '**/*.mjs',
+    '**/*.mjs'
   ],
   rules: {
-    'comma-dangle': ['error', 'never'], // No trailing commas
-  },
+    'comma-dangle': ['error', 'never'] // No trailing commas
+  }
 }
 ```
 

@@ -1,4 +1,5 @@
 import nx from '@nx/eslint-plugin';
+import prettier from 'eslint-config-prettier';
 
 export default [
   ...nx.configs['flat/base'],
@@ -10,8 +11,8 @@ export default [
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
       '**/test-output',
-      '**/out-tsc/**',
-    ],
+      '**/out-tsc/**'
+    ]
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],
@@ -24,12 +25,12 @@ export default [
           depConstraints: [
             {
               sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
-            },
-          ],
-        },
-      ],
-    },
+              onlyDependOnLibsWithTags: ['*']
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     files: [
@@ -40,11 +41,13 @@ export default [
       '**/*.js',
       '**/*.jsx',
       '**/*.cjs',
-      '**/*.mjs',
+      '**/*.mjs'
     ],
     // Override or add rules here
     rules: {
       'comma-dangle': ['error', 'never']
-    },
+    }
   },
+  // Apply prettier config last to override conflicting rules
+  prettier
 ];
