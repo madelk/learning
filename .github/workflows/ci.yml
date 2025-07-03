@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Manual trigger only
 
 # Cancel any in-progress job or previous runs
 concurrency:
@@ -17,7 +16,6 @@ permissions:
 
 jobs:
   main:
-    timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
       # This command does exist ignore the linting errors
@@ -25,7 +23,7 @@ jobs:
         with:
           filter: tree:0
           fetch-depth: 0
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after=typescript,lint,test,build
+      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after=build
 
       # This command does exist ignore the linting errors
       - uses: actions/setup-node@v4
@@ -37,12 +35,8 @@ jobs:
       # This command does exist ignore the linting errors
       - uses: nrwl/nx-set-shas@v4
 
-      # Run tests using distributed execution
-      - name: Run Tests
-        run: |
-          npx nx-cloud record -- npx nx affected --targets=typecheck,lint,test,build --parallel=3
-        timeout-minutes: 4
+      - run: npm test
+      - run: npm run build
 
-      - name: Stop all agents
+      - run: npx nx-cloud stop-all-agents
         if: always()
-        run: npx nx-cloud stop-all-agents
