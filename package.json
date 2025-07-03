@@ -8,6 +8,7 @@
     "npm": ">=10.0.0"
   },
   "scripts": {
+    "nvm:setup": "nvm use && nvm install && nvm alias default 20.11.0",
     "test": "nx affected -t typecheck,lint,test,build",
     "lint": "nx affected --target lint --fix",
     "build": "nx affected --target build",
