@@ -1,8 +1,5 @@
 import type { NavBarConfig, FrameworkIcons } from '../types/index.js';
-import { g//** Extracts the path segment after the app name from the current URL */
-function getCurrentSubPath(): string {
-  if (typeof window === 'undefined') return '/';Extracts the path segment after the app name from the current URL */
-function getCurrentSubPath(): string {CurrentApp } from '@study/helpers';
+import { getCurrentApp } from '@study/helpers';
 
 /** Port mappings for development environment */
 const APP_PORTS = {
@@ -35,7 +32,7 @@ export function isLocalhost(): boolean {
   return hostname === 'localhost' || hostname === '127.0.0.1';
 }
 
-/** 
+/**
  * Retrieves framework-specific icon URLs for both local and production environments
  * @returns An object containing icon URLs for each supported framework
  */
@@ -60,7 +57,7 @@ export function getIcons(): FrameworkIcons {
   }
 }
 
-/** 
+/**
  * Generates HTML img tags for framework icons with proper dimensions and alt text
  * @returns An object containing HTML strings for each framework's icon
  */
@@ -86,11 +83,11 @@ const FRAMEWORK_ICONS = getFrameworkIcons();
 function getCurrentSubPath(): string {
   if (typeof window === 'undefined') return '/';
   const path = window.location.pathname;
-    const match = path.match(/^\/(react|vue|webcomponents|reactnative)(\/.*)?$/);
+  const match = path.match(/^\/(react|vue|webcomponents|reactnative)(\/.*)?$/);
   return match && match[2] ? match[2] : '/';
 }
 
-/** 
+/**
  * Default shared configuration for the navigation bar
  * @type {NavBarConfig}
  */
