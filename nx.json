@@ -154,13 +154,13 @@
   ],
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "typecheck"]
     },
     "test": {
       "dependsOn": ["^build", "build"]
     },
     "typecheck": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "^typecheck"]
     },
     "lint": {
       "dependsOn": []
