@@ -3,3 +3,9 @@
 /coverage
 /.nx/cache
 /.nx/workspace-data
+node_modules/
+out-tsc/
+tmp/
+**/vite.config.*.timestamp*
+**/vitest.config.*.timestamp*
+**/test-output/
