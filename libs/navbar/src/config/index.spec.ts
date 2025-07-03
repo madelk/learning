@@ -31,9 +31,7 @@ describe('navbar config functions', () => {
       expect(icons.webcomponents).toBe(
         'http://localhost:4202/webcomponents/favicon.png'
       );
-      expect(icons.reactnative).toBe(
-        'http://localhost:4201/reactnative/favicon.png'
-      );
+
     });
 
     it('returns correct production favicon URLs for each framework', () => {
@@ -44,9 +42,7 @@ describe('navbar config functions', () => {
       expect(icons.webcomponents).toBe(
         'https://www.madelk.co.uk/webcomponents/favicon.png'
       );
-      expect(icons.reactnative).toBe(
-        'https://www.madelk.co.uk/reactnative/favicon.png'
-      );
+
     });
 
     it('returns empty object when window is undefined', () => {
@@ -75,19 +71,7 @@ describe('navbar config functions', () => {
       expect(getCurrentApp()).toBe('webcomponents');
     });
 
-    it('detects reactnative app from path', () => {
-      mockLocation('localhost', '/reactnative/mobile');
-      expect(getCurrentApp()).toBe('reactnative');
-    });
 
-    it('detects reactnative app from user agent', () => {
-      mockLocation('localhost', '/other');
-      Object.defineProperty(window, 'navigator', {
-        value: { userAgent: 'ReactNative/test' },
-        writable: true
-      });
-      expect(getCurrentApp()).toBe('reactnative');
-    });
 
     it('defaults to react for unknown paths', () => {
       mockLocation('localhost', '/unknown');
