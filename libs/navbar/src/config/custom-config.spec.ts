@@ -1,11 +1,12 @@
-// Mock the getCurrentApp function
+import { type AppName } from '@study/helpers';
 import { vi, describe, it, expect, afterEach } from 'vitest';
+
 vi.mock('@study/helpers', () => ({
   getCurrentApp: vi.fn()
 }));
+
 import * as helpers from '@study/helpers';
 import { getNavbarConfig } from './custom-config.js';
-import { AppName } from '@study/helpers';
 
 describe('customNavbarConfig', () => {
   // Reset the module imports between tests
