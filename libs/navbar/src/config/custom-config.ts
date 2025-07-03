@@ -1,0 +1,42 @@
+import { DEFAULT_NAVBAR_CONFIG } from './default-config.js';
+import type { NavBarConfig } from '../types/index.js';
+import { getCurrentApp } from '@study/helpers';
+
+/**
+ * Apps that support the calculator feature
+ */
+const CALCULATOR_SUPPORTED_APPS = ['react', 'vue', 'webcomponents'];
+
+/**
+ * Get the navbar configuration for the current app
+ * @returns NavBarConfig with app-specific navigation items
+ */
+export function getNavbarConfig(): NavBarConfig {
+  // Get the current app
+  const currentApp = getCurrentApp();
+
+  // Create basic navigation items for all apps
+  const navItems = [
+    { label: 'Home', href: `/${currentApp}/` },
+    { label: 'About', href: `/${currentApp}/about` }
+  ];
+
+  // Add Calculator only for apps that support it
+  if (CALCULATOR_SUPPORTED_APPS.includes(currentApp)) {
+    navItems.push({ label: 'Calculator', href: `/${currentApp}/calculator` });
+  }
+
+  // Add Vue-specific pages only if we're in the Vue app
+  if (currentApp === 'vue') {
+    navItems.push(
+      { label: 'Computed', href: '/vue/computed' },
+      { label: 'Form', href: '/vue/form' }
+    );
+  }
+
+  // Create the custom navbar config
+  return {
+    ...DEFAULT_NAVBAR_CONFIG,
+    items: navItems
+  };
+}

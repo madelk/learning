@@ -1,13 +1,18 @@
-import { DEFAULT_NAVBAR_CONFIG } from '../../config/index.js';
-import { generateCSS, generateNavHTML, generateAppSelectorHTML } from '../../utils/index.js';
+import { getNavbarConfig } from '../../config/custom-config.js';
+import {
+  generateCSS,
+  generateNavHTML,
+  generateAppSelectorHTML
+} from '../../utils/index.js';
 import type { NavBarConfig } from '../../types/index.js';
 
 export class NavBar extends HTMLElement {
-  private config: NavBarConfig = DEFAULT_NAVBAR_CONFIG;
+  private config: NavBarConfig;
 
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+    this.config = getNavbarConfig();
   }
 
   connectedCallback() {
@@ -17,7 +22,7 @@ export class NavBar extends HTMLElement {
 
   private render() {
     if (this.shadowRoot) {
-      const appSelectorHTML = this.config.appSelector?.enabled 
+      const appSelectorHTML = this.config.appSelector?.enabled
         ? generateAppSelectorHTML(this.config.appSelector)
         : '';
 
@@ -57,7 +62,7 @@ export class NavBar extends HTMLElement {
 
       // App selector items
       const appItems = this.shadowRoot.querySelectorAll('.app-selector-item');
-      appItems.forEach(item => {
+      appItems.forEach((item) => {
         item.addEventListener('click', (e) => {
           e.stopPropagation();
           const url = (item as HTMLElement).dataset['url'];
