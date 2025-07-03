@@ -1,4 +1,4 @@
-import { getIcons, getCurrentApp, isLocalhost } from './index.js';
+import { getIcons, isLocalhost } from './index.js';
 
 describe('navbar config functions', () => {
   const originalWindow = { ...window };
@@ -55,50 +55,6 @@ describe('navbar config functions', () => {
       delete global.window;
       const icons = getIcons();
       expect(icons).toEqual({});
-      global.window = originalWindow;
-    });
-  });
-
-  describe('getCurrentApp', () => {
-    it('detects react app from path', () => {
-      mockLocation('localhost', '/react/home');
-      expect(getCurrentApp()).toBe('react');
-    });
-
-    it('detects vue app from path', () => {
-      mockLocation('localhost', '/vue/about');
-      expect(getCurrentApp()).toBe('vue');
-    });
-
-    it('detects webcomponents app from path', () => {
-      mockLocation('localhost', '/webcomponents/docs');
-      expect(getCurrentApp()).toBe('webcomponents');
-    });
-
-    it('detects reactnative app from path', () => {
-      mockLocation('localhost', '/reactnative/mobile');
-      expect(getCurrentApp()).toBe('reactnative');
-    });
-
-    it('detects reactnative app from user agent', () => {
-      mockLocation('localhost', '/other');
-      Object.defineProperty(window, 'navigator', {
-        value: { userAgent: 'ReactNative/test' },
-        writable: true
-      });
-      expect(getCurrentApp()).toBe('reactnative');
-    });
-
-    it('defaults to react for unknown paths', () => {
-      mockLocation('localhost', '/unknown');
-      expect(getCurrentApp()).toBe('react');
-    });
-
-    it('returns react when window is undefined', () => {
-      const originalWindow = global.window;
-      // @ts-expect-error Testing window undefined scenario
-      delete global.window;
-      expect(getCurrentApp()).toBe('react');
       global.window = originalWindow;
     });
   });
