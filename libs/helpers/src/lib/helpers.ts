@@ -1,4 +1,9 @@
 /**
+ * Valid app names in the workspace
+ */
+export type AppName = 'react' | 'vue' | 'webcomponents' | 'reactnative';
+
+/**
  * Detects if the current environment is running on localhost
  * @returns true if running on localhost or 127.0.0.1, false otherwise or if running in non-browser environment
  */
@@ -12,7 +17,7 @@ export const isLocalhost =
  * @param path The URL path to analyze
  * @returns The detected app name (react, vue, webcomponents, or reactnative)
  */
-export function detectAppFromPath(path: string): string {
+export function detectAppFromPath(path: string): AppName {
   if (path.includes('/reactnative')) return 'reactnative';
   if (path.includes('/webcomponents')) return 'webcomponents';
   if (path.includes('/vue')) return 'vue';
@@ -24,7 +29,7 @@ export function detectAppFromPath(path: string): string {
  * Determines which app is currently running based on URL and user agent
  * @returns The current app name, defaulting to 'react' if unable to determine
  */
-export function getCurrentApp(): string {
+export function getCurrentApp(): AppName {
   if (typeof window === 'undefined') return 'react';
 
   const path = window.location.pathname;
