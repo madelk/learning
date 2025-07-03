@@ -7,7 +7,7 @@ import type {
 import type { CSSProperties } from 'react';
 import { isLocalhost } from '@study/helpers';
 
-// Helper function to generate CSS string from styles
+/** Converts a NavBarStyles object into a CSS string representation */
 export function generateCSS(styles: NavBarStyles): string {
   return `
     :host {
@@ -92,7 +92,7 @@ export function generateCSS(styles: NavBarStyles): string {
   `;
 }
 
-// Helper function to generate nav items HTML
+/** Generates HTML markup for navigation items based on the provided configuration */
 export function generateNavHTML(items: NavBarItem[]): string {
   const links = items
     .map((item) => `<a href="${item.href || '#'}">${item.label}</a>`)
@@ -100,7 +100,7 @@ export function generateNavHTML(items: NavBarItem[]): string {
   return `<nav>${links}</nav>`;
 }
 
-// Helper function to generate app selector HTML
+/** Generates HTML markup for the app selector dropdown based on the provided configuration */
 export function generateAppSelectorHTML(
   appSelector: AppSelectorConfig
 ): string {
@@ -142,14 +142,12 @@ export function generateAppSelectorHTML(
   `;
 }
 
-// Helper function to get the URL for an app
+/** Returns the appropriate URL for an app based on environment and configuration */
 export function getAppUrl(app: AppOption): string {
   return isLocalhost ? app.localUrl : app.prodUrl;
 }
 
-// Helper function to convert shared styles to web-compatible styles
-export function convertToWebStyles(
-  styles: CSSProperties
-): React.CSSProperties {
+/** Converts React Native style properties to web-compatible CSS properties */
+export function convertToWebStyles(styles: CSSProperties): React.CSSProperties {
   return styles;
 }

@@ -1,4 +1,4 @@
-import { getIcons, getCurrentApp, isLocalhost } from './index.js';
+import { getIcons, isLocalhost } from './index.js';
 
 describe('navbar config functions', () => {
   const originalWindow = { ...window };
@@ -31,7 +31,6 @@ describe('navbar config functions', () => {
       expect(icons.webcomponents).toBe(
         'http://localhost:4202/webcomponents/favicon.png'
       );
-
     });
 
     it('returns correct production favicon URLs for each framework', () => {
@@ -42,7 +41,6 @@ describe('navbar config functions', () => {
       expect(icons.webcomponents).toBe(
         'https://www.madelk.co.uk/webcomponents/favicon.png'
       );
-
     });
 
     it('returns empty object when window is undefined', () => {
@@ -51,38 +49,6 @@ describe('navbar config functions', () => {
       delete global.window;
       const icons = getIcons();
       expect(icons).toEqual({});
-      global.window = originalWindow;
-    });
-  });
-
-  describe('getCurrentApp', () => {
-    it('detects react app from path', () => {
-      mockLocation('localhost', '/react/home');
-      expect(getCurrentApp()).toBe('react');
-    });
-
-    it('detects vue app from path', () => {
-      mockLocation('localhost', '/vue/about');
-      expect(getCurrentApp()).toBe('vue');
-    });
-
-    it('detects webcomponents app from path', () => {
-      mockLocation('localhost', '/webcomponents/docs');
-      expect(getCurrentApp()).toBe('webcomponents');
-    });
-
-
-
-    it('defaults to react for unknown paths', () => {
-      mockLocation('localhost', '/unknown');
-      expect(getCurrentApp()).toBe('react');
-    });
-
-    it('returns react when window is undefined', () => {
-      const originalWindow = global.window;
-      // @ts-expect-error Testing window undefined scenario
-      delete global.window;
-      expect(getCurrentApp()).toBe('react');
       global.window = originalWindow;
     });
   });

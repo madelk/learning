@@ -1,15 +1,15 @@
-name: CI (Disabled - using ci-no-cloud.yml instead)
+name: CI
 
 on:
   # pull_request:
   #   branches:
   #     - main
-  workflow_dispatch: # Manual trigger only
+  workflow_dispatch:
 
-# Cancel any in-progress job or previous runs
+# # Cancel any in-progress job or previous runs
 # concurrency:
-# group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-# cancel-in-progress: true
+#   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+#   cancel-in-progress: true
 
 permissions:
   actions: read
@@ -17,27 +17,33 @@ permissions:
 
 jobs:
   main:
-    timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      # This command does exist ignore the linting errors
+      # Checkout code
       - uses: actions/checkout@v4
         with:
-          filter: tree:0
           fetch-depth: 0
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-small-js" --stop-agents-after=typescript,lint,test,build
 
-      # This command does exist ignore the linting errors
+      # Start Nx Cloud CI Run
+      - name: Start Nx Cloud CI Run
+        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
+
+      # Setup Node.js
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.16.0
+          node-version: 20.11.0
           cache: 'npm'
 
       - run: npm ci
-      # This command does exist ignore the linting errors
+
+      # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
-      - run: npm test
+      # Run affected targets
+      - name: Run CI Targets
+        run: npx nx affected -t typecheck,lint,test,build --parallel=3
 
-      - run: npx nx-cloud stop-all-agents
+      # Stop Nx Cloud agents
+      - name: Stop Nx Cloud agents
         if: always()
+        run: npx nx-cloud stop-all-agents
