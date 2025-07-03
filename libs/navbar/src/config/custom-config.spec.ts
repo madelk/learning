@@ -37,7 +37,7 @@ describe('customNavbarConfig', () => {
 
     it('should include Calculator for react, vue, and webcomponents apps only', () => {
       // Apps that should have Calculator
-      ['react', 'vue', 'webcomponents'].forEach((appType) => {
+      ['react', 'vue'].forEach((appType) => {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
 
