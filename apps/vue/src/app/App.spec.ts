@@ -6,7 +6,7 @@ import { getHomepageText } from '@study/pagetext';
 
 describe('App', () => {
   it('renders properly', async () => {
-   const text = getHomepageText()
+    const text = getHomepageText();
     const wrapper = mount(App, { global: { plugins: [router] } });
     await router.isReady();
     expect(wrapper.text()).toContain(text.title.text);
