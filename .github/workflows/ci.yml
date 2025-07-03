@@ -38,11 +38,26 @@ jobs:
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
-      # Run affected targets
-      - name: Run CI Targets
+      # Run each target separately with verbose logging
+      - name: Run Typecheck
         env:
-          NX_CLOUD_DISTRIBUTED_EXECUTION: true
-        run: npx nx affected -t typecheck,lint,test,build --parallel=3
+          NX_VERBOSE_LOGGING: true
+        run: npx nx affected -t typecheck --parallel=3 --verbose
+
+      - name: Run Lint
+        env:
+          NX_VERBOSE_LOGGING: true
+        run: npx nx affected -t lint --parallel=3 --verbose
+
+      - name: Run Tests
+        env:
+          NX_VERBOSE_LOGGING: true
+        run: npx nx affected -t test --parallel=3 --verbose
+
+      - name: Run Build
+        env:
+          NX_VERBOSE_LOGGING: true
+        run: npx nx affected -t build --parallel=3 --verbose
 
       # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
