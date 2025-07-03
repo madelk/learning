@@ -21,14 +21,13 @@ jobs:
       # This command does exist ignore the linting errors
       - uses: actions/checkout@v4
         with:
-          filter: tree:0
           fetch-depth: 0
       - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after=build
 
       # This command does exist ignore the linting errors
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.16.0
+          node-version: 20.11.0
           cache: 'npm'
 
       - run: npm ci
