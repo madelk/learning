@@ -1,8 +1,10 @@
-// Mock the getCurrentApp function
+import { type AppName } from '@study/helpers';
 import { vi, describe, it, expect, afterEach } from 'vitest';
+
 vi.mock('@study/helpers', () => ({
   getCurrentApp: vi.fn()
 }));
+
 import * as helpers from '@study/helpers';
 import { getNavbarConfig } from './custom-config.js';
 
@@ -15,7 +17,14 @@ describe('customNavbarConfig', () => {
   describe('navigation items', () => {
     it('should include Home and About for all apps', () => {
       // Test for all app types
-      ['react', 'vue', 'webcomponents', 'reactnative'].forEach((appType) => {
+      const allApps: AppName[] = [
+        'react',
+        'vue',
+        'webcomponents',
+        'reactnative'
+      ];
+
+      allApps.forEach((appType) => {
         // Mock getCurrentApp to return the current app type
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
 
@@ -37,7 +46,8 @@ describe('customNavbarConfig', () => {
 
     it('should include Calculator for react, vue, and webcomponents apps only', () => {
       // Apps that should have Calculator
-      ['react', 'vue', 'webcomponents'].forEach((appType) => {
+      const calculatorApps: AppName[] = ['react', 'vue', 'webcomponents'];
+      calculatorApps.forEach((appType) => {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
 
@@ -74,7 +84,8 @@ describe('customNavbarConfig', () => {
       });
 
       // Other apps should NOT have Computed and Form
-      ['react', 'webcomponents', 'reactnative'].forEach((appType) => {
+      const otherApps: AppName[] = ['react', 'webcomponents', 'reactnative'];
+      otherApps.forEach((appType) => {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
 
@@ -91,7 +102,8 @@ describe('customNavbarConfig', () => {
 
     it('should have the correct number of navigation items for each app', () => {
       // React and webcomponents should have 3 items (Home, About, Calculator)
-      ['react', 'webcomponents'].forEach((appType) => {
+      const listofApps: AppName[] = ['react', 'webcomponents'];
+      listofApps.forEach((appType) => {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
         expect(config.items.length).toBe(3);

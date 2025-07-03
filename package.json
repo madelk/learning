@@ -12,7 +12,10 @@
     "lint": "nx affected --target lint --fix",
     "build": "nx affected --target build",
     "start": "nx run-many --target dev",
-    "clean-install": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && npm install"
+    "reset:nx": "npx nx reset",
+    "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
+    "clean:deps": "rm -rf ./node_modules",
+    "clean:full": "npm run clean:git && npm run clean:deps && npm install && npm run reset:nx"
   },
   "private": true,
   "devDependencies": {

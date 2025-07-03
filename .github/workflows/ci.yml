@@ -1,15 +1,15 @@
 name: CI (Disabled - using ci-no-cloud.yml instead)
 
 on:
-  # pull_request:
-  #   branches:
-  #     - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch: # Manual trigger only
 
 # Cancel any in-progress job or previous runs
-# concurrency:
-# group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-# cancel-in-progress: true
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   actions: read

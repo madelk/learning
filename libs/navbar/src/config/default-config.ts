@@ -1,7 +1,7 @@
 import type { NavBarConfig, FrameworkIcons } from '../types/index.js';
 import { getCurrentApp } from '@study/helpers';
 
-// Port configuration for local development
+/** Port mappings for development environment */
 const APP_PORTS = {
   react: 4200,
   vue: 4203,
@@ -9,13 +9,13 @@ const APP_PORTS = {
   reactnative: 4201
 } as const;
 
-// Domain configuration
+/** Domain configuration for local and production environments */
 const DOMAINS = {
   local: 'http://localhost',
   production: 'https://www.madelk.co.uk'
 } as const;
 
-// Path configuration
+/** URL paths for each application */
 const APP_PATHS = {
   react: '/react',
   vue: '/vue',
@@ -25,14 +25,17 @@ const APP_PATHS = {
 
 const FAVICON_FILE_NAME = '/favicon.png';
 
-// Helper to check if running on localhost
+/** Determines if the application is running in a localhost environment */
 export function isLocalhost(): boolean {
   if (typeof window === 'undefined') return false;
   const { hostname } = window.location;
   return hostname === 'localhost' || hostname === '127.0.0.1';
 }
 
-// Get icons for all frameworks (local and production)
+/**
+ * Retrieves framework-specific icon URLs for both local and production environments
+ * @returns An object containing icon URLs for each supported framework
+ */
 export function getIcons(): FrameworkIcons {
   if (typeof window === 'undefined') return {} as FrameworkIcons;
   const isLocal = isLocalhost();
@@ -54,7 +57,10 @@ export function getIcons(): FrameworkIcons {
   }
 }
 
-// Framework favicon PNGs as <img> tags using getIcons
+/**
+ * Generates HTML img tags for framework icons with proper dimensions and alt text
+ * @returns An object containing HTML strings for each framework's icon
+ */
 function getFrameworkIcons(): FrameworkIcons {
   const icons = getIcons();
   return {
@@ -73,16 +79,18 @@ function getFrameworkIcons(): FrameworkIcons {
 
 const FRAMEWORK_ICONS = getFrameworkIcons();
 
-// Helper to get the current subpath after the app segment
+/** Helper to get the current subpath after the app segment */
 function getCurrentSubPath(): string {
   if (typeof window === 'undefined') return '/';
   const path = window.location.pathname;
-  // Match /appname/anything or /appname
   const match = path.match(/^\/(react|vue|webcomponents|reactnative)(\/.*)?$/);
   return match && match[2] ? match[2] : '/';
 }
 
-// Default shared configuration
+/**
+ * Default shared configuration for the navigation bar
+ * @type {NavBarConfig}
+ */
 export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
   items: [
     { label: 'Home', href: `/${getCurrentApp()}/` },

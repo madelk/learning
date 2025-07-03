@@ -1,3 +1,4 @@
+/** Calculator operation types */
 export type CalculatorOperation =
   | 'add'
   | 'subtract'
@@ -48,38 +49,19 @@ export class CalculatorLogic {
     return this.state.memory;
   }
 
-  private formatResult(result: number): string {
-    // Handle special cases
-    if (!isFinite(result)) {
-      return 'Error';
-    }
-
-    // Handle very large numbers with exponential notation
-    // Switch to exponential when result would exceed 8-9 digits display capacity
-    if (Math.abs(result) >= CalculatorLogic.EXPONENTIAL_THRESHOLD) {
-      return result.toExponential(8).toUpperCase();
-    }
-
-    // Handle floating point precision issues
+  private handleFloatingPointDisplay(result: number): string {
     let resultStr = result.toString();
-    
-    // Special handling for common floating point issues
-    if (result === 0.1 + 0.2) {
-      return '0.3';
-    }
 
-    // Round to reasonable precision (up to 8 decimal places)
+    if (result === 0.1 + 0.2) return '0.3';
+
+    // Round to reasonable precision
     if (resultStr.includes('.')) {
       const rounded = Math.round(result * 100000000) / 100000000;
       resultStr = rounded.toString();
-      
-      // Trim trailing zeros after decimal point
-      if (resultStr.includes('.')) {
-        resultStr = resultStr.replace(/\.?0+$/, '');
-      }
+      resultStr = resultStr.replace(/\.?0+$/, '');
     }
 
-    // Limit display to 8 significant digits for 1/3 case
+    // Limit display for repeating decimals
     if (resultStr.length > 10 && resultStr.includes('.')) {
       const parts = resultStr.split('.');
       if (parts[1] && parts[1].length > 8) {
@@ -90,231 +72,290 @@ export class CalculatorLogic {
     return resultStr;
   }
 
+  private formatResult(result: number): string {
+    if (!isFinite(result)) return 'Error';
+    if (Math.abs(result) >= CalculatorLogic.EXPONENTIAL_THRESHOLD) {
+      return result.toExponential(8).toUpperCase();
+    }
+    return this.handleFloatingPointDisplay(result);
+  }
+
+  private updateMemoryValue(
+    operation: (memory: number, display: number) => number
+  ): void {
+    const memoryValue = Number(this.state.memory ?? '0');
+    const displayValue = Number(this.state.displayValue || '0');
+    this.state.memory = operation(memoryValue, displayValue).toString();
+    this.state.previouslySetAction = true;
+  }
+
   clearMemory(): void {
     this.state.memory = null;
   }
 
   addToMemory(): void {
-    if (this.state.memory === null) {
-      this.state.memory = '0';
-    }
-    const memoryValue = Number(this.state.memory);
-    const displayValue = Number(this.state.displayValue || '0');
-    this.state.memory = (memoryValue + displayValue).toString();
-    // Memory operations should prepare for new number entry
-    this.state.previouslySetAction = true;
+    this.updateMemoryValue((memory, display) => memory + display);
   }
 
   subtractFromMemory(): void {
-    if (this.state.memory === null) {
-      this.state.memory = '0';
-    }
-    const memoryValue = Number(this.state.memory);
-    const displayValue = Number(this.state.displayValue || '0');
-    this.state.memory = (memoryValue - displayValue).toString();
-    // Memory operations should prepare for new number entry
-    this.state.previouslySetAction = true;
+    this.updateMemoryValue((memory, display) => memory - display);
   }
 
   recallMemory(): void {
     this.state.displayValue = this.state.memory || '0';
   }
 
-  private calculateSquareRoot(): void {
+  private handleUnaryOperation(
+    operation: (value: number) => number | string
+  ): void {
     const currentValue = Number(this.state.displayValue);
-    if (currentValue >= 0) {
-      this.state.displayValue = this.formatResult(Math.sqrt(currentValue));
+    this.state.displayValue =
+      typeof operation(currentValue) === 'string'
+        ? (operation(currentValue) as string)
+        : this.formatResult(operation(currentValue) as number);
+    this.resetCalculationState();
+  }
+
+  private calculateSquareRoot(): void {
+    this.handleUnaryOperation((value) =>
+      value >= 0 ? Math.sqrt(value) : 'Error'
+    );
+  }
+
+  private calculateReciprocal(): void {
+    this.handleUnaryOperation((value) => (value !== 0 ? 1 / value : 'Error'));
+  }
+
+  private handleSignChange(): void {
+    this.handleUnaryOperation((value) => -value);
+  }
+
+  private calculatePercentage(): void {
+    if (this.hasValidPendingOperation()) {
+      this.handleOperationBasedPercentage();
     } else {
-      this.state.displayValue = 'Error';
+      this.handleUnaryOperation((value) => value / 100);
     }
-    // Reset state after immediate calculation
+  }
+
+  private hasValidPendingOperation(): boolean {
+    return this.state.previousValue !== null && this.state.calcAction !== null;
+  }
+
+  private handleOperationBasedPercentage(): void {
+    const baseValue = Number(this.state.previousValue);
+    const percentValue = Number(this.state.displayValue);
+
+    const isAddSubtract =
+      this.state.calcAction === 'add' || this.state.calcAction === 'subtract';
+    const result = isAddSubtract
+      ? (baseValue * percentValue) / 100
+      : percentValue / 100;
+
+    this.state.displayValue = this.formatResult(result);
+  }
+
+  private resetCalculationState(): void {
     this.state.calcAction = null;
     this.state.previousValue = null;
     this.state.previouslySetAction = false;
   }
 
   setAction(action: CalculatorOperation): void {
-    // Square root should calculate immediately
-    if (action === 'sqroot') {
-      this.calculateSquareRoot();
+    const unaryOperations: Record<
+      CalculatorOperation,
+      (() => void) | undefined
+    > = {
+      sqroot: () => this.calculateSquareRoot(),
+      reciprocal: () => this.calculateReciprocal(),
+      signchange: () => this.handleSignChange(),
+      percentage: () => this.calculatePercentage(),
+      add: undefined,
+      subtract: undefined,
+      multiply: undefined,
+      divide: undefined
+    };
+
+    const unaryOperation = unaryOperations[action];
+    if (unaryOperation) {
+      unaryOperation();
       return;
     }
 
-    // Handle immediate unary operations
-    if (action === 'reciprocal') {
-      const currentValue = Number(this.state.displayValue);
-      if (currentValue !== 0) {
-        this.state.displayValue = this.formatResult(1 / currentValue);
-      } else {
-        this.state.displayValue = 'Error';
-      }
-      // Reset state after immediate calculation
-      this.state.calcAction = null;
-      this.state.previousValue = null;
-      this.state.previouslySetAction = false;
-      return;
-    }
+    this.handleBinaryOperation(action);
+  }
 
-    if (action === 'signchange') {
-      const currentValue = Number(this.state.displayValue);
-      this.state.displayValue = this.formatResult(-currentValue);
-      return;
-    }
-
-    // Handle percentage
-    if (action === 'percentage') {
-      // Percentage calculation depends on the pending operation
-      if (this.state.previousValue !== null && this.state.calcAction !== null) {
-        const baseValue = Number(this.state.previousValue);
-        const percentValue = Number(this.state.displayValue);
-        
-        if (this.state.calcAction === 'add' || this.state.calcAction === 'subtract') {
-          // For +/-, percentage means base * percent / 100
-          this.state.displayValue = this.formatResult(baseValue * percentValue / 100);
-        } else if (this.state.calcAction === 'multiply' || this.state.calcAction === 'divide') {
-          // For */÷, percentage means percent / 100
-          this.state.displayValue = this.formatResult(percentValue / 100);
-        }
-      } else {
-        // No pending operation, just convert to percentage
-        this.state.displayValue = this.formatResult(Number(this.state.displayValue) / 100);
-      }
-      return;
-    }
-
-    // Reset the justCalculated flag when starting a new operation
+  private handleBinaryOperation(action: CalculatorOperation): void {
     this.state.justCalculated = false;
 
-    // If we already have a pending operation and this is a different operator
-    if (this.state.previousValue !== null && this.state.calcAction !== null && !this.state.previouslySetAction) {
-      // Calculate the result of the pending operation first
+    if (this.shouldCalculateFirst()) {
       this.calculateResult();
-      // After calculation, displayValue has the result, so move it to previousValue
       this.state.previousValue = this.state.displayValue;
     } else if (this.state.previousValue === null) {
-      // First operation, just store current display value
       this.state.previousValue = this.state.displayValue;
     }
 
-    // Set the new operation (this allows operator replacement)
     this.state.calcAction = action;
     this.state.previouslySetAction = true;
   }
 
+  private shouldCalculateFirst(): boolean {
+    return this.hasValidPendingOperation() && !this.state.previouslySetAction;
+  }
+
   appendToResult(value: number): void {
-    if (this.state.previouslySetAction) {
+    if (this.shouldResetDisplay()) {
       this.state.displayValue = '';
       this.state.previouslySetAction = false;
     }
-    if (this.state.displayValue === '0' || this.state.displayValue === 'Error') {
-      this.state.displayValue = '';
-    }
 
-    // Reset calculation state when entering new numbers
     this.state.justCalculated = false;
+    this.state.displayValue = (this.state.displayValue + value).toString();
+  }
 
-    this.state.displayValue += value;
-    this.state.displayValue = this.state.displayValue.toString();
+  private shouldResetDisplay(): boolean {
+    return (
+      this.state.previouslySetAction ||
+      this.state.displayValue === '0' ||
+      this.state.displayValue === 'Error'
+    );
   }
 
   appendDecimalPoint(): void {
-    // If we just performed an action, start fresh
     if (this.state.previouslySetAction) {
       this.state.displayValue = '0';
       this.state.previouslySetAction = false;
     }
 
-    // If display is empty, Error, or we're starting fresh, start with "0."
     if (this.state.displayValue === '' || this.state.displayValue === 'Error') {
       this.state.displayValue = '0';
     }
 
-    // Only add decimal point if one doesn't already exist
     if (!this.state.displayValue.includes('.')) {
       this.state.displayValue += '.';
     }
   }
 
-  calculateResult(): void {
-    if (this.state.calcAction === null) {
-      return; // Nothing to calculate
-    }
-
-    let operand: string;
-    let operation = this.state.calcAction;
-
-    // Handle case where no previous value exists (e.g., "5 + =")
+  private getOperandForCalculation(): {
+    operand: string;
+    operation: CalculatorOperation;
+  } {
     if (this.state.previousValue === null) {
-      this.state.previousValue = this.state.displayValue;
-      operand = this.state.displayValue; // Use current display as both operands
-      this.state.lastOperand = operand;
-      this.state.lastOperation = operation;
-    } else if (this.state.justCalculated && this.state.lastOperand !== null && this.state.lastOperation !== null) {
-      // This is a repeated equals press - repeat the last operation
-      operand = this.state.lastOperand;
-      operation = this.state.lastOperation;
-      this.state.previousValue = this.state.displayValue; // Use current result as new base
-    } else {
-      // Normal calculation - use current display as operand
-      operand = this.state.displayValue;
-      this.state.lastOperand = operand;
-      this.state.lastOperation = operation;
+      return this.handleFirstCalculation();
     }
 
-    // Perform calculation with proper rounding
-    let result: number;
+    if (this.shouldRepeatLastOperation()) {
+      return this.handleRepeatedCalculation();
+    }
+
+    return this.handleNormalCalculation();
+  }
+
+  private handleFirstCalculation(): {
+    operand: string;
+    operation: CalculatorOperation;
+  } {
+    const operation = this.state.calcAction;
+    if (!operation) {
+      throw new Error('No operation set');
+    }
+    this.state.previousValue = this.state.displayValue;
+    this.state.lastOperand = this.state.displayValue;
+    this.state.lastOperation = operation;
+    return {
+      operand: this.state.displayValue,
+      operation
+    };
+  }
+
+  private handleRepeatedCalculation(): {
+    operand: string;
+    operation: CalculatorOperation;
+  } {
+    const lastOperand = this.state.lastOperand;
+    const lastOperation = this.state.lastOperation;
+    if (!lastOperand || !lastOperation) {
+      throw new Error('No previous operation');
+    }
+    this.state.previousValue = this.state.displayValue;
+    return {
+      operand: lastOperand,
+      operation: lastOperation
+    };
+  }
+
+  private handleNormalCalculation(): {
+    operand: string;
+    operation: CalculatorOperation;
+  } {
+    const operation = this.state.calcAction;
+    if (!operation) {
+      throw new Error('No operation set');
+    }
+    this.state.lastOperand = this.state.displayValue;
+    this.state.lastOperation = operation;
+    return {
+      operand: this.state.displayValue,
+      operation
+    };
+  }
+
+  private shouldRepeatLastOperation(): boolean {
+    return (
+      this.state.justCalculated &&
+      this.state.lastOperand !== null &&
+      this.state.lastOperation !== null
+    );
+  }
+
+  private performOperation(
+    operation: CalculatorOperation,
+    prev: number,
+    op: number
+  ): number | string {
+    const operations: Record<
+      CalculatorOperation,
+      (a: number, b: number) => number | string
+    > = {
+      add: (a, b) => a + b,
+      subtract: (a, b) => a - b,
+      multiply: (a, b) => a * b,
+      divide: (a, b) => (b !== 0 ? a / b : 'Error'),
+      sqroot: (_, b) => (b >= 0 ? Math.sqrt(b) : 'Error'),
+      percentage: (a, b) => a * (b / 100),
+      reciprocal: (_, b) => (b !== 0 ? 1 / b : 'Error'),
+      signchange: (_, b) => -b
+    };
+
+    return operations[operation](prev, op);
+  }
+
+  calculateResult(): void {
+    if (this.state.calcAction === null) return;
+
+    const { operand, operation } = this.getOperandForCalculation();
     const prev = Number(this.state.previousValue) || 0;
     const op = Number(operand);
 
-    switch (operation) {
-      case 'add':
-        result = prev + op;
-        break;
-      case 'subtract':
-        result = prev - op;
-        break;
-      case 'multiply':
-        result = prev * op;
-        break;
-      case 'divide':
-        if (op !== 0) {
-          result = prev / op;
-        } else {
-          this.state.displayValue = 'Error';
-          return;
-        }
-        break;
-      case 'sqroot':
-        if (op >= 0) {
-          result = Math.sqrt(op);
-        } else {
-          this.state.displayValue = 'Error';
-          return;
-        }
-        break;
-      case 'percentage':
-        result = prev * (op / 100);
-        break;
-      default:
-        return;
-    }
+    const result = this.performOperation(operation, prev, op);
 
-    // Apply rounding and formatting
-    this.state.displayValue = this.formatResult(result);
-
-    // Mark that we just performed a calculation
+    this.state.displayValue =
+      typeof result === 'string' ? result : this.formatResult(result);
     this.state.justCalculated = true;
     this.state.previouslySetAction = false;
   }
 
   clearAll(): void {
-    this.state.displayValue = '0';
-    this.state.calcAction = null;
-    this.state.previousValue = null;
-    this.state.lastOperand = null;
-    this.state.lastOperation = null;
-    this.state.previouslySetAction = false;
-    this.state.justCalculated = false;
+    this.state = {
+      displayValue: '0',
+      memory: this.state.memory,
+      calcAction: null,
+      previousValue: null,
+      lastOperand: null,
+      lastOperation: null,
+      previouslySetAction: false,
+      justCalculated: false
+    };
   }
 
   clearEntry(): void {
