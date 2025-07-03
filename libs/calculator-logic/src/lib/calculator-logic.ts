@@ -80,7 +80,9 @@ export class CalculatorLogic {
     return this.handleFloatingPointDisplay(result);
   }
 
-  private updateMemoryValue(operation: (memory: number, display: number) => number): void {
+  private updateMemoryValue(
+    operation: (memory: number, display: number) => number
+  ): void {
     const memoryValue = Number(this.state.memory ?? '0');
     const displayValue = Number(this.state.displayValue || '0');
     this.state.memory = operation(memoryValue, displayValue).toString();
@@ -160,15 +162,18 @@ export class CalculatorLogic {
   }
 
   setAction(action: CalculatorOperation): void {
-    const unaryOperations: Record<CalculatorOperation, (() => void) | undefined> = {
-      'sqroot': () => this.calculateSquareRoot(),
-      'reciprocal': () => this.calculateReciprocal(),
-      'signchange': () => this.handleSignChange(),
-      'percentage': () => this.calculatePercentage(),
-      'add': undefined,
-      'subtract': undefined,
-      'multiply': undefined,
-      'divide': undefined
+    const unaryOperations: Record<
+      CalculatorOperation,
+      (() => void) | undefined
+    > = {
+      sqroot: () => this.calculateSquareRoot(),
+      reciprocal: () => this.calculateReciprocal(),
+      signchange: () => this.handleSignChange(),
+      percentage: () => this.calculatePercentage(),
+      add: undefined,
+      subtract: undefined,
+      multiply: undefined,
+      divide: undefined
     };
 
     const unaryOperation = unaryOperations[action];
@@ -246,7 +251,10 @@ export class CalculatorLogic {
     return this.handleNormalCalculation();
   }
 
-  private handleFirstCalculation(): { operand: string; operation: CalculatorOperation } {
+  private handleFirstCalculation(): {
+    operand: string;
+    operation: CalculatorOperation;
+  } {
     const operation = this.state.calcAction;
     if (!operation) {
       throw new Error('No operation set');
@@ -260,7 +268,10 @@ export class CalculatorLogic {
     };
   }
 
-  private handleRepeatedCalculation(): { operand: string; operation: CalculatorOperation } {
+  private handleRepeatedCalculation(): {
+    operand: string;
+    operation: CalculatorOperation;
+  } {
     const lastOperand = this.state.lastOperand;
     const lastOperation = this.state.lastOperation;
     if (!lastOperand || !lastOperation) {
@@ -273,7 +284,10 @@ export class CalculatorLogic {
     };
   }
 
-  private handleNormalCalculation(): { operand: string; operation: CalculatorOperation } {
+  private handleNormalCalculation(): {
+    operand: string;
+    operation: CalculatorOperation;
+  } {
     const operation = this.state.calcAction;
     if (!operation) {
       throw new Error('No operation set');

@@ -19,6 +19,7 @@ Keep functions small and focused - break large functions into smaller ones with 
 Prefer descriptive function names over comments to explain what code does
 Minimize comments - only add them when the code cannot be made clearer
 Use JSDoc for functions that need documentation - especially for:
+
 - Complex algorithms
 - Public APIs
 - Non-obvious parameters or return values
