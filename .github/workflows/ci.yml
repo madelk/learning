@@ -18,24 +18,33 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      # This command does exist ignore the linting errors
+      # Checkout code
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after=build
 
-      # This command does exist ignore the linting errors
+      # Start Nx Cloud CI Run
+      - name: Start Nx Cloud CI Run
+        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
+
+      # Setup Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
           cache: 'npm'
 
       - run: npm ci
-      # This command does exist ignore the linting errors
+
+      # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
-      - run: npm test
-      - run: npm run build
+      # Run affected targets
+      - name: Run CI Targets
+        env:
+          NX_CLOUD_DISTRIBUTED_EXECUTION: true
+        run: npx nx affected -t typecheck,lint,test,build --parallel=3
 
-      - run: npx nx-cloud stop-all-agents
+      # Stop Nx Cloud agents
+      - name: Stop Nx Cloud agents
         if: always()
+        run: npx nx-cloud stop-all-agents
