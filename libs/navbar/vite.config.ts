@@ -6,12 +6,11 @@ import { resolve } from 'path';
 export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/libs/navbar',
-  
+
   build: {
     lib: {
       entry: {
-        index: resolve(__dirname, 'src/index.ts'),
-        native: resolve(__dirname, 'src/native.ts')
+        index: resolve(__dirname, 'src/index.ts')
       },
       formats: ['es'],
       fileName: (_format, entryName) => `${entryName}.js`
@@ -22,7 +21,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true
   },
-  
+
   plugins: [
     dts({
       entryRoot: 'src',
@@ -31,7 +30,7 @@ export default defineConfig({
       insertTypesEntry: true
     })
   ],
-  
+
   test: {
     watch: false,
     globals: true,

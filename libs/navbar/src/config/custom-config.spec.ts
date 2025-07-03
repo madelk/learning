@@ -17,12 +17,7 @@ describe('customNavbarConfig', () => {
   describe('navigation items', () => {
     it('should include Home and About for all apps', () => {
       // Test for all app types
-      const allApps: AppName[] = [
-        'react',
-        'vue',
-        'webcomponents',
-        'reactnative'
-      ];
+      const allApps: AppName[] = ['react', 'vue', 'webcomponents'];
 
       allApps.forEach((appType) => {
         // Mock getCurrentApp to return the current app type
@@ -58,14 +53,17 @@ describe('customNavbarConfig', () => {
         });
       });
 
-      // React Native should NOT have Calculator
-      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('reactnative');
-      const reactNativeConfig = getNavbarConfig();
+      // Apps that should NOT have Calculator
+      const notCalculatorApps: AppName[] = ['webcomponents'];
+      notCalculatorApps.forEach((appType) => {
+        vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
+        const config = getNavbarConfig();
 
-      const navItems = reactNativeConfig.items;
-      expect(navItems).not.toContainEqual({
-        label: 'Calculator',
-        href: '/reactnative/calculator'
+        const navItems = config.items;
+        expect(navItems).not.toContainEqual({
+          label: 'Calculator',
+          href: `/${appType}/calculator`
+        });
       });
     });
 
@@ -84,7 +82,7 @@ describe('customNavbarConfig', () => {
       });
 
       // Other apps should NOT have Computed and Form
-      const otherApps: AppName[] = ['react', 'webcomponents', 'reactnative'];
+      const otherApps: AppName[] = ['react', 'webcomponents'];
       otherApps.forEach((appType) => {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
@@ -115,11 +113,6 @@ describe('customNavbarConfig', () => {
       vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('vue');
       const vueConfig = getNavbarConfig();
       expect(vueConfig.items.length).toBe(5);
-
-      // React Native should have 2 items (Home, About)
-      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('reactnative');
-      const reactNativeConfig = getNavbarConfig();
-      expect(reactNativeConfig.items.length).toBe(2);
     });
   });
 });

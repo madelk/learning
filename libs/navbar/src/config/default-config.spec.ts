@@ -67,9 +67,7 @@ describe('default-config utilities', () => {
       expect(icons.webcomponents).toContain(
         'http://localhost:4202/webcomponents/favicon.png'
       );
-      expect(icons.reactnative).toContain(
-        'http://localhost:4201/reactnative/favicon.png'
-      );
+
     });
 
     it('should return production URLs when not on localhost', () => {
@@ -83,9 +81,7 @@ describe('default-config utilities', () => {
       expect(icons.webcomponents).toContain(
         'https://www.madelk.co.uk/webcomponents/favicon.png'
       );
-      expect(icons.reactnative).toContain(
-        'https://www.madelk.co.uk/reactnative/favicon.png'
-      );
+
     });
 
     it('should return empty object when window is undefined', () => {

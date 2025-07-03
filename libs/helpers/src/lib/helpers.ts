@@ -1,7 +1,7 @@
 /**
  * Valid app names in the workspace
  */
-export type AppName = 'react' | 'vue' | 'webcomponents' | 'reactnative';
+export type AppName = 'react' | 'vue' | 'webcomponents';
 
 /**
  * Detects if the current environment is running on localhost
@@ -15,10 +15,9 @@ export const isLocalhost =
 /**
  * Extracts the app name from a URL path
  * @param path The URL path to analyze
- * @returns The detected app name (react, vue, webcomponents, or reactnative)
+ * @returns The detected app name (react, vue, webcomponents)
  */
 export function detectAppFromPath(path: string): AppName {
-  if (path.includes('/reactnative')) return 'reactnative';
   if (path.includes('/webcomponents')) return 'webcomponents';
   if (path.includes('/vue')) return 'vue';
   if (path.includes('/react')) return 'react';
@@ -34,20 +33,12 @@ export function getCurrentApp(): AppName {
 
   const path = window.location.pathname;
   const port = window.location.port;
-  const userAgent = window.navigator.userAgent.toLowerCase();
-
-  // Try to detect React Native web by user agent or path
-  if (userAgent.includes('reactnative') || path.includes('/reactnative')) {
-    return 'reactnative';
-  }
 
   if (isLocalhost) {
     // Local development - detect by port
     switch (port) {
       case '4200':
         return 'react';
-      case '4201':
-        return 'reactnative';
       case '4202':
         return 'webcomponents';
       case '4203':

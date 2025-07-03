@@ -12,11 +12,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    },
-    "./src/native": {
-      "types": "./dist/native.d.ts",
-      "import": "./dist/native.js",
-      "default": "./dist/native.js"
     }
   },
   "nx": {

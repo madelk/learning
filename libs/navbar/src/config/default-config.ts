@@ -5,8 +5,7 @@ import { getCurrentApp } from '@study/helpers';
 const APP_PORTS = {
   react: 4200,
   vue: 4203,
-  webcomponents: 4202,
-  reactnative: 4201
+  webcomponents: 4202
 } as const;
 
 /** Domain configuration for local and production environments */
@@ -19,8 +18,7 @@ const DOMAINS = {
 const APP_PATHS = {
   react: '/react',
   vue: '/vue',
-  webcomponents: '/webcomponents',
-  reactnative: '/reactnative'
+  webcomponents: '/webcomponents'
 } as const;
 
 const FAVICON_FILE_NAME = '/favicon.png';
@@ -44,15 +42,13 @@ export function getIcons(): FrameworkIcons {
     return {
       react: `${DOMAINS.local}:${APP_PORTS.react}${APP_PATHS.react}${FAVICON_FILE_NAME}`,
       vue: `${DOMAINS.local}:${APP_PORTS.vue}${APP_PATHS.vue}${FAVICON_FILE_NAME}`,
-      webcomponents: `${DOMAINS.local}:${APP_PORTS.webcomponents}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`,
-      reactnative: `${DOMAINS.local}:${APP_PORTS.reactnative}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`
+      webcomponents: `${DOMAINS.local}:${APP_PORTS.webcomponents}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`
     };
   } else {
     return {
       react: `${DOMAINS.production}${APP_PATHS.react}${FAVICON_FILE_NAME}`,
       vue: `${DOMAINS.production}${APP_PATHS.vue}${FAVICON_FILE_NAME}`,
-      webcomponents: `${DOMAINS.production}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`,
-      reactnative: `${DOMAINS.production}${APP_PATHS.reactnative}${FAVICON_FILE_NAME}`
+      webcomponents: `${DOMAINS.production}${APP_PATHS.webcomponents}${FAVICON_FILE_NAME}`
     };
   }
 }
@@ -70,10 +66,7 @@ function getFrameworkIcons(): FrameworkIcons {
     vue: `<img src="${icons.vue || ''}" alt="Vue" width="20" height="20" />`,
     webcomponents: `<img src="${
       icons.webcomponents || ''
-    }" alt="Web Components" width="20" height="20" />`,
-    reactnative: `<img src="${
-      icons.reactnative || ''
-    }" alt="React Native" width="20" height="20" />`
+    }" alt="Web Components" width="20" height="20" />`
   };
 }
 
@@ -83,7 +76,8 @@ const FRAMEWORK_ICONS = getFrameworkIcons();
 function getCurrentSubPath(): string {
   if (typeof window === 'undefined') return '/';
   const path = window.location.pathname;
-  const match = path.match(/^\/(react|vue|webcomponents|reactnative)(\/.*)?$/);
+  // Match /appname/anything or /appname
+  const match = path.match(/^\/(react|vue|webcomponents)(\/.*)?$/);
   return match && match[2] ? match[2] : '/';
 }
 
@@ -92,11 +86,7 @@ function getCurrentSubPath(): string {
  * @type {NavBarConfig}
  */
 export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
-  items: [
-    { label: 'Home', href: `/${getCurrentApp()}/` },
-    { label: 'About', href: `/${getCurrentApp()}/about` },
-    { label: 'Calculator', href: `/${getCurrentApp()}/calculator` }
-  ],
+  items: [], // Items are managed by custom-config.ts
   appSelector: {
     enabled: true,
     currentApp: getCurrentApp(),
@@ -128,17 +118,6 @@ export const DEFAULT_NAVBAR_CONFIG: NavBarConfig = {
         }${getCurrentSubPath()}`,
         prodUrl: `${DOMAINS.production}${
           APP_PATHS.webcomponents
-        }${getCurrentSubPath()}`
-      },
-      {
-        id: 'reactnative',
-        name: 'React Native',
-        icon: FRAMEWORK_ICONS.reactnative,
-        localUrl: `${DOMAINS.local}:${APP_PORTS.reactnative}${
-          APP_PATHS.reactnative
-        }${getCurrentSubPath()}`,
-        prodUrl: `${DOMAINS.production}${
-          APP_PATHS.reactnative
         }${getCurrentSubPath()}`
       }
     ]
