@@ -44,7 +44,7 @@ describe('NavBar', () => {
 
   it('should have app selector items for all frameworks', () => {
     const appItems = element.shadowRoot?.querySelectorAll('.app-selector-item');
-    expect(appItems?.length).toBe(4); // React, Vue, Web Components, React Native
+    expect(appItems?.length).toBe(3); // React, Vue, Web Components
     
     // Check that framework icons are present
     const icons = element.shadowRoot?.querySelectorAll('.app-icon');

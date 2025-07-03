@@ -4,8 +4,8 @@ describe('helpers', () => {
   describe('detectAppFromPath', () => {
   it('should work', () => {
     // Arrange
-    const path = '/reactnative/some/path';
-    const expectedApp = 'reactnative';
+    const path = '/react/some/path';
+    const expectedApp = 'react';
 
     // Act
     const result: string = detectAppFromPath(path);
