@@ -19,13 +19,8 @@
     { "route": "/vue/*.css", "allowed": true },
     { "route": "/vue/*.ico", "allowed": true },
     { "route": "/vue/*.png", "allowed": true },
-    { "route": "/vue/*", "rewrite": "/vue/index.html" },
+    { "route": "/vue/*", "rewrite": "/vue/index.html" }
 
-    { "route": "/reactnative/assets/*", "allowed": true },
-    { "route": "/reactnative/*.js", "allowed": true },
-    { "route": "/reactnative/*.css", "allowed": true },
-    { "route": "/reactnative/*.ico", "allowed": true },
-    { "route": "/reactnative/*.png", "allowed": true },
-    { "route": "/reactnative/*", "rewrite": "/reactnative/index.html" }
+
   ]
 }

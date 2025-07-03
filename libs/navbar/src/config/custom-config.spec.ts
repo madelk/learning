@@ -35,9 +35,9 @@ describe('customNavbarConfig', () => {
       });
     });
 
-    it('should include Calculator for react, vue, and webcomponents apps only', () => {
+    it('should include Calculator for react and vue apps only', () => {
       // Apps that should have Calculator
-      ['react', 'vue', 'webcomponents'].forEach((appType) => {
+      ['react', 'vue'].forEach((appType) => {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
 
@@ -48,15 +48,32 @@ describe('customNavbarConfig', () => {
         });
       });
 
-      // React Native should NOT have Calculator
-      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('reactnative');
-      const reactNativeConfig = getNavbarConfig();
+      // Apps that should NOT have Calculator
+      ['webcomponents', 'reactnative'].forEach((appType) => {
+        vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
+        const config = getNavbarConfig();
 
-      const navItems = reactNativeConfig.items;
-      expect(navItems).not.toContainEqual({
-        label: 'Calculator',
-        href: '/reactnative/calculator'
+        const navItems = config.items;
+        expect(navItems).not.toContainEqual({
+          label: 'Calculator',
+          href: `/${appType}/calculator`
+        });
       });
+    });
+
+    it('should NOT include Calculator for React Native', () => {
+      // Arrange
+      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('reactnative');
+
+      // Act
+      const config = getNavbarConfig();
+
+      // Assert
+      const hasCalculator = config.items.some(
+        (item) => item.label === 'Calculator'
+      );
+      expect(hasCalculator).toBe(false);
+      expect(config.items.map((item) => item.label)).toEqual(['Home', 'About']);
     });
 
     it('should include Computed and Form pages only for vue app', () => {
@@ -90,17 +107,20 @@ describe('customNavbarConfig', () => {
     });
 
     it('should have the correct number of navigation items for each app', () => {
-      // React and webcomponents should have 3 items (Home, About, Calculator)
-      ['react', 'webcomponents'].forEach((appType) => {
-        vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
-        const config = getNavbarConfig();
-        expect(config.items.length).toBe(3);
-      });
+      // React should have 3 items (Home, About, Calculator)
+      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('react');
+      const reactConfig = getNavbarConfig();
+      expect(reactConfig.items.length).toBe(3);
 
       // Vue should have 5 items (Home, About, Calculator, Computed, Form)
       vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('vue');
       const vueConfig = getNavbarConfig();
       expect(vueConfig.items.length).toBe(5);
+
+      // Webcomponents should have 2 items (Home, About)
+      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('webcomponents');
+      const webcomponentsConfig = getNavbarConfig();
+      expect(webcomponentsConfig.items.length).toBe(2);
 
       // React Native should have 2 items (Home, About)
       vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('reactnative');

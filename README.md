@@ -5,11 +5,14 @@
 This monorepo contains multiple frontend applications built with different frameworks, managed using Nx. It serves as a study and comparison environment for various frontend technologies.
 
 ## Live site
+
 [madelk.co.uk](https://www.madelk.co.uk)
 
 ## Run locally
+
 - Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
-``` bash
+
+```bash
 git clone https://github.com/madelk/learning.git
 cd learning
 nvm install
@@ -22,7 +25,6 @@ npm start
 The workspace includes the following applications:
 
 - `apps/react`: React application with Vite and Tailwind CSS
-- `apps/reactnative`: React Native application
 - `apps/vue`: Vue.js application
 - `apps/webcomponents`: Web Components application
 
@@ -37,6 +39,7 @@ npx nx serve <app-name>
 ```
 
 For example:
+
 ```bash
 npx nx serve react
 ```

@@ -1,11 +1,9 @@
-
 // Detect current environment (local vs production)
 export const isLocalhost = typeof window !== 'undefined' && 
   (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
 // Helper to detect app from path
 export function detectAppFromPath(path: string): string {
-  if (path.includes('/reactnative')) return 'reactnative';
   if (path.includes('/webcomponents')) return 'webcomponents';
   if (path.includes('/vue')) return 'vue';
   if (path.includes('/react')) return 'react';
@@ -18,18 +16,11 @@ export function getCurrentApp(): string {
   
   const path = window.location.pathname;
   const port = window.location.port;
-  const userAgent = window.navigator.userAgent.toLowerCase();
-
-  // Try to detect React Native web by user agent or path
-  if (userAgent.includes('reactnative') || path.includes('/reactnative')) {
-    return 'reactnative';
-  }
 
   if (isLocalhost) {
-    // Local development - detect by port
+    // In development, check port first
     switch (port) {
       case '4200': return 'react';
-      case '4201': return 'reactnative';
       case '4202': return 'webcomponents';
       case '4203': return 'vue';
       default:

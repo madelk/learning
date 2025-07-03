@@ -2,7 +2,7 @@
 import type { CSSProperties } from 'react';
 
 // Framework types
-export type FrameworkId = 'react' | 'vue' | 'webcomponents' | 'reactnative';
+export type FrameworkId = 'react' | 'vue' | 'webcomponents';
 export type FrameworkIcons = Record<FrameworkId, string>;
 
 // Extended CSS properties for custom styling needs
@@ -41,10 +41,4 @@ export interface NavBarStyles {
   link: CSSProperties;
   dropdown: CSSProperties;
   dropdownItem: ExtendedCSSProperties;
-}
-
-// React Native specific props
-export interface NavBarNativeProps {
-  config?: Partial<NavBarConfig>;
-  onItemPress?: (item: NavBarItem) => void;
 }

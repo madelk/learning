@@ -16,9 +16,6 @@
       "path": "./apps/webcomponents"
     },
     {
-      "path": "./apps/reactnative"
-    },
-    {
       "path": "./apps/vue-e2e"
     },
     {
