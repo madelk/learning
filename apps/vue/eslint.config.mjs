@@ -1,4 +1,5 @@
 import vue from 'eslint-plugin-vue';
+import prettier from 'eslint-config-prettier';
 import baseConfig from '../../eslint.config.mjs';
 
 export default [
@@ -20,5 +21,6 @@ export default [
     rules: {
       'vue/multi-word-component-names': 'off'
     }
-  }
+  },
+  prettier
 ];
