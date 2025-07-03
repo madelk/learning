@@ -160,10 +160,10 @@
       "dependsOn": ["^build", "build"]
     },
     "typecheck": {
-      "dependsOn": ["^build", "build"]
+      "dependsOn": ["^typecheck"]
     },
     "lint": {
-      "dependsOn": ["^build"]
+      "dependsOn": []
     }
   },
   "generators": {
