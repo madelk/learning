@@ -5,7 +5,7 @@ import { getCurrentApp } from '@study/helpers';
 /**
  * Apps that support the calculator feature
  */
-const CALCULATOR_SUPPORTED_APPS = ['react', 'vue', 'webcomponents'];
+const CALCULATOR_SUPPORTED_APPS = ['react', 'vue'];
 
 /**
  * Get the navbar configuration for the current app

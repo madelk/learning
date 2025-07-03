@@ -1,8 +1,6 @@
 <template>
   <div class="calculator p-4 max-w-md mx-auto">
-    <h1 class="text-2xl font-bold mb-4">
-      Vue Calculator
-    </h1>
+    <h1 class="text-2xl font-bold mb-4">Vue Calculator</h1>
     <input
       id="result"
       v-model="displayValue"
@@ -39,7 +37,7 @@ import {
   CALCULATOR_BUTTONS,
   createButtonHandler,
   DEFAULT_STYLE_CLASSES,
-  type ButtonConfig,
+  type ButtonConfig
 } from '@study/calculator-logic';
 
 interface CalculatorButton {
@@ -67,15 +65,15 @@ export default {
         label: config.label,
         action: createButtonHandler(config, calculator, updateDisplay),
         style: DEFAULT_STYLE_CLASSES[config.styleType],
-        fullWidth: config.fullWidth,
+        fullWidth: config.fullWidth
       })
     );
 
     return {
       buttons,
       memory,
-      displayValue,
+      displayValue
     };
-  },
+  }
 };
 </script>

@@ -9,6 +9,10 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true,
+    "composite": true,
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "lib": ["dom", "ESNext"]
   },

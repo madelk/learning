@@ -44,9 +44,9 @@ describe('customNavbarConfig', () => {
       });
     });
 
-    it('should include Calculator for react, vue, and webcomponents apps only', () => {
+    it('should include Calculator for react and vue apps only', () => {
       // Apps that should have Calculator
-      const calculatorApps: AppName[] = ['react', 'vue', 'webcomponents'];
+      const calculatorApps: AppName[] = ['react', 'vue'];
       calculatorApps.forEach((appType) => {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
@@ -101,13 +101,15 @@ describe('customNavbarConfig', () => {
     });
 
     it('should have the correct number of navigation items for each app', () => {
-      // React and webcomponents should have 3 items (Home, About, Calculator)
-      const listofApps: AppName[] = ['react', 'webcomponents'];
-      listofApps.forEach((appType) => {
-        vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
-        const config = getNavbarConfig();
-        expect(config.items.length).toBe(3);
-      });
+      // React should have 3 items (Home, About, Calculator)
+      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('react');
+      const reactConfig = getNavbarConfig();
+      expect(reactConfig.items.length).toBe(3);
+
+      // Webcomponents should have 2 items (Home, About)
+      vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('webcomponents');
+      const webcomponentsConfig = getNavbarConfig();
+      expect(webcomponentsConfig.items.length).toBe(2);
 
       // Vue should have 5 items (Home, About, Calculator, Computed, Form)
       vi.spyOn(helpers, 'getCurrentApp').mockReturnValue('vue');

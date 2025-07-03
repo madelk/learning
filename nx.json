@@ -153,8 +153,17 @@
     }
   ],
   "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build", "typecheck"]
+    },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "build"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build", "^typecheck"]
+    },
+    "lint": {
+      "dependsOn": []
     }
   },
   "generators": {
