@@ -160,7 +160,7 @@
       "dependsOn": ["^build", "build"]
     },
     "typecheck": {
-      "dependsOn": ["^typecheck"]
+      "dependsOn": ["^build"]
     },
     "lint": {
       "dependsOn": []
