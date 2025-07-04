@@ -23,10 +23,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          filter: tree:0
 
       # Start Nx Cloud CI Run
       - name: Start Nx Cloud CI Run
-        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
+        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
 
       # Setup Node.js
       - uses: actions/setup-node@v4
@@ -39,9 +40,13 @@ jobs:
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
+      # Check code formatting
+      - name: Check code formatting
+        run: npx nx format:check
+
       # Run affected targets
       - name: Run CI Targets
-        run: npx nx affected -t typecheck,lint,test,build --parallel=3
+        run: npx nx affected -t typecheck,lint,test,build,e2e-ci --parallel=3
 
       # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
