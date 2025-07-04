@@ -1,5 +1,5 @@
 ---
-applyTo: '**'
+applyTo: "**"
 ---
 
 # Core Development Guidelines
@@ -18,6 +18,7 @@ applyTo: '**'
 ## Meta
 
 These instruction files are living documents. When you learn new patterns:
+
 - Update `docs/DEVELOPMENT_GUIDE.md` with comprehensive information
 - Keep instruction files lightweight and pointing to docs
 - **When user says "always do X" - update the development guide**
