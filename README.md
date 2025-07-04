@@ -30,6 +30,11 @@ The workspace includes the following applications:
 
 Each application has its corresponding e2e testing project (e.g., `react-e2e`)
 
+## Documentation
+
+- **[Development Guide](docs/DEVELOPMENT_GUIDE.md)** - Complete development practices, patterns, and workflows
+- **[TypeScript Configuration Guide](docs/TYPESCRIPT_CONFIG.md)** - Comprehensive TypeScript setup and configuration patterns
+
 ## Development
 
 To run any application:
