@@ -184,7 +184,7 @@ const eslintConfig = [
       // Stylistic rules
       "@stylistic/indent": ["error", 2, { SwitchCase: 1 }],
       "@stylistic/semi": ["error", "always"],
-      "@stylistic/quotes": ["error", "single"],
+      "@stylistic/quotes": ["error", "double"],
       "@stylistic/comma-dangle": ["error", "never"],
       "@stylistic/comma-spacing": ["error", { before: false, after: true }],
       "@stylistic/comma-style": ["error", "last"],
