@@ -50,9 +50,8 @@ jobs:
         timeout-minutes: 5
         run: |
           # Run non-E2E tasks in parallel, then E2E tasks sequentially
-          npx nx affected -t typecheck,lint,build --parallel=3
+          npx nx affected -t test,typecheck,lint,build --parallel=3
           npx nx affected -t e2e-ci --parallel=1
-          npx nx affected -t test --parallel=3
 
       # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
