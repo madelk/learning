@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
       # This command does exist ignore the linting errors
