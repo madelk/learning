@@ -1,19 +1,46 @@
 # CI Hang Investigation Results
 
-## Root Cause Identified ✅
+# CI Hang Investigation Results ✅ RESOLVED
 
-**The CI hang was caused by extremely slow npm registry responses in GitHub Actions**, not by any code or configuration issues.
+## Root Cause Identified and Fixed ✅
+
+**The CI hang was caused by Node.js 22.17.0 specific compatibility issues combined with outdated package versions.**
+
+### Final Working Solution
+
+- **Node.js version**: 22.16.0 (instead of 22.17.0)
+- **Updated packages**:
+  - `@types/node`: 20.19.4 → 24.0.10 (Node.js 22 type support)
+  - `@swc/core`: 1.5.29 → 1.12.9 (better Node.js 22 compatibility)
+- **Clean CI configuration**: Removed debug/workaround code, restored simple approach
+- **Auto-linting restored**: Pre-commit hooks working with lint-staged and Husky
 
 ### Evidence
 
-- Package downloads taking 11-25 seconds each (normal: <1 second)
-- Example slow downloads:
-  - `webpack-5.99.9.tgz`: 24,011ms
-  - `lodash-4.17.21.tgz`: 23,357ms
-  - `rollup-4.44.0.tgz`: 14,698ms
-  - Most packages: 11-16 seconds
-- PostInstall scripts ran fine after downloads completed
-- Local npm installs work normally
+- **Minimal test branch**: Created `test-node-22-only` with ONLY Node.js upgrade
+- **Node.js 22.17.0**: CI consistently hung during npm install (despite Cypress skip flags)
+- **Node.js 22.16.0 + package updates**: CI passes successfully
+- **Package compatibility**: Outdated @types/node and @swc/core contributed to the issue
+- **Systematic isolation**: Ruled out all other changes (Husky, lint-staged, Nx config, etc.)
+
+## Final Implementation ✅
+
+**Working CI Workflow (`auto-lint` branch)**:
+
+```yaml
+# Clean, minimal approach that works
+- uses: actions/setup-node@v4
+  with:
+    node-version: 22.16.0
+    cache: "npm"
+- run: npm ci
+```
+
+**Automation Restored**:
+
+- ✅ Pre-commit hooks with Husky
+- ✅ Auto-formatting and linting with lint-staged
+- ✅ All tests passing locally and in CI
 
 ## Systematic Debugging Steps ✅
 
@@ -99,29 +126,33 @@
 6. **⚠️ CRITICAL: engine-strict setting** - `.npmrc` with `engine-strict=true` can cause npm to hang on version validation
 7. **Bypass flags are essential** - `--ignore-engines` and `--legacy-peer-deps` often needed in CI
 
-## Current Status ✅
+## Current Status ✅ COMPLETE
 
-- **Local development**: All tests pass, no issues
-- **CI optimization**: Applied network optimizations for slow registry
-- **Debugging setup**: Multiple fallback workflows available
-- **Dependencies**: Cleaned up and optimized package.json
+- **✅ CI fixed**: Node.js 22.16.0 + updated packages resolve all hangs
+- **✅ Automation restored**: Pre-commit hooks working with Husky + lint-staged
+- **✅ All tests passing**: Local and CI environments stable
+- **✅ Clean codebase**: Removed all debug/workaround code
+- **✅ Documentation updated**: Complete investigation record maintained
 
-## Recommendations 📋
+## Final Solution Summary 📋
 
-1. **Monitor CI performance** - Watch for registry slowness patterns
-2. **Consider npm mirror** - Could use a faster registry mirror if issues persist
-3. **Yarn fallback** - Keep yarn workflow as backup option
-4. **Dependency audit** - Periodically review large dependencies that slow installs
-5. **Network debugging** - Keep verbose logging in CI for future issues
+**For future reference, to avoid CI hangs with Node.js 22.x:**
+
+1. **Use Node.js 22.16.0** (avoid 22.17.0 specifically)
+2. **Update critical packages**:
+   ```bash
+   npm install @types/node@latest @swc/core@latest --save-dev
+   ```
+3. **Keep CI configuration simple** - avoid complex workarounds
+4. **Cypress compatibility** - Latest Cypress (14.5.1) officially supports Node.js 22.x
 
 ## Files Modified 📁
 
-- `package.json`: Removed husky/lint-staged, relaxed engines
-- `package-lock.json`: Regenerated without problematic dependencies
-- `.github/workflows/ci.yml`: Added network optimizations
-- `.github/workflows/ci-fast-install.yml`: Alternative yarn workflow
-- `.github/workflows/ci-minimal.yml`: Minimal debugging workflow
+- **Core config**: `.nvmrc`, `package.json`, `package-lock.json`
+- **CI workflow**: `.github/workflows/ci.yml` (cleaned up)
+- **Automation**: `.husky/pre-commit`, `package.json` (lint-staged)
+- **Documentation**: This investigation record
 
 ---
 
-**Next Steps**: Monitor CI runs to confirm the network optimizations resolve the hang issue.
+**✅ RESOLVED**: Node.js 22.16.0 + package updates + clean CI configuration = stable, working setup with full automation.\*\*
