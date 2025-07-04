@@ -46,7 +46,29 @@ jobs:
         run: npx nx format:check
 
       - name: TEMP Run test first to verify it finishes
-        run: npx nx affected -t test --parallel=3
+        timeout-minutes: 10
+        run: |
+          echo "=== Debugging test execution ==="
+          echo "Checking affected projects..."
+          npx nx show projects --affected
+          echo "Checking affected projects with test target..."
+          npx nx show projects --affected --withTarget=test
+          
+          echo "=== First try: Non-distributed execution ==="
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose || {
+            echo "Non-distributed test failed with exit code: $?"
+          }
+          
+          echo "=== Second try: Distributed execution ==="
+          set -x  # Enable command tracing
+          npx nx affected -t test --parallel=3 --verbose || {
+            echo "Test command failed with exit code: $?"
+            echo "Checking if any agents are still running..."
+            npx nx-cloud status || true
+            exit 1
+          }
+          set +x  # Disable command tracing
+          echo "Test command completed successfully with exit code: $?"
 
       - name: Run CI Targets
         timeout-minutes: 5
