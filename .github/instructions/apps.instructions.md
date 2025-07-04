@@ -4,22 +4,18 @@ applyTo: 'apps/**'
 
 # App Development Guide
 
-## Available Apps
+**Primary Documentation:** See `docs/DEVELOPMENT_GUIDE.md#app-development` for comprehensive app development guidance.
 
+## Quick Reference
+
+**Available Apps:**
 - `@study/react` - React + Vite + Tailwind
 - `@study/vue` - Vue + Vite + Tailwind
 - `@study/webcomponents` - Lit + Vite + Tailwind
 
-## Shared Libraries
-
-Import these workspace libraries in your apps:
-
-- `@study/helpers` - Utility functions
-- `@study/navbar` - Shared navigation components
-- `@study/pagetext` - Text content helpers
-- `@study/calculator-logic` - Calculator functionality
-
-## Development
-
+**Development:**
 - `nx dev <app>` - Start development server
 - `npm start` - Start all apps at once
+
+**Shared Libraries:** Import these workspace libraries in your apps:
+- `@study/helpers`, `@study/navbar`, `@study/pagetext`, `@study/calculator-logic`

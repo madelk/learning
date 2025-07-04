@@ -6,6 +6,8 @@
     "outDir": "dist",
     "lib": ["dom"],
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "declaration": true,
+    "declarationMap": true,
     "emitDeclarationOnly": false,
     "types": ["node"]
   },

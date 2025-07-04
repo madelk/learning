@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
+    "emitDeclarationOnly": false,
     "jsx": "react-jsx",
     "lib": ["dom"],
     "types": [
