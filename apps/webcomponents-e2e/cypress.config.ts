@@ -11,7 +11,7 @@ export default defineConfig({
         production: "npx nx run @study/webcomponents:preview"
       },
       ciWebServerCommand: "npx nx run @study/webcomponents:preview",
-      ciBaseUrl: "http://localhost:4202/webcomponents/"
+      ciBaseUrl: "http://localhost:4302/webcomponents/"
     }),
     baseUrl: "http://localhost:4202/webcomponents/",
     supportFile: "src/support/cypress-support.ts"
