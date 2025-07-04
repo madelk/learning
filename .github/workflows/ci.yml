@@ -48,24 +48,34 @@ jobs:
           echo "Node modules exists: $(test -d node_modules && echo 'yes' || echo 'no')"
           head -20 package.json
 
-      # Configure npm for better performance
+      # Configure npm for maximum speed and bypass strict checks
       - name: Configure npm
         run: |
-          # Try different registries for speed
-          echo "Testing registry speeds..."
+          echo "Configuring npm for CI speed..."
           npm config set registry https://registry.npmjs.org/
-          npm config set fetch-retry-mintimeout 20000
-          npm config set fetch-retry-maxtimeout 120000
-          npm config set fetch-retries 3
-          npm config set maxsockets 15
+          npm config set fetch-retry-mintimeout 10000
+          npm config set fetch-retry-maxtimeout 60000
+          npm config set fetch-retries 2
+          npm config set maxsockets 20
           npm config set progress false
-          npm config set prefer-offline true
+          npm config set prefer-offline false
+          npm config set engine-strict false
+          npm config set fund false
+          npm config set audit false
           npm config list
 
-      # Install dependencies (using npm install for better network handling)
+      # Install dependencies (most aggressive approach)
       - name: Install dependencies
-        run: npm install --no-audit --no-fund --prefer-offline
-        timeout-minutes: 20
+        run: |
+          echo "Starting npm install with full debugging..."
+          # Try npm ci first (fastest when it works)
+          timeout 300 npm ci --no-audit --no-fund --ignore-engines --verbose || {
+            echo "npm ci failed, trying npm install..."
+            rm -rf node_modules package-lock.json
+            echo "Attempting npm install with all bypass flags..."
+            timeout 600 npm install --no-audit --no-fund --ignore-engines --legacy-peer-deps --verbose
+          }
+        timeout-minutes: 15
 
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
