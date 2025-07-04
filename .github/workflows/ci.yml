@@ -1,15 +1,15 @@
 name: CI
 
 on:
-  # pull_request:
-  #   branches:
-  #     - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 # # Cancel any in-progress job or previous runs
-# concurrency:
-#   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-#   cancel-in-progress: true
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   actions: read
@@ -18,32 +18,55 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       # Checkout code
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          filter: tree:0
 
       # Start Nx Cloud CI Run
       - name: Start Nx Cloud CI Run
-        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
+        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
 
       # Setup Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
 
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
-      # Run affected targets
+      # Check code formatting
+      - name: Check code formatting
+        run: npx nx format:check
+
+      - name: TEMP Run test first to verify it finishes
+        timeout-minutes: 10
+        run: |
+          echo "=== Testing without distributed execution ==="
+          echo "Checking affected projects with test target..."
+          npx nx show projects --affected --withTarget=test
+
+          echo "=== Running tests without distributed execution ==="
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose
+          echo "Non-distributed test completed with exit code: $?"
+
       - name: Run CI Targets
-        run: npx nx affected -t typecheck,lint,test,build --parallel=3
+        timeout-minutes: 5
+        run: |
+          # Run non-test tasks in distributed mode
+          npx nx affected -t typecheck,lint,build --parallel=3
+          # Run tests without distributed execution to avoid hanging
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
+          # Run E2E tests sequentially
+          npx nx affected -t e2e-ci --parallel=1
 
       # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
         if: always()
-        run: npx nx-cloud stop-all-agents
+        run: npx nx-cloud complete-ci-run

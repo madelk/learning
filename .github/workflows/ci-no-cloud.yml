@@ -1,15 +1,15 @@
 name: CI (No Cloud)
 
 on:
-  pull_request:
-    branches:
-      - main
+  # pull_request:
+  #   branches:
+  #     - main
   workflow_dispatch: # Manual trigger only
 
-# Cancel any in-progress job or previous runs
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+# # Cancel any in-progress job or previous runs
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+#   cancel-in-progress: true
 
 permissions:
   actions: read
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.11.0
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
       # This command does exist ignore the linting errors
