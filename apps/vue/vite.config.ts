@@ -25,7 +25,16 @@ export default defineConfig(() => ({
     port: 4303,
     host: 'localhost'
   },
-  plugins: [vue(), nxViteTsPaths()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('custom-')
+        }
+      }
+    }), 
+    nxViteTsPaths()
+  ],
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

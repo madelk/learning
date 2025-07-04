@@ -149,47 +149,59 @@ export function createButtonHandler(
 
   return () => {
     switch (actionType) {
-      case 'digit':
+      case 'digit': {
         calculator.appendToResult(actionData as number);
         break;
-      case 'decimal':
+      }
+      case 'decimal': {
         calculator.appendDecimalPoint();
         break;
-      case 'operation':
+      }
+      case 'operation': {
         calculator.setAction(
           actionData as 'add' | 'subtract' | 'multiply' | 'divide'
         );
         break;
-      case 'unary':
+      }
+      case 'unary': {
         calculator.setAction(
           actionData as 'sqroot' | 'percentage' | 'reciprocal' | 'signchange'
         );
         break;
-      case 'memory':
+      }
+      case 'memory': {
         switch (actionData) {
-          case 'clear':
+          case 'clear': {
             calculator.clearMemory();
             break;
-          case 'recall':
+          }
+          case 'recall': {
             calculator.recallMemory();
             break;
-          case 'add':
+          }
+          case 'add': {
             calculator.addToMemory();
             break;
-          case 'subtract':
+          }
+          case 'subtract': {
             calculator.subtractFromMemory();
             break;
+          }
         }
         break;
-      case 'clear':
+      }
+      case 'clear': {
         calculator.clearAll();
         break;
-      case 'clearEntry':
+      }
+      case 'clearEntry': {
         calculator.clearEntry();
         break;
-      case 'calculate':
+      }
+      case 'calculate': {
         calculator.calculateResult();
         break;
+      }
     }
     updateDisplay();
   };

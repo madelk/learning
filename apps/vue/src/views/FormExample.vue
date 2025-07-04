@@ -1,3 +1,24 @@
+<script setup lang="ts">
+  import { reactive } from "vue";
+
+  const formValues = reactive({
+    name: "",
+    profileSummary: "",
+    country: "",
+    jobLocation: [],
+    remoteWork: "no",
+    skillSet: [],
+    yearsOfExperience: ""
+  });
+
+  function submitForm() {
+    console.log("Form submitted with values:", formValues);
+  }
+
+  // No public properties to expose
+  defineExpose({});
+</script>
+
 <template>
   <div class="max-w-4xl mx-auto p-6">
     <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">
@@ -13,7 +34,6 @@
         JSON.stringify(formValues, null, 2)
       }}</pre>
     </div>
-
     <form
       class="bg-white shadow-lg rounded-lg p-8 space-y-6"
       @submit.prevent="submitForm"
@@ -251,29 +271,7 @@
     </form>
   </div>
 </template>
-<script lang="ts">
-export default {
-  name: 'FormPage',
-  data() {
-    return {
-      formValues: {
-        name: '',
-        profileSummary: '',
-        country: '',
-        jobLocation: [],
-        remoteWork: 'no',
-        skillSet: [],
-        yearsOfExperience: ''
-      }
-    };
-  },
-  methods: {
-    submitForm() {
-      console.log('Form submitted with values:', this.formValues);
-    }
-  }
-};
-</script>
+
 <style>
-/* All styling now handled by Tailwind classes */
+  /* All styling now handled by Tailwind classes */
 </style>

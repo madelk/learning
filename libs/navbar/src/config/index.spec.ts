@@ -1,22 +1,22 @@
 import { getIcons, isLocalhost } from './index.js';
 
 describe('navbar config functions', () => {
-  const originalWindow = { ...window };
+  const originalWindow = { ...globalThis };
 
   afterEach(() => {
     // Restore window.location after each test
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(globalThis, 'location', {
       value: originalWindow.location,
       writable: true
     });
   });
 
   function mockLocation(hostname: string, pathname = '/') {
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(globalThis, 'location', {
       value: { hostname, pathname },
       writable: true
     });
-    Object.defineProperty(window, 'navigator', {
+    Object.defineProperty(globalThis, 'navigator', {
       value: { userAgent: 'test-browser' },
       writable: true
     });
@@ -44,12 +44,12 @@ describe('navbar config functions', () => {
     });
 
     it('returns empty object when window is undefined', () => {
-      const originalWindow = global.window;
+      const originalWindow = globalThis.window;
       // @ts-expect-error Testing window undefined scenario
-      delete global.window;
+      delete globalThis.window;
       const icons = getIcons();
       expect(icons).toEqual({});
-      global.window = originalWindow;
+      globalThis.window = originalWindow;
     });
   });
 
@@ -70,11 +70,11 @@ describe('navbar config functions', () => {
     });
 
     it('returns false when window is undefined', () => {
-      const originalWindow = global.window;
+      const originalWindow = globalThis.window;
       // @ts-expect-error Testing window undefined scenario
-      delete global.window;
+      delete globalThis.window;
       expect(isLocalhost()).toBe(false);
-      global.window = originalWindow;
+      globalThis.window = originalWindow;
     });
   });
 });

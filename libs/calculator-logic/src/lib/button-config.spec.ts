@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+ 
 import {
   CALCULATOR_BUTTONS,
   createButtonHandler,
@@ -14,7 +14,7 @@ describe('Calculator Button Configuration', () => {
   beforeEach(() => {
     calculator = new CalculatorLogic();
     updateDisplayCalled = false;
-    updateDisplay = () => {
+    updateDisplay = (): void => {
       updateDisplayCalled = true;
     };
   });
@@ -33,15 +33,15 @@ describe('Calculator Button Configuration', () => {
     });
 
     it('should have all required memory buttons', () => {
-      const memoryLabels = ['MC', 'MR', 'M-', 'M+'];
+      const memoryLabels = new Set(['MC', 'MR', 'M-', 'M+']);
       const memoryButtons = CALCULATOR_BUTTONS.filter((button) =>
-        memoryLabels.includes(button.label)
+        memoryLabels.has(button.label)
       );
       expect(memoryButtons).toHaveLength(4);
-      memoryButtons.forEach((button) => {
+      for (const button of memoryButtons) {
         expect(button.actionType).toBe('memory');
         expect(button.styleType).toBe('memory');
-      });
+      }
     });
 
     it('should have all digit buttons 0-9', () => {
@@ -60,25 +60,25 @@ describe('Calculator Button Configuration', () => {
     });
 
     it('should have all required operation buttons', () => {
-      const operationLabels = ['+', '-', '*', '/'];
+      const operationLabels = new Set(['+', '-', '*', '/']);
       const operationButtons = CALCULATOR_BUTTONS.filter((button) =>
-        operationLabels.includes(button.label)
+        operationLabels.has(button.label)
       );
       expect(operationButtons).toHaveLength(4);
-      operationButtons.forEach((button) => {
+      for (const button of operationButtons) {
         expect(button.actionType).toBe('operation');
-      });
+      }
     });
 
     it('should have all required unary operation buttons', () => {
-      const unaryLabels = ['sq', '1/x', '±', '%'];
+      const unaryLabels = new Set(['sq', '1/x', '±', '%']);
       const unaryButtons = CALCULATOR_BUTTONS.filter((button) =>
-        unaryLabels.includes(button.label)
+        unaryLabels.has(button.label)
       );
       expect(unaryButtons).toHaveLength(4);
-      unaryButtons.forEach((button) => {
+      for (const button of unaryButtons) {
         expect(button.actionType).toBe('unary');
-      });
+      }
     });
 
     it('should have decimal point button', () => {

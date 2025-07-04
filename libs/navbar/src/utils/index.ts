@@ -1,11 +1,12 @@
+import { isLocalhost } from '@study/helpers';
+import type { CSSProperties } from 'react';
+
 import type {
   NavBarStyles,
   NavBarItem,
   AppSelectorConfig,
   AppOption
 } from '../types/index.js';
-import type { CSSProperties } from 'react';
-import { isLocalhost } from '@study/helpers';
 
 /** Converts a NavBarStyles object into a CSS string representation */
 export function generateCSS(styles: NavBarStyles): string {

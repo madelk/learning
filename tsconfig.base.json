@@ -1,31 +1,27 @@
 {
-  "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "composite": true,
-    "importHelpers": true,
-    "isolatedModules": true,
-    "lib": ["ESNext"],
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": false,
-    "noImplicitThis": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
-    "baseUrl": ".",
-    "paths": {
-      "@study/calculator-logic": ["libs/calculator-logic/src/index.ts"],
-      "@study/helpers": ["libs/helpers/src/index.ts"],
-      "@study/navbar": ["libs/navbar/src/index.ts"],
-      "@study/pagetext": ["libs/pagetext/src/index.ts"]
-    }
-  }
+	"compilerOptions": {
+		"forceConsistentCasingInFileNames": true,
+		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
+		"importHelpers": true,
+		"isolatedModules": true,
+		"lib": ["ESNext"],
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"noEmitOnError": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"exactOptionalPropertyTypes": false,
+		"noImplicitThis": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext",
+		"baseUrl": "."
+	}
 }

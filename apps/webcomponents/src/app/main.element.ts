@@ -1,4 +1,5 @@
 import {getHomepageText} from '@study/pagetext';
+
 const text = getHomepageText();
 
 export class MainElement extends HTMLElement {

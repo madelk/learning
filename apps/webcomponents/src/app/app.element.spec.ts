@@ -45,7 +45,7 @@ describe('AppElement', () => {
   it('should have a greeting', async () => {
     // Arrange
     const text = getHomepageText();
-    document.body.appendChild(app);
+    document.body.append(app);
     app.connectedCallback();
 
     // Act
@@ -64,6 +64,6 @@ describe('AppElement', () => {
     expect(heading?.innerHTML).toContain(text.title.text);
 
     // Cleanup
-    document.body.removeChild(app);
+    app.remove();
   });
 });

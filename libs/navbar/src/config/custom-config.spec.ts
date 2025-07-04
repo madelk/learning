@@ -1,12 +1,13 @@
 import { type AppName } from '@study/helpers';
 import { vi, describe, it, expect, afterEach } from 'vitest';
 
+import * as helpers from '@study/helpers';
+
+import { getNavbarConfig } from './custom-config.js';
+
 vi.mock('@study/helpers', () => ({
   getCurrentApp: vi.fn()
 }));
-
-import * as helpers from '@study/helpers';
-import { getNavbarConfig } from './custom-config.js';
 
 describe('customNavbarConfig', () => {
   // Reset the module imports between tests
@@ -19,7 +20,7 @@ describe('customNavbarConfig', () => {
       // Test for all app types
       const allApps: AppName[] = ['react', 'vue', 'webcomponents'];
 
-      allApps.forEach((appType) => {
+      for (const appType of allApps) {
         // Mock getCurrentApp to return the current app type
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
 
@@ -36,13 +37,13 @@ describe('customNavbarConfig', () => {
           label: 'About',
           href: `/${appType}/about`
         });
-      });
+      }
     });
 
     it('should include Calculator for react and vue apps only', () => {
       // Apps that should have Calculator
       const calculatorApps: AppName[] = ['react', 'vue'];
-      calculatorApps.forEach((appType) => {
+      for (const appType of calculatorApps) {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
 
@@ -51,11 +52,11 @@ describe('customNavbarConfig', () => {
           label: 'Calculator',
           href: `/${appType}/calculator`
         });
-      });
+      }
 
       // Apps that should NOT have Calculator
       const notCalculatorApps: AppName[] = ['webcomponents'];
-      notCalculatorApps.forEach((appType) => {
+      for (const appType of notCalculatorApps) {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
 
@@ -64,7 +65,7 @@ describe('customNavbarConfig', () => {
           label: 'Calculator',
           href: `/${appType}/calculator`
         });
-      });
+      }
     });
 
     it('should include Computed and Form pages only for vue app', () => {
@@ -83,7 +84,7 @@ describe('customNavbarConfig', () => {
 
       // Other apps should NOT have Computed and Form
       const otherApps: AppName[] = ['react', 'webcomponents'];
-      otherApps.forEach((appType) => {
+      for (const appType of otherApps) {
         vi.spyOn(helpers, 'getCurrentApp').mockReturnValue(appType);
         const config = getNavbarConfig();
 
@@ -95,7 +96,7 @@ describe('customNavbarConfig', () => {
           label: 'Form',
           href: '/vue/form'
         });
-      });
+      }
     });
 
     it('should have the correct number of navigation items for each app', () => {

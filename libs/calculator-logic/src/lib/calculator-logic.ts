@@ -1,13 +1,13 @@
 /** Calculator operation types */
 export type CalculatorOperation =
-  | 'add'
-  | 'subtract'
-  | 'multiply'
-  | 'divide'
-  | 'sqroot'
-  | 'percentage'
-  | 'reciprocal'
-  | 'signchange';
+  | "add"
+  | "subtract"
+  | "multiply"
+  | "divide"
+  | "sqroot"
+  | "percentage"
+  | "reciprocal"
+  | "signchange";
 
 export interface CalculatorState {
   displayValue: string;
@@ -26,7 +26,7 @@ export class CalculatorLogic {
 
   constructor() {
     this.state = {
-      displayValue: '0',
+      displayValue: "0",
       memory: null,
       calcAction: null,
       previousValue: null,
@@ -50,30 +50,42 @@ export class CalculatorLogic {
   }
 
   private handleFloatingPointDisplay(result: number): string {
-    let resultStr = result.toString();
+    let resultString = result.toString();
 
-    if (result === 0.1 + 0.2) return '0.3';
-
-    // Round to reasonable precision
-    if (resultStr.includes('.')) {
-      const rounded = Math.round(result * 100000000) / 100000000;
-      resultStr = rounded.toString();
-      resultStr = resultStr.replace(/\.?0+$/, '');
+    if (result === 0.1 + 0.2) {
+      return "0.3";
     }
 
-    // Limit display for repeating decimals
-    if (resultStr.length > 10 && resultStr.includes('.')) {
-      const parts = resultStr.split('.');
-      if (parts[1] && parts[1].length > 8) {
-        resultStr = parseFloat(result.toPrecision(8)).toString();
+    // Round to reasonable precision
+    if (resultString.includes(".")) {
+      const rounded = Math.round(result * 100_000_000) / 100_000_000;
+      resultString = rounded.toString();
+      // Remove trailing zeros and decimal point safely without regex
+      if (resultString.includes(".")) {
+        while (resultString.endsWith("0")) {
+          resultString = resultString.slice(0, -1);
+        }
+        if (resultString.endsWith(".")) {
+          resultString = resultString.slice(0, -1);
+        }
       }
     }
 
-    return resultStr;
+    // Limit display for repeating decimals
+    if (resultString.length > 10 && resultString.includes(".")) {
+      const parts = resultString.split(".");
+      if (parts[1] && parts[1].length > 8) {
+        resultString = Number.parseFloat(result.toPrecision(8)).toString();
+      }
+    }
+
+    return resultString;
   }
 
   private formatResult(result: number): string {
-    if (!isFinite(result)) return 'Error';
+    if (!Number.isFinite(result)) {
+      return "Error";
+    }
     if (Math.abs(result) >= CalculatorLogic.EXPONENTIAL_THRESHOLD) {
       return result.toExponential(8).toUpperCase();
     }
@@ -83,8 +95,8 @@ export class CalculatorLogic {
   private updateMemoryValue(
     operation: (memory: number, display: number) => number
   ): void {
-    const memoryValue = Number(this.state.memory ?? '0');
-    const displayValue = Number(this.state.displayValue || '0');
+    const memoryValue = Number(this.state.memory ?? "0");
+    const displayValue = Number(this.state.displayValue || "0");
     this.state.memory = operation(memoryValue, displayValue).toString();
     this.state.previouslySetAction = true;
   }
@@ -102,7 +114,7 @@ export class CalculatorLogic {
   }
 
   recallMemory(): void {
-    this.state.displayValue = this.state.memory || '0';
+    this.state.displayValue = this.state.memory || "0";
   }
 
   private handleUnaryOperation(
@@ -110,7 +122,7 @@ export class CalculatorLogic {
   ): void {
     const currentValue = Number(this.state.displayValue);
     this.state.displayValue =
-      typeof operation(currentValue) === 'string'
+      typeof operation(currentValue) === "string"
         ? (operation(currentValue) as string)
         : this.formatResult(operation(currentValue) as number);
     this.resetCalculationState();
@@ -118,12 +130,12 @@ export class CalculatorLogic {
 
   private calculateSquareRoot(): void {
     this.handleUnaryOperation((value) =>
-      value >= 0 ? Math.sqrt(value) : 'Error'
+      value >= 0 ? Math.sqrt(value) : "Error"
     );
   }
 
   private calculateReciprocal(): void {
-    this.handleUnaryOperation((value) => (value !== 0 ? 1 / value : 'Error'));
+    this.handleUnaryOperation((value) => (value === 0 ? "Error" : 1 / value));
   }
 
   private handleSignChange(): void {
@@ -147,7 +159,7 @@ export class CalculatorLogic {
     const percentValue = Number(this.state.displayValue);
 
     const isAddSubtract =
-      this.state.calcAction === 'add' || this.state.calcAction === 'subtract';
+      this.state.calcAction === "add" || this.state.calcAction === "subtract";
     const result = isAddSubtract
       ? (baseValue * percentValue) / 100
       : percentValue / 100;
@@ -162,27 +174,30 @@ export class CalculatorLogic {
   }
 
   setAction(action: CalculatorOperation): void {
-    const unaryOperations: Record<
-      CalculatorOperation,
-      (() => void) | undefined
-    > = {
-      sqroot: () => this.calculateSquareRoot(),
-      reciprocal: () => this.calculateReciprocal(),
-      signchange: () => this.handleSignChange(),
-      percentage: () => this.calculatePercentage(),
-      add: undefined,
-      subtract: undefined,
-      multiply: undefined,
-      divide: undefined
-    };
-
-    const unaryOperation = unaryOperations[action];
-    if (unaryOperation) {
-      unaryOperation();
-      return;
+    // Safe property access with explicit enum validation
+    switch (action) {
+      case "sqroot": {
+        this.calculateSquareRoot();
+        return;
+      }
+      case "reciprocal": {
+        this.calculateReciprocal();
+        return;
+      }
+      case "signchange": {
+        this.handleSignChange();
+        return;
+      }
+      case "percentage": {
+        this.calculatePercentage();
+        return;
+      }
+      default: {
+        // Binary operations
+        this.handleBinaryOperation(action);
+        break;
+      }
     }
-
-    this.handleBinaryOperation(action);
   }
 
   private handleBinaryOperation(action: CalculatorOperation): void {
@@ -205,7 +220,7 @@ export class CalculatorLogic {
 
   appendToResult(value: number): void {
     if (this.shouldResetDisplay()) {
-      this.state.displayValue = '';
+      this.state.displayValue = "";
       this.state.previouslySetAction = false;
     }
 
@@ -216,23 +231,23 @@ export class CalculatorLogic {
   private shouldResetDisplay(): boolean {
     return (
       this.state.previouslySetAction ||
-      this.state.displayValue === '0' ||
-      this.state.displayValue === 'Error'
+      this.state.displayValue === "0" ||
+      this.state.displayValue === "Error"
     );
   }
 
   appendDecimalPoint(): void {
     if (this.state.previouslySetAction) {
-      this.state.displayValue = '0';
+      this.state.displayValue = "0";
       this.state.previouslySetAction = false;
     }
 
-    if (this.state.displayValue === '' || this.state.displayValue === 'Error') {
-      this.state.displayValue = '0';
+    if (this.state.displayValue === "" || this.state.displayValue === "Error") {
+      this.state.displayValue = "0";
     }
 
-    if (!this.state.displayValue.includes('.')) {
-      this.state.displayValue += '.';
+    if (!this.state.displayValue.includes(".")) {
+      this.state.displayValue += ".";
     }
   }
 
@@ -257,7 +272,7 @@ export class CalculatorLogic {
   } {
     const operation = this.state.calcAction;
     if (!operation) {
-      throw new Error('No operation set');
+      throw new Error("No operation set");
     }
     this.state.previousValue = this.state.displayValue;
     this.state.lastOperand = this.state.displayValue;
@@ -275,7 +290,7 @@ export class CalculatorLogic {
     const lastOperand = this.state.lastOperand;
     const lastOperation = this.state.lastOperation;
     if (!lastOperand || !lastOperation) {
-      throw new Error('No previous operation');
+      throw new Error("No previous operation");
     }
     this.state.previousValue = this.state.displayValue;
     return {
@@ -290,7 +305,7 @@ export class CalculatorLogic {
   } {
     const operation = this.state.calcAction;
     if (!operation) {
-      throw new Error('No operation set');
+      throw new Error("No operation set");
     }
     this.state.lastOperand = this.state.displayValue;
     this.state.lastOperation = operation;
@@ -310,44 +325,61 @@ export class CalculatorLogic {
 
   private performOperation(
     operation: CalculatorOperation,
-    prev: number,
+    previous: number,
     op: number
   ): number | string {
-    const operations: Record<
-      CalculatorOperation,
-      (a: number, b: number) => number | string
-    > = {
-      add: (a, b) => a + b,
-      subtract: (a, b) => a - b,
-      multiply: (a, b) => a * b,
-      divide: (a, b) => (b !== 0 ? a / b : 'Error'),
-      sqroot: (_, b) => (b >= 0 ? Math.sqrt(b) : 'Error'),
-      percentage: (a, b) => a * (b / 100),
-      reciprocal: (_, b) => (b !== 0 ? 1 / b : 'Error'),
-      signchange: (_, b) => -b
-    };
-
-    return operations[operation](prev, op);
+    // Use explicit switch statement instead of dynamic property access for security
+    switch (operation) {
+      case "add": {
+        return previous + op;
+      }
+      case "subtract": {
+        return previous - op;
+      }
+      case "multiply": {
+        return previous * op;
+      }
+      case "divide": {
+        return op === 0 ? "Error" : previous / op;
+      }
+      case "sqroot": {
+        return op >= 0 ? Math.sqrt(op) : "Error";
+      }
+      case "percentage": {
+        return previous * (op / 100);
+      }
+      case "reciprocal": {
+        return op === 0 ? "Error" : 1 / op;
+      }
+      case "signchange": {
+        return -op;
+      }
+      default: {
+        return "Error";
+      }
+    }
   }
 
   calculateResult(): void {
-    if (this.state.calcAction === null) return;
+    if (this.state.calcAction === null) {
+      return;
+    }
 
     const { operand, operation } = this.getOperandForCalculation();
-    const prev = Number(this.state.previousValue) || 0;
+    const previous = Number(this.state.previousValue) || 0;
     const op = Number(operand);
 
-    const result = this.performOperation(operation, prev, op);
+    const result = this.performOperation(operation, previous, op);
 
     this.state.displayValue =
-      typeof result === 'string' ? result : this.formatResult(result);
+      typeof result === "string" ? result : this.formatResult(result);
     this.state.justCalculated = true;
     this.state.previouslySetAction = false;
   }
 
   clearAll(): void {
     this.state = {
-      displayValue: '0',
+      displayValue: "0",
       memory: this.state.memory,
       calcAction: null,
       previousValue: null,
@@ -359,7 +391,7 @@ export class CalculatorLogic {
   }
 
   clearEntry(): void {
-    this.state.displayValue = '0';
+    this.state.displayValue = "0";
     this.state.previouslySetAction = false;
   }
 }

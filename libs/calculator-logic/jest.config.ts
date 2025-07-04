@@ -1,23 +1,27 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 // Reading the SWC compilation config for the spec files
 const swcJestConfig = JSON.parse(
-  readFileSync(`${__dirname}/.spec.swcrc`, 'utf-8')
+  readFileSync(join(__dirname, ".spec.swcrc"), "utf8")
 );
 
 // Disable .swcrc look-up by SWC core because we're passing in swcJestConfig ourselves
 swcJestConfig.swcrc = false;
 
-export default {
-  displayName: 'calculator-logic',
-  preset: '../../jest.preset.js',
-  testEnvironment: 'node',
+const config = {
+  displayName: "calculator-logic",
+  preset: "../../jest.preset.js",
+  testEnvironment: "node",
   transform: {
-    '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig]
+    "^.+\\.[tj]s$": ["@swc/jest", swcJestConfig],
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
+  moduleFileExtensions: ["ts", "js", "html"],
   moduleNameMapper: {
-    '^(\\.\\.?\\/.+)\\.js$': '$1'
+    "^(\\.\\.?\\/.+)\\.js$": "$1",
   },
-  coverageDirectory: 'test-output/jest/coverage'
+  testMatch: ["<rootDir>/src/**/*.spec.[jt]s?(x)"],
+  coverageDirectory: "test-output/jest/coverage",
 };
+
+export default config;
