@@ -62,12 +62,26 @@ jobs:
           npm config set engine-strict false
           npm config set fund false
           npm config set audit false
+          # Skip all Cypress downloads in CI
+          export CYPRESS_INSTALL_BINARY=0
+          export CYPRESS_RUN_BINARY=0
+          export CYPRESS_SKIP_BINARY_INSTALL=1
+          export CYPRESS_CACHE_FOLDER=/tmp/cypress-cache
+          echo "CYPRESS_INSTALL_BINARY=0" >> $GITHUB_ENV
+          echo "CYPRESS_RUN_BINARY=0" >> $GITHUB_ENV
+          echo "CYPRESS_SKIP_BINARY_INSTALL=1" >> $GITHUB_ENV
+          echo "CYPRESS_CACHE_FOLDER=/tmp/cypress-cache" >> $GITHUB_ENV
           npm config list
 
       # Install dependencies (most aggressive approach)
       - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+          CYPRESS_RUN_BINARY: 0
+          CYPRESS_SKIP_BINARY_INSTALL: 1
+          CYPRESS_CACHE_FOLDER: /tmp/cypress-cache
         run: |
-          echo "Starting npm install with full debugging..."
+          echo "Starting npm install with Cypress binary download disabled..."
           # Try npm ci first (fastest when it works)
           timeout 300 npm ci --no-audit --no-fund --ignore-engines --verbose || {
             echo "npm ci failed, trying npm install..."
