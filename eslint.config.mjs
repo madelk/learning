@@ -24,7 +24,6 @@ const tsExtensions = [".ts", ".cts", ".mts", ".tsx", ".d.ts"];
 const allExtensions = [...jsExtensions, ...tsExtensions];
 
 // File glob patterns following XO conventions
-const jsFilesGlob = "**/*.{js,cjs,mjs,jsx}";
 const tsFilesGlob = "**/*.{ts,cts,mts,tsx}";
 const allFilesGlob = "**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}";
 

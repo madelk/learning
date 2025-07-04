@@ -19,7 +19,7 @@ export default [
 Ensure `.prettierrc` matches ESLint style rules:
 ```json
 {
-  "singleQuote": true,
+  "singleQuote": false,
   "trailingComma": "none"
 }
 ```

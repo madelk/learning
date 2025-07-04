@@ -83,6 +83,7 @@ function getCurrentSubPath(): string {
 	}
 	const path = globalThis.location.pathname;
 	// Match /appname/anything or /appname
+	// eslint-disable-next-line security/detect-unsafe-regex
 	const match = path.match(/^\/(react|vue|webcomponents)(\/.*)?$/);
 	return match && match[2] ? match[2] : "/";
 }

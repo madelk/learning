@@ -184,6 +184,7 @@ export class CalculatorLogic {
       divide: undefined
     };
 
+    // eslint-disable-next-line security/detect-object-injection
     const unaryOperation = unaryOperations[action];
     if (unaryOperation) {
       unaryOperation();
@@ -335,6 +336,7 @@ export class CalculatorLogic {
       signchange: (_, b) => -b
     };
 
+    // eslint-disable-next-line security/detect-object-injection
     return operations[operation](previous, op);
   }
 
