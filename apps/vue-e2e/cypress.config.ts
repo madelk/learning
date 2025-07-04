@@ -11,8 +11,9 @@ export default defineConfig({
         production: 'npx nx run @study/vue:preview'
       },
       ciWebServerCommand: 'npx nx run @study/vue:preview',
-      ciBaseUrl: 'http://localhost:4200'
+      ciBaseUrl: 'http://localhost:4203/vue/'
     }),
-    baseUrl: 'http://localhost:4200'
+    baseUrl: 'http://localhost:4203/vue/',
+    supportFile: 'src/support/cypress-support.ts'
   }
 });
