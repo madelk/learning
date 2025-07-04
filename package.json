@@ -14,7 +14,7 @@
     "clean:deps": "rm -rf ./node_modules",
     "clean:full": "npm run clean:git && npm run clean:deps && npm install && npm run reset:nx",
     "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
-    "lint": "nx affected --target lint --fix",
+    "lint": "nx format:check && nx affected --target lint --fix",
     "nvm:setup": "nvm use && nvm install && nvm alias default 20.11.0",
     "reset:nx": "npx nx reset",
     "start": "nx run-many --target dev",
