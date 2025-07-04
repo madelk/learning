@@ -43,6 +43,23 @@ The foundation configuration that all projects extend:
 ```javascript
 import nx from '@nx/eslint-plugin';
 import prettier from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
+import importPlugin from 'eslint-plugin-import';
+import security from 'eslint-plugin-security';
+import sonarjs from 'eslint-plugin-sonarjs';
+import unicorn from 'eslint-plugin-unicorn';
+
+export default [
+  ...nx.configs['flat/base'],
+  ...nx.configs['flat/typescript'],
+  ...nx.configs['flat/javascript'],
+  ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
+  security.configs.recommended,
+  sonarjs.configs.recommended,
+  unicorn.configs['flat/recommended'],
 
 export default [
   ...nx.configs['flat/base'],
@@ -438,4 +455,97 @@ For project-specific requirements, create custom rule configurations:
 }
 ```
 
-This comprehensive ESLint and Prettier setup ensures consistent code quality and formatting across the entire workspace while maintaining flexibility for framework-specific requirements.
+## Strict Rules Configuration
+
+### Core JavaScript Quality Rules
+
+The configuration enforces strict JavaScript best practices:
+
+- **`eqeqeq: 'always'`** - Always use strict equality (`===`, `!==`)
+- **`no-eval: 'error'`** - Prevent code injection vulnerabilities  
+- **`no-console: 'warn'`** - Discourage console statements in production
+- **`prefer-const: 'error'`** - Use `const` for immutable bindings
+- **`no-var: 'error'`** - Eliminate `var` declarations
+- **`curly: 'all'`** - Always use braces for control statements
+- **`no-throw-literal: 'error'`** - Only throw Error objects
+
+### TypeScript Strict Rules
+
+Enhanced TypeScript enforcement beyond the standard strict config:
+
+- **`@typescript-eslint/no-explicit-any: 'error'`** - Eliminate `any` types
+- **`@typescript-eslint/explicit-function-return-type: 'error'`** - All functions must declare return types
+- **`@typescript-eslint/explicit-module-boundary-types: 'error'`** - Public APIs must have explicit types
+- **`@typescript-eslint/consistent-type-definitions: 'interface'`** - Use `interface` over `type` for objects
+- **`@typescript-eslint/consistent-type-imports: 'error'`** - Separate type imports for tree-shaking
+- **`@typescript-eslint/no-non-null-assertion: 'error'`** - Avoid unsafe non-null assertions
+
+### Security Rules (eslint-plugin-security)
+
+Comprehensive security vulnerability detection:
+
+- **Buffer Security**: `detect-buffer-noassert`, `detect-pseudoRandomBytes`
+- **Code Injection**: `detect-eval-with-expression`, `detect-non-literal-require`
+- **File System**: `detect-non-literal-fs-filename`
+- **Timing Attacks**: `detect-possible-timing-attacks`
+- **Regex Security**: `detect-unsafe-regex`
+
+### Code Quality Rules (SonarJS)
+
+Prevents code smells and complexity issues:
+
+- **`cognitive-complexity: 15`** - Limits function complexity
+- **`no-duplicate-string: 3`** - Prevents string duplication
+- **`no-identical-conditions`** - Catches copy-paste errors
+- **`no-unused-collection`** - Detects dead code
+- **`prefer-immediate-return`** - Simplifies control flow
+
+### Modern JavaScript Rules (Unicorn)
+
+Enforces modern JavaScript best practices:
+
+- **`prefer-modern-dom-apis`** - Use modern DOM methods
+- **`prefer-array-flat-map`** - Use optimized array methods
+- **`prefer-string-starts-ends-with`** - Use string helper methods
+- **`prefer-optional-catch-binding`** - Modern error handling
+- **`no-for-loop`** - Prefer functional iteration
+
+### Import Organization Rules
+
+Strict import sorting and organization:
+
+```javascript
+'import/order': [
+  'error',
+  {
+    groups: [
+      'builtin',    // Node.js built-ins
+      'external',   // npm packages
+      'internal',   // Internal modules
+      'parent',     // Parent directory imports
+      'sibling',    // Same directory imports
+      'index'       // Index file imports
+    ],
+    'newlines-between': 'always',
+    alphabetize: {
+      order: 'asc',
+      caseInsensitive: true
+    }
+  }
+]
+```
+
+### Test File Exceptions
+
+Test files have relaxed rules for practical testing:
+
+```javascript
+files: ['**/*.spec.ts', '**/*.test.ts', '**/*.spec.tsx', '**/*.test.tsx'],
+rules: {
+  'no-console': 'off',                              // Allow debugging
+  '@typescript-eslint/no-explicit-any': 'off',     // Mocking flexibility
+  '@typescript-eslint/no-non-null-assertion': 'off', // Test assertions
+  'sonarjs/no-duplicate-string': 'off',            // Test string repetition
+  'security/detect-object-injection': 'off'        // Not applicable in tests
+}
+```
