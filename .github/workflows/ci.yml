@@ -26,9 +26,9 @@ jobs:
           fetch-depth: 0
           filter: tree:0
 
-      # Start Nx Cloud CI Run
-      - name: Start Nx Cloud CI Run
-        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
+      # # Start Nx Cloud CI Run
+      # - name: Start Nx Cloud CI Run
+      #   run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
 
       # Setup Node.js (without npm cache to avoid issues)
       - uses: actions/setup-node@v4
