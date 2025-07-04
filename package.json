@@ -22,11 +22,8 @@
     "test": "nx format:check && nx affected -t typecheck,lint,test,build"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue}": [
-      "nx format:write --files",
-      "nx affected --target lint --fix --files"
-    ],
-    "*.{json,md}": [
+    "*": [
+      "nx affected:lint --fix --files --verbose",
       "nx format:write --files"
     ]
   },
