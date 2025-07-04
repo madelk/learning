@@ -8,6 +8,8 @@
 
 import type { CalculatorLogic } from "./calculator-logic.js";
 
+export type ButtonStyleType = "default" | "memory" | "clear" | "danger";
+
 export type ButtonActionType =
   | "digit"
   | "decimal"
@@ -17,8 +19,6 @@ export type ButtonActionType =
   | "clearEntry"
   | "calculate"
   | "unary";
-
-export type ButtonStyleType = "default" | "memory" | "clear" | "danger";
 
 export interface ButtonConfig {
   /** The text displayed on the button */
