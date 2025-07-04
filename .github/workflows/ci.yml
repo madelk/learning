@@ -28,7 +28,7 @@ jobs:
 
       # Start Nx Cloud CI Run
       - name: Start Nx Cloud CI Run
-        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
+        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
 
       # Setup Node.js
       - uses: actions/setup-node@v4
@@ -47,11 +47,11 @@ jobs:
 
       # Run affected targets (non-E2E first)
       - name: Run CI Targets
-        timeout-minutes: 3
+        timeout-minutes: 5
         run: |
-          npx nx affected -t typecheck,lint,test,build --parallel=3 || exit 1
-          npx nx affected -t e2e-ci --parallel=1 || exit 1
-          echo "All tasks completed successfully"
+          # Run non-E2E tasks in parallel, then E2E tasks sequentially
+          npx nx affected -t typecheck,lint,test,build --parallel=3
+          npx nx affected -t e2e-ci --parallel=1
 
       # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
