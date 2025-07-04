@@ -26,70 +26,17 @@ jobs:
           fetch-depth: 0
           filter: tree:0
 
-      # # Start Nx Cloud CI Run
-      # - name: Start Nx Cloud CI Run
-      #   run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
+      # Start Nx Cloud CI Run
+      - name: Start Nx Cloud CI Run
+        run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
 
-      # Setup Node.js (without npm cache to avoid issues)
+      # Setup Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 22.16.0
+          cache: "npm"
 
-      # Debug environment before install
-      - name: Debug environment
-        run: |
-          echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          echo "CI environment variable: $CI"
-          echo "GITHUB_ACTIONS: $GITHUB_ACTIONS"
-          echo "Current directory: $(pwd)"
-          echo "Package.json exists: $(test -f package.json && echo 'yes' || echo 'no')"
-          echo "Package-lock.json exists: $(test -f package-lock.json && echo 'yes' || echo 'no')"
-          echo "Node modules exists: $(test -d node_modules && echo 'yes' || echo 'no')"
-          head -20 package.json
-
-      # Configure npm for maximum speed and bypass strict checks
-      - name: Configure npm
-        run: |
-          echo "Configuring npm for CI speed..."
-          npm config set registry https://registry.npmjs.org/
-          npm config set fetch-retry-mintimeout 10000
-          npm config set fetch-retry-maxtimeout 60000
-          npm config set fetch-retries 2
-          npm config set maxsockets 20
-          npm config set progress false
-          npm config set prefer-offline false
-          npm config set engine-strict false
-          npm config set fund false
-          npm config set audit false
-          # Skip all Cypress downloads in CI
-          export CYPRESS_INSTALL_BINARY=0
-          export CYPRESS_RUN_BINARY=0
-          export CYPRESS_SKIP_BINARY_INSTALL=1
-          export CYPRESS_CACHE_FOLDER=/tmp/cypress-cache
-          echo "CYPRESS_INSTALL_BINARY=0" >> $GITHUB_ENV
-          echo "CYPRESS_RUN_BINARY=0" >> $GITHUB_ENV
-          echo "CYPRESS_SKIP_BINARY_INSTALL=1" >> $GITHUB_ENV
-          echo "CYPRESS_CACHE_FOLDER=/tmp/cypress-cache" >> $GITHUB_ENV
-          npm config list
-
-      # Install dependencies (most aggressive approach)
-      - name: Install dependencies
-        env:
-          CYPRESS_INSTALL_BINARY: 0
-          CYPRESS_RUN_BINARY: 0
-          CYPRESS_SKIP_BINARY_INSTALL: 1
-          CYPRESS_CACHE_FOLDER: /tmp/cypress-cache
-        run: |
-          echo "Starting npm install with Cypress binary download disabled..."
-          # Try npm ci first (fastest when it works)
-          timeout 300 npm ci --no-audit --no-fund --ignore-engines --verbose || {
-            echo "npm ci failed, trying npm install..."
-            rm -rf node_modules package-lock.json
-            echo "Attempting npm install with all bypass flags..."
-            timeout 600 npm install --no-audit --no-fund --ignore-engines --legacy-peer-deps --verbose
-          }
-        timeout-minutes: 15
+      - run: npm ci
 
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4

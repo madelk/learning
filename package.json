@@ -16,7 +16,7 @@
     "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
     "lint": "nx format:check && nx affected --target lint --fix",
     "nvm:setup": "nvm use && nvm install && nvm alias default 22.16.0",
-    "prepare": "echo 'prepare script disabled for CI debugging'",
+    "prepare": "husky install",
     "reset:nx": "npx nx reset",
     "start": "nx run-many --target dev",
     "test": "nx format:check && nx affected -t typecheck,lint,test,build"
@@ -108,6 +108,7 @@
     "eslint-plugin-sonarjs": "3.0.4",
     "eslint-plugin-unicorn": "59.0.1",
     "eslint-plugin-vue": "^9.16.1",
+    "husky": "9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-node": "^29.7.0",
