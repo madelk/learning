@@ -2,6 +2,7 @@
 import { getHomepageText } from '@study/pagetext';
 const text = getHomepageText();
 </script>
+
 <template>
   <main>
     <h1 :class="text.title.className">

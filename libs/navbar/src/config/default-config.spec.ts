@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
 import { isLocalhost, getIcons } from './default-config.js';
 
 describe('default-config utilities', () => {
@@ -6,10 +7,10 @@ describe('default-config utilities', () => {
   let originalLocation: Location;
   beforeEach(() => {
     // Save original location
-    originalLocation = window.location;
+    originalLocation = globalThis.location;
 
     // Mock window.location using defineProperty to avoid TypeScript errors
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(globalThis, 'location', {
       writable: true,
       value: {
         ...originalLocation,
@@ -21,7 +22,7 @@ describe('default-config utilities', () => {
 
   afterEach(() => {
     // Restore original location
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(globalThis, 'location', {
       writable: true,
       value: originalLocation
     });
@@ -30,36 +31,36 @@ describe('default-config utilities', () => {
 
   describe('isLocalhost', () => {
     it('should return true when hostname is localhost', () => {
-      window.location.hostname = 'localhost';
+      globalThis.location.hostname = 'localhost';
       expect(isLocalhost()).toBe(true);
     });
 
     it('should return true when hostname is 127.0.0.1', () => {
-      window.location.hostname = '127.0.0.1';
+      globalThis.location.hostname = '127.0.0.1';
       expect(isLocalhost()).toBe(true);
     });
 
     it('should return false for production domains', () => {
-      window.location.hostname = 'www.madelk.co.uk';
+      globalThis.location.hostname = 'www.madelk.co.uk';
       expect(isLocalhost()).toBe(false);
     });
 
     it('should return false when window is undefined', () => {
       // Mock a scenario where window is undefined (e.g., server-side rendering)
-      const originalWindow = global.window;
+      const originalWindow = globalThis.window;
       // @ts-expect-error - intentionally setting window to undefined for test
-      global.window = undefined;
+      globalThis.window = undefined;
 
       expect(isLocalhost()).toBe(false);
 
       // Restore window
-      global.window = originalWindow;
+      globalThis.window = originalWindow;
     });
   });
 
   describe('getIcons', () => {
     it('should return local URLs when on localhost', () => {
-      window.location.hostname = 'localhost';
+      globalThis.location.hostname = 'localhost';
       const icons = getIcons();
 
       expect(icons.react).toContain('http://localhost:4200/react/favicon.png');
@@ -71,7 +72,7 @@ describe('default-config utilities', () => {
     });
 
     it('should return production URLs when not on localhost', () => {
-      window.location.hostname = 'www.madelk.co.uk';
+      globalThis.location.hostname = 'www.madelk.co.uk';
       const icons = getIcons();
 
       expect(icons.react).toContain(
@@ -86,15 +87,15 @@ describe('default-config utilities', () => {
 
     it('should return empty object when window is undefined', () => {
       // Mock a scenario where window is undefined (e.g., server-side rendering)
-      const originalWindow = global.window;
+      const originalWindow = globalThis.window;
       // @ts-expect-error - intentionally setting window to undefined for test
-      global.window = undefined;
+      globalThis.window = undefined;
 
       const icons = getIcons();
       expect(icons).toEqual({});
 
       // Restore window
-      global.window = originalWindow;
+      globalThis.window = originalWindow;
     });
   });
 });

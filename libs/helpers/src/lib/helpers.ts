@@ -8,9 +8,9 @@ export type AppName = 'react' | 'vue' | 'webcomponents';
  * @returns true if running on localhost or 127.0.0.1, false otherwise or if running in non-browser environment
  */
 export const isLocalhost =
-  typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1');
+  globalThis.window !== undefined &&
+  (globalThis.location.hostname === 'localhost' ||
+    globalThis.location.hostname === '127.0.0.1');
 
 /**
  * Extracts the app name from a URL path
@@ -29,23 +29,27 @@ export function detectAppFromPath(path: string): AppName {
  * @returns The current app name, defaulting to 'react' if unable to determine
  */
 export function getCurrentApp(): AppName {
-  if (typeof window === 'undefined') return 'react';
+  if (globalThis.window === undefined) return 'react';
 
-  const path = window.location.pathname;
-  const port = window.location.port;
+  const path = globalThis.location.pathname;
+  const port = globalThis.location.port;
 
   if (isLocalhost) {
     // Local development - detect by port
     switch (port) {
-      case '4200':
+      case '4200': {
         return 'react';
-      case '4202':
+      }
+      case '4202': {
         return 'webcomponents';
-      case '4203':
+      }
+      case '4203': {
         return 'vue';
-      default:
+      }
+      default: {
         // Fallback: check path for app name
         return detectAppFromPath(path);
+      }
     }
   } else {
     // Production - detect by path

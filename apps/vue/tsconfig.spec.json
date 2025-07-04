@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/vitest",
+    "emitDeclarationOnly": false,
     "types": [
       "vitest/globals",
       "vitest/importMeta",
@@ -14,9 +15,6 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "declaration": true,
-    "declarationDir": "./out-tsc/vitest",
-    "emitDeclarationOnly": true,
     "composite": true,
     "tsBuildInfoFile": "./out-tsc/vitest/tsconfig.spec.tsbuildinfo"
   },

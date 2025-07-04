@@ -2,12 +2,19 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
+    "emitDeclarationOnly": false,
     "types": ["node"],
     "rootDir": "src",
     "lib": ["dom"],
     "module": "esnext",
     "moduleResolution": "bundler",
-    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
+    "paths": {
+      "@study/calculator-logic": ["../../libs/calculator-logic/src/index.ts"],
+      "@study/helpers": ["../../libs/helpers/src/index.ts"],
+      "@study/navbar": ["../../libs/navbar/src/index.ts"],
+      "@study/pagetext": ["../../libs/pagetext/src/index.ts"]
+    }
   },
   "exclude": [
     "out-tsc",

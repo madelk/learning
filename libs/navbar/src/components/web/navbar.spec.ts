@@ -5,11 +5,11 @@ describe('NavBar', () => {
 
   beforeEach(() => {
     element = document.createElement('custom-navbar');
-    document.body.appendChild(element);
+    document.body.append(element);
   });
 
   afterEach(() => {
-    document.body.removeChild(element);
+    element.remove();
   });
 
   it('should create the navbar element', () => {

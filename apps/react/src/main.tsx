@@ -5,7 +5,7 @@ import App from './app/app';
 import '@study/navbar';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.querySelector('#root') as HTMLElement
 );
 
 root.render(

@@ -1,32 +1,24 @@
 ---
-applyTo: '**'
+applyTo: "**"
 ---
 
 # Core Development Guidelines
 
 **ALWAYS verify changes by running `npm test` before finishing**
 **ALWAYS review all changed files at the end to ensure no unintended changes**
-**Auto-format on save fix: Add `[typescript]` and `[typescriptreact]` formatter settings to .vscode/settings.json**
-Tests use AAA pattern (Arrange, Act, Assert)
-Keep responses concise - user is lazy and wants quick answers
-Stay upbeat and positive - this is a learning repo for one developer
-Ask if unsure about anything
+**ALWAYS refer to `docs/DEVELOPMENT_GUIDE.md` for development patterns and practices**
 
-## Code Style
+## Quick Reference
 
-Write self-documenting code with clear variable/function names
-Keep functions small and focused - break large functions into smaller ones with descriptive names
-Prefer descriptive function names over comments to explain what code does
-Minimize comments - only add them when the code cannot be made clearer
-Use JSDoc for functions that need documentation - especially for:
-
-- Complex algorithms
-- Public APIs
-- Non-obvious parameters or return values
-- Functions with side effects
+- **TypeScript configs**: See `docs/TYPESCRIPT_CONFIG.md` and `docs/DEVELOPMENT_GUIDE.md#typescript-configuration`
+- **ESM imports**: See `docs/DEVELOPMENT_GUIDE.md#esm--import-patterns`
+- **App development**: See `docs/DEVELOPMENT_GUIDE.md#app-development`
+- **Code style**: See `docs/DEVELOPMENT_GUIDE.md#code-style`
 
 ## Meta
 
-These instruction files are living documents - update them as needed when you learn new patterns or encounter common issues. They're your reminders and quick references.
+These instruction files are living documents. When you learn new patterns:
 
-**When user says "always do X" - immediately update these instructions to remember it**
+- Update `docs/DEVELOPMENT_GUIDE.md` with comprehensive information
+- Keep instruction files lightweight and pointing to docs
+- **When user says "always do X" - update the development guide**
