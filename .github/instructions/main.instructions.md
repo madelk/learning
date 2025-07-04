@@ -14,6 +14,15 @@ applyTo: "**"
 - **ESM imports**: See `docs/DEVELOPMENT_GUIDE.md#esm--import-patterns`
 - **App development**: See `docs/DEVELOPMENT_GUIDE.md#app-development`
 - **Code style**: See `docs/DEVELOPMENT_GUIDE.md#code-style`
+- **Nx project configuration**: See `docs/DEVELOPMENT_GUIDE.md#nx-workspace-patterns`
+
+## Critical Patterns
+
+**Nx Project Configuration:**
+
+- **ALWAYS use `package.json`** instead of `project.json` for target configuration
+- Use the `"nx"` property in package.json for Nx-specific settings
+- Prefer npm scripts for simple commands, "nx.targets" for complex executors
 
 ## Meta
 
