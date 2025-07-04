@@ -30,11 +30,10 @@ jobs:
       - name: Start Nx Cloud CI Run
         run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js"
 
-      # Setup Node.js
+      # Setup Node.js (without npm cache to avoid issues)
       - uses: actions/setup-node@v4
         with:
           node-version: 22.17.0
-          cache: "npm"
 
       # Debug environment before install
       - name: Debug environment
@@ -49,10 +48,24 @@ jobs:
           echo "Node modules exists: $(test -d node_modules && echo 'yes' || echo 'no')"
           head -20 package.json
 
-      # Install dependencies (with timeout for safety)
+      # Configure npm for better performance
+      - name: Configure npm
+        run: |
+          # Try different registries for speed
+          echo "Testing registry speeds..."
+          npm config set registry https://registry.npmjs.org/
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          npm config set fetch-retries 3
+          npm config set maxsockets 15
+          npm config set progress false
+          npm config set prefer-offline true
+          npm config list
+
+      # Install dependencies (using npm install for better network handling)
       - name: Install dependencies
-        run: timeout 600 npm ci --no-audit --no-fund --verbose
-        timeout-minutes: 10
+        run: npm install --no-audit --no-fund --prefer-offline
+        timeout-minutes: 20
 
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4

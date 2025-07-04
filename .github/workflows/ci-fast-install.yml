@@ -1,0 +1,58 @@
+name: CI Fast Install
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Setup Node.js with yarn cache (often faster)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.17.0
+
+      # Try installing with yarn for speed comparison
+      - name: Install yarn
+        run: npm install -g yarn
+
+      # Debug environment before install
+      - name: Debug environment
+        run: |
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Yarn version: $(yarn --version)"
+          echo "Registry: $(npm config get registry)"
+
+      # Install dependencies with yarn (often handles network issues better)
+      - name: Install dependencies with yarn
+        run: yarn install --frozen-lockfile --prefer-offline
+        timeout-minutes: 15
+
+      # Fallback to npm if yarn fails
+      - name: Fallback to npm install
+        if: failure()
+        run: |
+          rm -rf node_modules
+          npm install --no-audit --no-fund --prefer-offline
+        timeout-minutes: 15
+
+      # Verify installation
+      - name: Verify installation
+        run: |
+          echo "Node modules exists: $(test -d node_modules && echo 'yes' || echo 'no')"
+          npm list --depth=0
