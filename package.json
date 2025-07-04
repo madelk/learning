@@ -1,24 +1,35 @@
 {
   "name": "@study/source",
   "version": "0.0.0",
+  "private": true,
   "license": "MIT",
   "type": "module",
-  "engines": {
-    "node": "~20.11.0",
-    "npm": ">=10.0.0"
-  },
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "libs/*"
+  ],
   "scripts": {
-    "nvm:setup": "nvm use && nvm install && nvm alias default 20.11.0",
-    "test": "nx affected -t typecheck,lint,test,build",
-    "lint": "nx affected --target lint --fix",
     "build": "nx affected --target build",
-    "start": "nx run-many --target dev",
-    "reset:nx": "npx nx reset",
-    "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
     "clean:deps": "rm -rf ./node_modules",
-    "clean:full": "npm run clean:git && npm run clean:deps && npm install && npm run reset:nx"
+    "clean:full": "npm run clean:git && npm run clean:deps && npm install && npm run reset:nx",
+    "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
+    "lint": "nx affected --target lint --fix",
+    "nvm:setup": "nvm use && nvm install && nvm alias default 20.11.0",
+    "reset:nx": "npx nx reset",
+    "start": "nx run-many --target dev",
+    "test": "nx format:check && nx affected -t typecheck,lint,test,build"
   },
-  "private": true,
+  "dependencies": {
+    "isbot": "^4.4.0",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-is": "19.0.0",
+    "react-router-dom": "6.29.0",
+    "styled-components": "5.3.6",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
@@ -115,19 +126,8 @@
     "vue-tsc": "^2.2.8",
     "xo": "0.59.3"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*",
-    "libs/*"
-  ],
-  "dependencies": {
-    "isbot": "^4.4.0",
-    "react": "^19",
-    "react-dom": "^19",
-    "react-is": "19.0.0",
-    "react-router-dom": "6.29.0",
-    "styled-components": "5.3.6",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+  "engines": {
+    "node": "~20.11.0",
+    "npm": ">=10.0.0"
   }
 }
