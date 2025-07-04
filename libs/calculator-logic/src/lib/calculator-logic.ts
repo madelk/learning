@@ -50,30 +50,38 @@ export class CalculatorLogic {
   }
 
   private handleFloatingPointDisplay(result: number): string {
-    let resultStr = result.toString();
+    let resultString = result.toString();
 
     if (result === 0.1 + 0.2) return '0.3';
 
     // Round to reasonable precision
-    if (resultStr.includes('.')) {
-      const rounded = Math.round(result * 100000000) / 100000000;
-      resultStr = rounded.toString();
-      resultStr = resultStr.replace(/\.?0+$/, '');
-    }
-
-    // Limit display for repeating decimals
-    if (resultStr.length > 10 && resultStr.includes('.')) {
-      const parts = resultStr.split('.');
-      if (parts[1] && parts[1].length > 8) {
-        resultStr = parseFloat(result.toPrecision(8)).toString();
+    if (resultString.includes('.')) {
+      const rounded = Math.round(result * 100_000_000) / 100_000_000;
+      resultString = rounded.toString();
+      // Remove trailing zeros and decimal point safely without regex
+      if (resultString.includes('.')) {
+        while (resultString.endsWith('0')) {
+          resultString = resultString.slice(0, -1);
+        }
+        if (resultString.endsWith('.')) {
+          resultString = resultString.slice(0, -1);
+        }
       }
     }
 
-    return resultStr;
+    // Limit display for repeating decimals
+    if (resultString.length > 10 && resultString.includes('.')) {
+      const parts = resultString.split('.');
+      if (parts[1] && parts[1].length > 8) {
+        resultString = Number.parseFloat(result.toPrecision(8)).toString();
+      }
+    }
+
+    return resultString;
   }
 
   private formatResult(result: number): string {
-    if (!isFinite(result)) return 'Error';
+    if (!Number.isFinite(result)) return 'Error';
     if (Math.abs(result) >= CalculatorLogic.EXPONENTIAL_THRESHOLD) {
       return result.toExponential(8).toUpperCase();
     }
@@ -123,7 +131,7 @@ export class CalculatorLogic {
   }
 
   private calculateReciprocal(): void {
-    this.handleUnaryOperation((value) => (value !== 0 ? 1 / value : 'Error'));
+    this.handleUnaryOperation((value) => (value === 0 ? 'Error' : 1 / value));
   }
 
   private handleSignChange(): void {
@@ -310,7 +318,7 @@ export class CalculatorLogic {
 
   private performOperation(
     operation: CalculatorOperation,
-    prev: number,
+    previous: number,
     op: number
   ): number | string {
     const operations: Record<
@@ -320,24 +328,24 @@ export class CalculatorLogic {
       add: (a, b) => a + b,
       subtract: (a, b) => a - b,
       multiply: (a, b) => a * b,
-      divide: (a, b) => (b !== 0 ? a / b : 'Error'),
+      divide: (a, b) => (b === 0 ? 'Error' : a / b),
       sqroot: (_, b) => (b >= 0 ? Math.sqrt(b) : 'Error'),
       percentage: (a, b) => a * (b / 100),
-      reciprocal: (_, b) => (b !== 0 ? 1 / b : 'Error'),
+      reciprocal: (_, b) => (b === 0 ? 'Error' : 1 / b),
       signchange: (_, b) => -b
     };
 
-    return operations[operation](prev, op);
+    return operations[operation](previous, op);
   }
 
   calculateResult(): void {
     if (this.state.calcAction === null) return;
 
     const { operand, operation } = this.getOperandForCalculation();
-    const prev = Number(this.state.previousValue) || 0;
+    const previous = Number(this.state.previousValue) || 0;
     const op = Number(operand);
 
-    const result = this.performOperation(operation, prev, op);
+    const result = this.performOperation(operation, previous, op);
 
     this.state.displayValue =
       typeof result === 'string' ? result : this.formatResult(result);

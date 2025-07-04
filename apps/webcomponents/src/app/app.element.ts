@@ -3,17 +3,17 @@ import './about.element';
 import './main.element';
 
 export class AppElement extends HTMLElement {
-  public static observedAttributes = [];
+  public static readonly observedAttributes = [];
 
   private hashChangeListener = () => this.render();
 
   connectedCallback() {
     this.render();
-    window.addEventListener('hashchange', this.hashChangeListener);
+    globalThis.addEventListener('hashchange', this.hashChangeListener);
   }
 
   disconnectedCallback() {
-    window.removeEventListener('hashchange', this.hashChangeListener);
+    globalThis.removeEventListener('hashchange', this.hashChangeListener);
   }
   render() {
     // Support for /webcomponents base path
@@ -21,21 +21,13 @@ export class AppElement extends HTMLElement {
     let route = location.hash.replace('#', '');
     if (!route) {
       // If no hash, use pathname after basePath
-      if (location.pathname.startsWith(basePath)) {
-        route = location.pathname.slice(basePath.length);
-      } else {
-        route = '/';
-      }
+      route = location.pathname.startsWith(basePath) ? location.pathname.slice(basePath.length) : '/';
     } else if (route.startsWith(basePath)) {
       route = route.slice(basePath.length);
     }
     if (!route.startsWith('/')) route = '/' + route;
     let content = '';
-    if (route === '/about') {
-      content = '<about-page></about-page>';
-    } else {
-      content = `<main-page></main-page>`;
-    }
+    content = route === '/about' ? '<about-page></about-page>' : `<main-page></main-page>`;
     this.innerHTML = `
       <div class="wrapper">
         <div class="container">

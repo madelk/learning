@@ -1,11 +1,13 @@
-import { DEFAULT_NAVBAR_CONFIG } from './default-config.js';
-import type { NavBarConfig } from '../types/index.js';
 import { getCurrentApp } from '@study/helpers';
+
+import type { NavBarConfig } from '../types/index.js';
+
+import { DEFAULT_NAVBAR_CONFIG } from './default-config.js';
 
 /**
  * Apps that support the calculator feature
  */
-const CALCULATOR_SUPPORTED_APPS = ['react', 'vue'];
+const CALCULATOR_SUPPORTED_APPS = new Set(['react', 'vue']);
 
 /**
  * Get the navbar configuration for the current app
@@ -22,7 +24,7 @@ export function getNavbarConfig(): NavBarConfig {
   ];
 
   // Add Calculator only for apps that support it
-  if (CALCULATOR_SUPPORTED_APPS.includes(currentApp)) {
+  if (CALCULATOR_SUPPORTED_APPS.has(currentApp)) {
     navItems.push({ label: 'Calculator', href: `/${currentApp}/calculator` });
   }
 
