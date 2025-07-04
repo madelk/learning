@@ -16,7 +16,7 @@
     "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
     "lint": "nx format:check && nx affected --target lint --fix",
     "nvm:setup": "nvm use && nvm install && nvm alias default 22.17.0",
-    "prepare": "node -e \"if(process.env.CI)process.exit(0)\" && husky",
+    "prepare": "echo 'prepare script disabled for CI debugging'",
     "reset:nx": "npx nx reset",
     "start": "nx run-many --target dev",
     "test": "nx format:check && nx affected -t typecheck,lint,test,build"
