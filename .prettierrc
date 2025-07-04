@@ -1,4 +1,7 @@
 {
-  "singleQuote": true,
-  "trailingComma": "none"
+  "singleQuote": false,
+  "trailingComma": "none",
+  "overrides": [{ "files": ".nvmrc", "options": { "parser": "yaml" } }],
+  "useTabs": true,
+  "plugins": ["prettier-plugin-curly", "prettier-plugin-packagejson"]
 }

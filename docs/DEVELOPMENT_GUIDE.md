@@ -6,6 +6,7 @@ This guide covers all development practices, patterns, and workflows for this Nx
 
 - [Core Guidelines](#core-guidelines)
 - [TypeScript Configuration](#typescript-configuration)
+- [ESLint & Prettier](#eslint--prettier)
 - [ESM & Import Patterns](#esm--import-patterns)
 - [App Development](#app-development)
 - [Testing](#testing)
@@ -47,6 +48,32 @@ This guide covers all development practices, patterns, and workflows for this Nx
 - Vue: `"jsx": "preserve"` + `"jsxImportSource": "vue"`
 - Add new library paths to `tsconfig.base.json`
 - Add project references to consuming projects
+
+## ESLint & Prettier
+
+**See:** [ESLint & Prettier Configuration Guide](ESLINT_PRETTIER_CONFIG.md) for comprehensive details.
+
+### Quick Reference
+
+**Linting Commands:**
+```bash
+npm run lint          # Lint affected projects with auto-fix
+nx lint <project>     # Lint specific project
+nx affected -t lint   # Lint all affected (CI mode)
+```
+
+**Configuration Patterns:**
+- All projects extend root `eslint.config.mjs`
+- React apps add `...nx.configs['flat/react']`
+- Vue apps add `...vue.configs['flat/recommended']`
+- Libraries include JSON dependency checking
+- Prettier config applied last to override style conflicts
+
+**Key Rules:**
+- Single quotes, no trailing commas (Prettier)
+- Module boundary enforcement (Nx)
+- Framework-specific best practices
+- TypeScript integration for all file types
 
 **Validation:**
 ```bash
@@ -107,13 +134,17 @@ npm start       # Start all apps at once
 
 ## Code Style
 
-### Naming & Structure
+**See:** [ESLint & Prettier Configuration Guide](ESLINT_PRETTIER_CONFIG.md) for linting and formatting details.
+
+### Code Quality Guidelines
+
+**Naming & Structure:**
 - Write self-documenting code with clear variable/function names
 - Keep functions small and focused
 - Break large functions into smaller ones with descriptive names
 - Prefer descriptive function names over comments
 
-### Comments & Documentation
+**Comments & Documentation:**
 - Minimize comments - only add when code cannot be made clearer
 - Use JSDoc for functions that need documentation:
   - Complex algorithms
@@ -121,7 +152,7 @@ npm start       # Start all apps at once
   - Non-obvious parameters or return values
   - Functions with side effects
 
-### Auto-formatting
+**Auto-formatting:**
 Add these settings to `.vscode/settings.json` for consistent formatting:
 ```json
 {
