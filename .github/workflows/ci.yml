@@ -33,7 +33,7 @@ jobs:
       # Setup Node.js (without npm cache to avoid issues)
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.17.0
+          node-version: 22.16.0
 
       # Debug environment before install
       - name: Debug environment

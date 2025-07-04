@@ -5,10 +5,11 @@
 **The CI hang was caused by extremely slow npm registry responses in GitHub Actions**, not by any code or configuration issues.
 
 ### Evidence
+
 - Package downloads taking 11-25 seconds each (normal: <1 second)
 - Example slow downloads:
   - `webpack-5.99.9.tgz`: 24,011ms
-  - `lodash-4.17.21.tgz`: 23,357ms 
+  - `lodash-4.17.21.tgz`: 23,357ms
   - `rollup-4.44.0.tgz`: 14,698ms
   - Most packages: 11-16 seconds
 - PostInstall scripts ran fine after downloads completed
@@ -17,10 +18,12 @@
 ## Systematic Debugging Steps ✅
 
 ### Step 1: Disabled prepare script
+
 - **Result**: Ruled out Husky as the cause
 - **Change**: `"prepare": "echo 'prepare script disabled for CI debugging'"`
 
-### Step 2: Removed problematic dependencies  
+### Step 2: Removed problematic dependencies
+
 - **Result**: Ruled out husky/lint-staged as the cause
 - **Changes**:
   - Removed `husky` and `lint-staged` from devDependencies
@@ -29,12 +32,14 @@
   - Regenerated package-lock.json
 
 ### Step 3: Added comprehensive debugging
+
 - **Result**: Identified the actual hang point (npm package downloads)
 - **Changes**:
   - Added environment debugging output
   - Added `--verbose` flag to npm ci
 
 ### Step 4: Network optimizations
+
 - **Result**: Applied solutions for slow registry responses
 - **Changes**:
   - Removed npm cache from setup-node (can cause issues)
@@ -44,6 +49,7 @@
   - Created alternative yarn-based workflow
 
 ### Step 5: Most aggressive bypass (NEW)
+
 - **Result**: Identified `.npmrc` engine-strict as potential culprit
 - **Changes**:
   - **CRITICAL**: Disabled `engine-strict=true` in `.npmrc`
@@ -55,6 +61,7 @@
 ## Solutions Applied 🔧
 
 ### CI Workflow Optimizations
+
 ```yaml
 # Remove npm cache that can cause issues
 - uses: actions/setup-node@v4
@@ -78,6 +85,7 @@
 ```
 
 ### Alternative Workflows Created
+
 - `ci-fast-install.yml`: Yarn-based installation for comparison
 - `ci-minimal.yml`: Ultra-minimal workflow for debugging
 
@@ -109,7 +117,7 @@
 ## Files Modified 📁
 
 - `package.json`: Removed husky/lint-staged, relaxed engines
-- `package-lock.json`: Regenerated without problematic dependencies  
+- `package-lock.json`: Regenerated without problematic dependencies
 - `.github/workflows/ci.yml`: Added network optimizations
 - `.github/workflows/ci-fast-install.yml`: Alternative yarn workflow
 - `.github/workflows/ci-minimal.yml`: Minimal debugging workflow

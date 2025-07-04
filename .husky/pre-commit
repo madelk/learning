@@ -1,2 +1,1 @@
-echo "Pre-commit hook disabled during CI debugging"
-# npx lint-staged
+npx lint-staged
