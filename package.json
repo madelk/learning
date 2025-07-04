@@ -16,14 +16,17 @@
     "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
     "lint": "nx format:check && nx affected --target lint --fix",
     "nvm:setup": "nvm use && nvm install && nvm alias default 22.17.0",
-    "prepare": "is-ci || husky",
+    "prepare": "node -e \"if(process.env.CI)process.exit(0)\" && husky",
     "reset:nx": "npx nx reset",
     "start": "nx run-many --target dev",
     "test": "nx format:check && nx affected -t typecheck,lint,test,build"
   },
   "lint-staged": {
-    "*": [
-      "nx affected:lint --fix --files --verbose",
+    "*.{js,jsx,ts,tsx,vue}": [
+      "nx format:write --files",
+      "nx affected --target lint --fix --files"
+    ],
+    "*.{json,md}": [
       "nx format:write --files"
     ]
   },

@@ -36,7 +36,10 @@ jobs:
           node-version: 22.17.0
           cache: "npm"
 
-      - run: npm ci
+      # Install dependencies (with timeout for safety)
+      - name: Install dependencies
+        run: timeout 600 npm ci --no-audit --no-fund
+        timeout-minutes: 10
 
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
