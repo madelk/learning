@@ -195,6 +195,19 @@ npm start       # Start all apps at once
 - **Playwright**: Used for E2E testing
 - **Cypress**: Used for component testing
 
+### CI Testing Considerations
+
+**Known Issue - Vitest + Nx Distributed Execution:**
+
+Tests using Vitest may hang in CI when using Nx distributed execution. Current workaround:
+- Run tests with `NX_CLOUD_DISTRIBUTED_EXECUTION=false` in CI
+- Other targets (typecheck, lint, build) work fine with distributed execution
+- This is a temporary measure while investigating the root cause
+
+**Test Configuration:**
+- All test targets use `vitest run` (not `vitest`) to ensure proper exit in CI
+- Test timeouts are configured to prevent indefinite hanging
+
 ## Code Style
 
 **See:** [ESLint & Prettier Configuration Guide](ESLINT_PRETTIER_CONFIG.md) for linting and formatting details.

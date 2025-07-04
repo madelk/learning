@@ -48,33 +48,22 @@ jobs:
       - name: TEMP Run test first to verify it finishes
         timeout-minutes: 10
         run: |
-          echo "=== Debugging test execution ==="
-          echo "Checking affected projects..."
-          npx nx show projects --affected
+          echo "=== Testing without distributed execution ==="
           echo "Checking affected projects with test target..."
           npx nx show projects --affected --withTarget=test
           
-          echo "=== First try: Non-distributed execution ==="
-          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose || {
-            echo "Non-distributed test failed with exit code: $?"
-          }
-          
-          echo "=== Second try: Distributed execution ==="
-          set -x  # Enable command tracing
-          npx nx affected -t test --parallel=3 --verbose || {
-            echo "Test command failed with exit code: $?"
-            echo "Checking if any agents are still running..."
-            npx nx-cloud status || true
-            exit 1
-          }
-          set +x  # Disable command tracing
-          echo "Test command completed successfully with exit code: $?"
+          echo "=== Running tests without distributed execution ==="
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose
+          echo "Non-distributed test completed with exit code: $?"
 
       - name: Run CI Targets
         timeout-minutes: 5
         run: |
-          # Run non-E2E tasks in parallel, then E2E tasks sequentially
-          npx nx affected -t typecheck,lint,test,build --parallel=3
+          # Run non-test tasks in distributed mode
+          npx nx affected -t typecheck,lint,build --parallel=3
+          # Run tests without distributed execution to avoid hanging
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
+          # Run E2E tests sequentially
           npx nx affected -t e2e-ci --parallel=1
 
       # Stop Nx Cloud agents
