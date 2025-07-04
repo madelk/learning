@@ -45,8 +45,8 @@ const eslintConfig = [
       "**/*.bundle.js",
       "**/vite.config.*.timestamp*",
       "**/vitest.config.*.timestamp*",
-      "**/test-output/**",
-    ],
+      "**/test-output/**"
+    ]
   },
 
   // Nx workspace foundation
@@ -70,7 +70,7 @@ const eslintConfig = [
       n: nodePlugin,
       promise: promisePlugin,
       "@stylistic": stylisticPlugin,
-      "@eslint-community/eslint-comments": commentsPlugin,
+      "@eslint-community/eslint-comments": commentsPlugin
     },
     languageOptions: {
       globals: {
@@ -82,15 +82,15 @@ const eslintConfig = [
             ([key]) => key !== "AudioWorkletGlobalScope "
           )
         ),
-        AudioWorkletGlobalScope: globals.browser["AudioWorkletGlobalScope "],
+        AudioWorkletGlobalScope: globals.browser["AudioWorkletGlobalScope "]
       },
       ecmaVersion: "latest",
       sourceType: "module",
       parserOptions: {
         ecmaFeatures: {
-          jsx: true,
-        },
-      },
+          jsx: true
+        }
+      }
     },
     settings: {
       // Import resolver configuration following XO patterns
@@ -98,12 +98,12 @@ const eslintConfig = [
       "import/core-modules": ["electron", "atom"],
       "import/parsers": {
         espree: jsExtensions,
-        "@typescript-eslint/parser": tsExtensions,
+        "@typescript-eslint/parser": tsExtensions
       },
       "import/external-module-folders": ["node_modules", "node_modules/@types"],
       "import/resolver": {
         node: {
-          extensions: allExtensions,
+          extensions: allExtensions
         },
         typescript: {
           alwaysTryTypes: true,
@@ -111,10 +111,10 @@ const eslintConfig = [
             "tsconfig.json",
             "tsconfig.*.json",
             "./*/tsconfig.json",
-            "./*/tsconfig.*.json",
-          ],
-        },
-      },
+            "./*/tsconfig.*.json"
+          ]
+        }
+      }
     },
     rules: {
       // XO base rules - comprehensive coverage
@@ -145,7 +145,7 @@ const eslintConfig = [
       "n/file-extension-in-import": [
         "error",
         "always",
-        { ".ts": "never", ".tsx": "never" },
+        { ".ts": "never", ".tsx": "never" }
       ],
       "n/no-mixed-requires": ["error", { grouping: true, allowCall: true }],
       "n/no-new-require": "error",
@@ -174,7 +174,7 @@ const eslintConfig = [
       // ESLint comments rules
       "@eslint-community/eslint-comments/disable-enable-pair": [
         "error",
-        { allowWholeFile: true },
+        { allowWholeFile: true }
       ],
       "@eslint-community/eslint-comments/no-aggregating-enable": "error",
       "@eslint-community/eslint-comments/no-duplicate-disable": "error",
@@ -194,19 +194,19 @@ const eslintConfig = [
       "@stylistic/func-call-spacing": ["error", "never"],
       "@stylistic/key-spacing": [
         "error",
-        { beforeColon: false, afterColon: true },
+        { beforeColon: false, afterColon: true }
       ],
       "@stylistic/keyword-spacing": ["error", { before: true, after: true }],
       "@stylistic/lines-around-comment": [
         "error",
-        { beforeBlockComment: true, allowBlockStart: true },
+        { beforeBlockComment: true, allowBlockStart: true }
       ],
       "@stylistic/max-statements-per-line": ["error", { max: 1 }],
       "@stylistic/no-floating-decimal": "error",
       "@stylistic/no-multi-spaces": "error",
       "@stylistic/no-multiple-empty-lines": [
         "error",
-        { max: 1, maxEOF: 0, maxBOF: 0 },
+        { max: 1, maxEOF: 0, maxBOF: 0 }
       ],
       "@stylistic/no-trailing-spaces": "error",
       "@stylistic/no-whitespace-before-property": "error",
@@ -219,7 +219,7 @@ const eslintConfig = [
       "@stylistic/space-before-blocks": ["error", "always"],
       "@stylistic/space-before-function-paren": [
         "error",
-        { anonymous: "always", named: "never", asyncArrow: "always" },
+        { anonymous: "always", named: "never", asyncArrow: "always" }
       ],
       "@stylistic/space-in-parens": ["error", "never"],
       "@stylistic/space-infix-ops": "error",
@@ -254,11 +254,11 @@ const eslintConfig = [
             ref: true,
             refs: true,
             req: true,
-            res: true,
-          },
-        },
-      ],
-    },
+            res: true
+          }
+        }
+      ]
+    }
   },
 
   // TypeScript-specific configuration following XO patterns
@@ -275,8 +275,8 @@ const eslintConfig = [
 
       // TypeScript-specific import rules
       "import/no-unresolved": "off", // TypeScript handles this
-      "import/extensions": ["error", "never", { json: "always" }],
-    },
+      "import/extensions": ["error", "never", { json: "always" }]
+    }
   },
 
   // React configuration - XO React patterns
@@ -284,12 +284,12 @@ const eslintConfig = [
     name: "XO React",
     files: [
       "apps/react/**/*.{js,jsx,ts,tsx}",
-      "libs/**/react/**/*.{js,jsx,ts,tsx}",
+      "libs/**/react/**/*.{js,jsx,ts,tsx}"
     ],
     plugins: {
       "jsx-a11y": jsxA11y,
       react,
-      "react-hooks": reactHooks,
+      "react-hooks": reactHooks
     },
     rules: {
       // React best practices
@@ -316,20 +316,20 @@ const eslintConfig = [
       "react-hooks/exhaustive-deps": "warn",
 
       // JSX a11y
-      ...jsxA11y.configs.recommended.rules,
+      ...jsxA11y.configs.recommended.rules
     },
     settings: {
       react: {
-        version: "detect",
-      },
-    },
+        version: "detect"
+      }
+    }
   },
 
   // Test files - relaxed rules
   {
     files: [
       "**/*.{spec,test}.{js,jsx,ts,tsx}",
-      "**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "**/__tests__/**/*.{js,jsx,ts,tsx}"
     ],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
@@ -345,8 +345,8 @@ const eslintConfig = [
       "unicorn/consistent-function-scoping": "off",
       "unicorn/no-null": "off",
       "unicorn/no-useless-undefined": "off",
-      "unicorn/prevent-abbreviations": "off",
-    },
+      "unicorn/prevent-abbreviations": "off"
+    }
   },
 
   // Configuration files - relaxed rules
@@ -357,15 +357,15 @@ const eslintConfig = [
       "**/vite.config.*",
       "**/vitest.config.*",
       "**/postcss.config.*",
-      "**/tailwind.config.*",
+      "**/tailwind.config.*"
     ],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-var-requires": "off",
       "import/no-extraneous-dependencies": "off",
       "import/no-unresolved": "off",
-      "unicorn/prefer-module": "off",
-    },
+      "unicorn/prefer-module": "off"
+    }
   },
 
   // Nx module boundaries
@@ -379,17 +379,17 @@ const eslintConfig = [
           depConstraints: [
             {
               onlyDependOnLibsWithTags: ["*"],
-              sourceTag: "*",
-            },
+              sourceTag: "*"
+            }
           ],
-          enforceBuildableLibDependency: true,
-        },
-      ],
-    },
+          enforceBuildableLibDependency: true
+        }
+      ]
+    }
   },
 
   // Apply Prettier last to disable conflicting rules
-  prettier,
+  prettier
 ];
 
 export default eslintConfig;

@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+  import { reactive } from "vue";
 
-const formValues = reactive({
-  name: '',
-  profileSummary: '',
-  country: '',
-  jobLocation: [],
-  remoteWork: 'no',
-  skillSet: [],
-  yearsOfExperience: ''
-});
+  const formValues = reactive({
+    name: "",
+    profileSummary: "",
+    country: "",
+    jobLocation: [],
+    remoteWork: "no",
+    skillSet: [],
+    yearsOfExperience: ""
+  });
 
-function submitForm() {
-  console.log('Form submitted with values:', formValues);
-}
+  function submitForm() {
+    console.log("Form submitted with values:", formValues);
+  }
 
-// No public properties to expose
-defineExpose({});
+  // No public properties to expose
+  defineExpose({});
 </script>
 
 <template>
@@ -34,8 +34,10 @@ defineExpose({});
         JSON.stringify(formValues, null, 2)
       }}</pre>
     </div>
-
-    <form class="bg-white shadow-lg rounded-lg p-8 space-y-6" @submit.prevent="submitForm">
+    <form
+      class="bg-white shadow-lg rounded-lg p-8 space-y-6"
+      @submit.prevent="submitForm"
+    >
       <!-- Personal Information Section -->
       <div class="border-b border-gray-200 pb-6">
         <h3 class="text-xl font-semibold text-gray-900 mb-4">
@@ -44,23 +46,35 @@ defineExpose({});
 
         <div class="space-y-4">
           <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              for="name"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
               Full Name
             </label>
             <input
-id="name" v-model="formValues.name" type="text"
+              id="name"
+              v-model="formValues.name"
+              type="text"
               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Enter your full name" />
+              placeholder="Enter your full name"
+            />
           </div>
 
           <div>
-            <label for="profile-summary" class="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              for="profile-summary"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
               Profile Summary
             </label>
             <textarea
-id="profile-summary" v-model="formValues.profileSummary" rows="4"
+              id="profile-summary"
+              v-model="formValues.profileSummary"
+              rows="4"
               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Tell us about yourself and your experience..."></textarea>
+              placeholder="Tell us about yourself and your experience..."
+            ></textarea>
           </div>
         </div>
       </div>
@@ -73,12 +87,17 @@ id="profile-summary" v-model="formValues.profileSummary" rows="4"
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="country" class="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              for="country"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
               Country
             </label>
             <select
-id="country" v-model="formValues.country"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              id="country"
+              v-model="formValues.country"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
               <option value="">Select a country</option>
               <option value="usa">USA</option>
               <option value="canada">Canada</option>
@@ -87,12 +106,18 @@ id="country" v-model="formValues.country"
           </div>
 
           <div>
-            <label for="job-location" class="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              for="job-location"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
               Preferred Job Locations
             </label>
             <select
-id="job-location" v-model="formValues.jobLocation" multiple
-              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-24">
+              id="job-location"
+              v-model="formValues.jobLocation"
+              multiple
+              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-24"
+            >
               <option value="usa">USA</option>
               <option value="canada">Canada</option>
               <option value="mexico">Mexico</option>
@@ -106,9 +131,17 @@ id="job-location" v-model="formValues.jobLocation" multiple
         <div class="mt-4">
           <div class="flex items-center">
             <input
-id="remote-work" v-model="formValues.remoteWork" type="checkbox" true-value="yes" false-value="no"
-              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-            <label for="remote-work" class="ml-2 text-sm font-medium text-gray-700">
+              id="remote-work"
+              v-model="formValues.remoteWork"
+              type="checkbox"
+              true-value="yes"
+              false-value="no"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label
+              for="remote-work"
+              class="ml-2 text-sm font-medium text-gray-700"
+            >
               Open to remote work opportunities
             </label>
           </div>
@@ -126,22 +159,34 @@ id="remote-work" v-model="formValues.remoteWork" type="checkbox" true-value="yes
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div class="flex items-center">
               <input
-id="html" v-model="formValues.skillSet" type="checkbox" value="html"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                id="html"
+                v-model="formValues.skillSet"
+                type="checkbox"
+                value="html"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
               <label for="html" class="ml-2 text-sm text-gray-700">HTML</label>
             </div>
 
             <div class="flex items-center">
               <input
-id="css" v-model="formValues.skillSet" type="checkbox" value="css"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                id="css"
+                v-model="formValues.skillSet"
+                type="checkbox"
+                value="css"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
               <label for="css" class="ml-2 text-sm text-gray-700">CSS</label>
             </div>
 
             <div class="flex items-center">
               <input
-id="javascript" v-model="formValues.skillSet" type="checkbox" value="javascript"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                id="javascript"
+                v-model="formValues.skillSet"
+                type="checkbox"
+                value="javascript"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
               <label for="javascript" class="ml-2 text-sm text-gray-700">
                 JavaScript
               </label>
@@ -161,8 +206,12 @@ id="javascript" v-model="formValues.skillSet" type="checkbox" value="javascript"
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div class="flex items-center">
               <input
-id="0-2" v-model="formValues.yearsOfExperience" type="radio" value="0-2"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" />
+                id="0-2"
+                v-model="formValues.yearsOfExperience"
+                type="radio"
+                value="0-2"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
               <label for="0-2" class="ml-2 text-sm text-gray-700">
                 0-2 years
               </label>
@@ -170,8 +219,12 @@ id="0-2" v-model="formValues.yearsOfExperience" type="radio" value="0-2"
 
             <div class="flex items-center">
               <input
-id="3-5" v-model="formValues.yearsOfExperience" type="radio" value="3-5"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" />
+                id="3-5"
+                v-model="formValues.yearsOfExperience"
+                type="radio"
+                value="3-5"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
               <label for="3-5" class="ml-2 text-sm text-gray-700">
                 3-5 years
               </label>
@@ -179,8 +232,12 @@ id="3-5" v-model="formValues.yearsOfExperience" type="radio" value="3-5"
 
             <div class="flex items-center">
               <input
-id="6-10" v-model="formValues.yearsOfExperience" type="radio" value="6-10"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" />
+                id="6-10"
+                v-model="formValues.yearsOfExperience"
+                type="radio"
+                value="6-10"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
               <label for="6-10" class="ml-2 text-sm text-gray-700">
                 6-10 years
               </label>
@@ -188,8 +245,12 @@ id="6-10" v-model="formValues.yearsOfExperience" type="radio" value="6-10"
 
             <div class="flex items-center">
               <input
-id="10+" v-model="formValues.yearsOfExperience" type="radio" value="10+"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" />
+                id="10+"
+                v-model="formValues.yearsOfExperience"
+                type="radio"
+                value="10+"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
               <label for="10+" class="ml-2 text-sm text-gray-700">
                 10+ years
               </label>
@@ -201,8 +262,9 @@ id="10+" v-model="formValues.yearsOfExperience" type="radio" value="10+"
       <!-- Submit Button -->
       <div class="pt-6">
         <button
-type="submit"
-          class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 font-medium text-lg">
+          type="submit"
+          class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 font-medium text-lg"
+        >
           Submit Profile
         </button>
       </div>
@@ -211,5 +273,5 @@ type="submit"
 </template>
 
 <style>
-/* All styling now handled by Tailwind classes */
+  /* All styling now handled by Tailwind classes */
 </style>

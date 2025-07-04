@@ -12,5 +12,8 @@
   "eslint.useFlatConfig": true,
   "npm.packageManager": "npm",
   "prettier.requireConfig": true,
-  "editor.formatOnSaveMode": "file"
+  "editor.formatOnSaveMode": "file",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
