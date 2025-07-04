@@ -51,7 +51,7 @@ jobs:
           echo "=== Testing without distributed execution ==="
           echo "Checking affected projects with test target..."
           npx nx show projects --affected --withTarget=test
-          
+
           echo "=== Running tests without distributed execution ==="
           NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose
           echo "Non-distributed test completed with exit code: $?"

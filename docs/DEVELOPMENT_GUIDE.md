@@ -200,11 +200,13 @@ npm start       # Start all apps at once
 **Known Issue - Vitest + Nx Distributed Execution:**
 
 Tests using Vitest may hang in CI when using Nx distributed execution. Current workaround:
+
 - Run tests with `NX_CLOUD_DISTRIBUTED_EXECUTION=false` in CI
 - Other targets (typecheck, lint, build) work fine with distributed execution
 - This is a temporary measure while investigating the root cause
 
 **Test Configuration:**
+
 - All test targets use `vitest run` (not `vitest`) to ensure proper exit in CI
 - Test timeouts are configured to prevent indefinite hanging
 
