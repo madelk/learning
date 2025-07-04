@@ -14,7 +14,13 @@
     ],
     "rootDir": "src",
     "module": "esnext",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "paths": {
+      "@study/calculator-logic": ["../../libs/calculator-logic/src/index.ts"],
+      "@study/helpers": ["../../libs/helpers/src/index.ts"],
+      "@study/navbar": ["../../libs/navbar/src/index.ts"],
+      "@study/pagetext": ["../../libs/pagetext/src/index.ts"]
+    }
   },
   "exclude": [
     "out-tsc",

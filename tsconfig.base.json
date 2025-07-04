@@ -2,6 +2,8 @@
 	"compilerOptions": {
 		"forceConsistentCasingInFileNames": true,
 		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
 		"importHelpers": true,
 		"isolatedModules": true,
 		"lib": ["ESNext"],
@@ -20,12 +22,6 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext",
-		"baseUrl": ".",
-		"paths": {
-			"@study/calculator-logic": ["libs/calculator-logic/src/index.ts"],
-			"@study/helpers": ["libs/helpers/src/index.ts"],
-			"@study/navbar": ["libs/navbar/src/index.ts"],
-			"@study/pagetext": ["libs/pagetext/src/index.ts"]
-		}
+		"baseUrl": "."
 	}
 }

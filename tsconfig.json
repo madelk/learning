@@ -4,6 +4,18 @@
   "files": [],
   "references": [
     {
+      "path": "./libs/helpers"
+    },
+    {
+      "path": "./libs/pagetext"
+    },
+    {
+      "path": "./libs/calculator-logic"
+    },
+    {
+      "path": "./libs/navbar"
+    },
+    {
       "path": "./apps/react-e2e"
     },
     {
@@ -20,21 +32,6 @@
     },
     {
       "path": "./apps/vue"
-    },
-    {
-      "path": "./apps/vue-e2e"
-    },
-    {
-      "path": "./libs/navbar"
-    },
-    {
-      "path": "./libs/pagetext"
-    },
-    {
-      "path": "./libs/helpers"
-    },
-    {
-      "path": "./libs/calculator-logic"
     }
   ]
 }

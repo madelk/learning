@@ -174,27 +174,30 @@ export class CalculatorLogic {
   }
 
   setAction(action: CalculatorOperation): void {
-    const unaryOperations: Record<
-      CalculatorOperation,
-      (() => void) | undefined
-    > = {
-      sqroot: () => this.calculateSquareRoot(),
-      reciprocal: () => this.calculateReciprocal(),
-      signchange: () => this.handleSignChange(),
-      percentage: () => this.calculatePercentage(),
-      add: undefined,
-      subtract: undefined,
-      multiply: undefined,
-      divide: undefined
-    };
-
-    const unaryOperation = unaryOperations[action];
-    if (unaryOperation) {
-      unaryOperation();
-      return;
+    // Safe property access with explicit enum validation
+    switch (action) {
+      case "sqroot": {
+        this.calculateSquareRoot();
+        return;
+      }
+      case "reciprocal": {
+        this.calculateReciprocal();
+        return;
+      }
+      case "signchange": {
+        this.handleSignChange();
+        return;
+      }
+      case "percentage": {
+        this.calculatePercentage();
+        return;
+      }
+      default: {
+        // Binary operations
+        this.handleBinaryOperation(action);
+        break;
+      }
     }
-
-    this.handleBinaryOperation(action);
   }
 
   private handleBinaryOperation(action: CalculatorOperation): void {
@@ -325,21 +328,36 @@ export class CalculatorLogic {
     previous: number,
     op: number
   ): number | string {
-    const operations: Record<
-      CalculatorOperation,
-      (a: number, b: number) => number | string
-    > = {
-      add: (a, b) => a + b,
-      subtract: (a, b) => a - b,
-      multiply: (a, b) => a * b,
-      divide: (a, b) => (b === 0 ? "Error" : a / b),
-      sqroot: (_, b) => (b >= 0 ? Math.sqrt(b) : "Error"),
-      percentage: (a, b) => a * (b / 100),
-      reciprocal: (_, b) => (b === 0 ? "Error" : 1 / b),
-      signchange: (_, b) => -b
-    };
-
-    return operations[operation](previous, op);
+    // Use explicit switch statement instead of dynamic property access for security
+    switch (operation) {
+      case "add": {
+        return previous + op;
+      }
+      case "subtract": {
+        return previous - op;
+      }
+      case "multiply": {
+        return previous * op;
+      }
+      case "divide": {
+        return op === 0 ? "Error" : previous / op;
+      }
+      case "sqroot": {
+        return op >= 0 ? Math.sqrt(op) : "Error";
+      }
+      case "percentage": {
+        return previous * (op / 100);
+      }
+      case "reciprocal": {
+        return op === 0 ? "Error" : 1 / op;
+      }
+      case "signchange": {
+        return -op;
+      }
+      default: {
+        return "Error";
+      }
+    }
   }
 
   calculateResult(): void {

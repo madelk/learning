@@ -11,7 +11,13 @@
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
-		"lib": ["dom", "ESNext"]
+		"lib": ["dom", "ESNext"],
+		"paths": {
+			"@study/calculator-logic": ["../../libs/calculator-logic/src/index.ts"],
+			"@study/helpers": ["../../libs/helpers/src/index.ts"],
+			"@study/navbar": ["../../libs/navbar/src/index.ts"],
+			"@study/pagetext": ["../../libs/pagetext/src/index.ts"]
+		}
 	},
 	"exclude": [
 		"out-tsc",

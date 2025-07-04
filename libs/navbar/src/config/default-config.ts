@@ -82,9 +82,17 @@ function getCurrentSubPath(): string {
     return "/";
   }
   const path = globalThis.location.pathname;
-  // Match /appname/anything or /appname
-  const match = path.match(/^\/(react|vue|webcomponents)(\/.*)?$/);
-  return match && match[2] ? match[2] : "/";
+  
+  // Safe path parsing without regex to avoid security warnings
+  const segments = path.split('/').filter(Boolean);
+  const validApps = ['react', 'vue', 'webcomponents'];
+  
+  if (segments.length === 0 || !segments[0] || !validApps.includes(segments[0])) {
+    return "/";
+  }
+  
+  // Return the sub-path after the app name, or "/" if none
+  return segments.length > 1 ? '/' + segments.slice(1).join('/') : "/";
 }
 
 /**

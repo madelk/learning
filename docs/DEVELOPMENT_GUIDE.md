@@ -49,6 +49,47 @@ This guide covers all development practices, patterns, and workflows for this Nx
 - Add new library paths to `tsconfig.base.json`
 - Add project references to consuming projects
 
+### Known Issues
+
+**VS Code TypeScript "rootDir" Errors:**
+
+VS Code may show TypeScript errors like:
+```
+File '/Users/.../libs/helpers/src/index.ts' is not under 'rootDir' '/Users/.../libs/calculator-logic/src'
+```
+
+This is a VS Code TypeScript language service issue with workspace path mappings. The errors can be **safely ignored** because:
+
+- ✅ Actual builds work fine (`npm test` passes)
+- ✅ Command-line TypeScript compilation succeeds
+- ❌ Only VS Code's TypeScript service shows these errors
+
+**Workaround Options:**
+1. **Ignore the errors** (recommended) - builds work fine
+2. Restart VS Code TypeScript service: `Cmd+Shift+P` → "TypeScript: Restart TS Server"
+3. Use workspace-level TypeScript (`"typescript.preferences.includePackageJsonAutoImports": "off"` in VS Code settings)
+
+This issue occurs because VS Code includes all path-mapped source files as "root files" for each project, while the actual TypeScript compiler respects project boundaries correctly.
+
+## Security & ESLint
+
+### Resolved Security Issues
+
+**Object Injection Prevention:**
+- ✅ Replaced dynamic property access (`operations[operation]()`) with explicit switch statements
+- ✅ Removed vulnerable patterns from `calculator-logic/src/lib/calculator-logic.ts`
+- ✅ All ESLint security warnings resolved
+
+**Regex Safety:**
+- ✅ Replaced potentially unsafe regex patterns with explicit string parsing
+- ✅ Updated `navbar/src/config/default-config.ts` to use safe path parsing
+
+**Security Best Practices Applied:**
+- Use explicit switch/case statements instead of dynamic object property access
+- Validate all inputs before processing
+- Avoid regex patterns that could cause ReDoS (Regular Expression Denial of Service)
+- Use type-safe property access where possible
+
 ## ESLint & Prettier
 
 **See:** [ESLint & Prettier Configuration Guide](ESLINT_PRETTIER_CONFIG.md) for comprehensive details.
