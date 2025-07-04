@@ -4,4 +4,4 @@ export {
   getCurrentApp,
   isLocalhost
 } from "./lib/helpers.js";
-// test comment
+// Pre-commit automation test - this should trigger formatting
