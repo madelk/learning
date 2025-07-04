@@ -33,7 +33,7 @@ jobs:
       # Setup Node.js
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.11.0
+          node-version: 22.17.0
           cache: "npm"
 
       - run: npm ci
@@ -44,17 +44,6 @@ jobs:
       # Check code formatting
       - name: Check code formatting
         run: npx nx format:check
-
-      - name: TEMP Run test first to verify it finishes
-        timeout-minutes: 10
-        run: |
-          echo "=== Testing without distributed execution ==="
-          echo "Checking affected projects with test target..."
-          npx nx show projects --affected --withTarget=test
-
-          echo "=== Running tests without distributed execution ==="
-          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose
-          echo "Non-distributed test completed with exit code: $?"
 
       - name: Run CI Targets
         timeout-minutes: 5

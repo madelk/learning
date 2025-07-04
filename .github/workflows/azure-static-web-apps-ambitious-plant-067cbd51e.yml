@@ -26,8 +26,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.11.0
-          cache: 'npm'
+          node-version: 22.17.0
+          cache: "npm"
 
       - run: npm ci
 
@@ -51,7 +51,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_PLANT_067CBD51E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: 'upload'
-          app_location: '/dist'
+          action: "upload"
+          app_location: "/dist"
           skip_app_build: true
           skip_api_build: true
