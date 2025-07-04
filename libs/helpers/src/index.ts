@@ -3,4 +3,5 @@ export {
   detectAppFromPath,
   getCurrentApp,
   isLocalhost
-} from './lib/helpers.js';
+} from "./lib/helpers.js";
+// test comment
