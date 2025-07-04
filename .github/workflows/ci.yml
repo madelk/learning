@@ -45,11 +45,12 @@ jobs:
       - name: Check code formatting
         run: npx nx format:check
 
-      # Run affected targets
+      # Run affected targets (non-E2E first)
       - name: Run CI Targets
         timeout-minutes: 3
         run: |
-          npx nx affected -t typecheck,lint,test,build,e2e-ci --parallel=3
+          npx nx affected -t typecheck,lint,test,build --parallel=3
+          npx nx affected -t e2e-ci --parallel=1
           echo "All tasks completed successfully"
 
       # Stop Nx Cloud agents
