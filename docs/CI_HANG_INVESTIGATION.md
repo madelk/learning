@@ -55,7 +55,7 @@
 - **Changes**:
   - Removed `husky` and `lint-staged` from devDependencies
   - Removed `lint-staged` configuration
-  - Relaxed Node.js engines from `~22.17.0` to `>=22.0.0`
+  - Relaxed Node.js engines from `~22.16.0` to `>=22.0.0`
   - Regenerated package-lock.json
 
 ### Step 3: Added comprehensive debugging
@@ -93,7 +93,7 @@
 # Remove npm cache that can cause issues
 - uses: actions/setup-node@v4
   with:
-    node-version: 22.17.0
+    node-version: 22.16.0
     # cache: "npm"  # REMOVED
 
 # Configure npm for better network handling
