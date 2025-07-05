@@ -93,7 +93,7 @@
 # Remove npm cache that can cause issues
 - uses: actions/setup-node@v4
   with:
-    node-version: 22.17.0
+    node-version: 22.16.0
     # cache: "npm"  # REMOVED
 
 # Configure npm for better network handling
