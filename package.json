@@ -12,7 +12,7 @@
   "scripts": {
     "build": "nx affected --target build",
     "clean:deps": "rm -rf ./node_modules",
-    "clean:full": "npm run clean:git && npm run clean:deps && npm install && npm run reset:nx",
+    "clean:full": "pnpm run clean:git && pnpm run clean:deps && pnpm install && pnpm run reset:nx",
     "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
     "lint": "nx format:check && nx affected --target lint --fix",
     "nvm:setup": "nvm use && nvm install && nvm alias default 22.16.0",
@@ -140,6 +140,6 @@
   },
   "engines": {
     "node": "~22.16.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   }
 }

@@ -1,8 +1,8 @@
 // Test file to trigger CI workflow without deployment
-// This file tests the improved npm ci configuration with:
-// - 10-minute timeout
-// - --no-audit, --no-fund, --prefer-offline flags
-// - Reduced npm verbosity
+// This file tests the pnpm migration with:
+// - pnpm install --frozen-lockfile for fast, reliable installs
+// - Better monorepo support and dependency management
+// - Reduced install times and improved CI reliability
 // - Environment debugging info
 
 export const testMessage =

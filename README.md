@@ -16,8 +16,8 @@ This monorepo contains multiple frontend applications built with different frame
 git clone https://github.com/madelk/learning.git
 cd learning
 nvm install
-npm i
-npm start
+pnpm install
+pnpm start
 ```
 
 ## Project Structure
