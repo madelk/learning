@@ -111,10 +111,13 @@
   timeout-minutes: 20
 ```
 
-### Alternative Workflows Created
+### Alternative Workflows Created (Now Removed)
+
+During the debugging process, several alternative CI workflows were created to isolate the issue. These have been removed after the solution was found:
 
 - `ci-fast-install.yml`: Yarn-based installation for comparison
 - `ci-minimal.yml`: Ultra-minimal workflow for debugging
+- `ci-no-cloud.yml`: Non-distributed workflow testing
 
 ## Key Learnings 📚
 
