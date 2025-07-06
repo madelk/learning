@@ -60,7 +60,7 @@ jobs:
           CYPRESS_RUN_BINARY: 0
           CYPRESS_SKIP_BINARY_INSTALL: true
           CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
