@@ -23,6 +23,20 @@
     "sourceRoot": "libs/pagetext/src",
     "tags": [
       "shared"
-    ]
+    ],
+    "targets": {
+      "dev": {
+        "executor": "@nx/vite:build",
+        "options": {
+          "configFile": "libs/pagetext/vite.config.ts",
+          "watch": true,
+          "outputPath": "libs/pagetext/dist"
+        },
+        "dependsOn": [
+          "^build"
+        ],
+        "continuous": true
+      }
+    }
   }
 }
