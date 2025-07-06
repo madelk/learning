@@ -1,13 +1,13 @@
-import { getCurrentApp } from '@study/helpers';
+import { getCurrentApp } from "@study/helpers";
 
-import type { NavBarConfig } from '../types/index.js';
+import type { NavBarConfig } from "../types/index.js";
 
-import { DEFAULT_NAVBAR_CONFIG } from './default-config.js';
+import { DEFAULT_NAVBAR_CONFIG } from "./default-config.js";
 
 /**
  * Apps that support the calculator feature
  */
-const CALCULATOR_SUPPORTED_APPS = new Set(['react', 'vue']);
+const CALCULATOR_SUPPORTED_APPS = new Set(["react", "vue"]);
 
 /**
  * Get the navbar configuration for the current app
@@ -19,20 +19,21 @@ export function getNavbarConfig(): NavBarConfig {
 
   // Create basic navigation items for all apps
   const navItems = [
-    { label: 'Home', href: `/${currentApp}/` },
-    { label: 'About', href: `/${currentApp}/about` }
+    { label: "Home", href: `/${currentApp}/` },
+    { label: "About", href: `/${currentApp}/about` }
   ];
 
   // Add Calculator only for apps that support it
   if (CALCULATOR_SUPPORTED_APPS.has(currentApp)) {
-    navItems.push({ label: 'Calculator', href: `/${currentApp}/calculator` });
+    navItems.push({ label: "Calculator", href: `/${currentApp}/calculator` });
   }
 
   // Add Vue-specific pages only if we're in the Vue app
-  if (currentApp === 'vue') {
+  if (currentApp === "vue") {
     navItems.push(
-      { label: 'Computed', href: '/vue/computed' },
-      { label: 'Form', href: '/vue/form' }
+      { label: "Computed", href: "/vue/computed" },
+      { label: "Form", href: "/vue/form" },
+      { label: "Volume", href: "/vue/volume" }
     );
   }
 
