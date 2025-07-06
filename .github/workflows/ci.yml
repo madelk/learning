@@ -33,16 +33,16 @@ jobs:
           echo "🌩️ Starting Nx Cloud CI run..."
           npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" || echo "Nx Cloud start failed, continuing without distribution"
 
-      # Setup Node.js
+      # Setup pnpm first
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      # Setup Node.js with pnpm cache
       - uses: actions/setup-node@v4
         with:
           node-version: 22.16.0
           cache: "pnpm"
-
-      # Setup pnpm
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 10
 
       - name: Environment info
         run: |
