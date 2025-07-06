@@ -47,9 +47,6 @@
       "path": "../../libs/pagetext/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/navbar/tsconfig.lib.json"
-    },
-    {
       "path": "../../libs/helpers/tsconfig.lib.json"
     },
     {

@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
@@ -28,6 +27,18 @@
       "shared"
     ],
     "targets": {
+      "dev": {
+        "executor": "@nx/vite:build",
+        "options": {
+          "configFile": "libs/navbar/vite.config.ts",
+          "watch": true,
+          "outputPath": "libs/navbar/dist"
+        },
+        "dependsOn": [
+          "^build"
+        ],
+        "continuous": true
+      },
       "test": {
         "executor": "@nx/vite:test",
         "outputs": [

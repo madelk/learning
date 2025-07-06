@@ -27,6 +27,18 @@
       "shared"
     ],
     "targets": {
+      "dev": {
+        "executor": "@nx/vite:build",
+        "options": {
+          "configFile": "libs/helpers/vite.config.ts",
+          "watch": true,
+          "outputPath": "libs/helpers/dist"
+        },
+        "dependsOn": [
+          "^build"
+        ],
+        "continuous": true
+      },
       "test": {
         "cache": true,
         "inputs": [

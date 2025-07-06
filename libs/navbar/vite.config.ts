@@ -1,33 +1,34 @@
 /// <reference types='vitest' />
-import { resolve } from 'node:path';
+import { resolve } from "node:path";
 
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/libs/navbar',
+  cacheDir: "../../node_modules/.vite/libs/navbar",
 
   build: {
     lib: {
+      name: "@study/navbar",
       entry: {
-        index: resolve(__dirname, 'src/index.ts')
+        index: resolve(__dirname, "src/index.ts")
       },
-      formats: ['es'],
+      formats: ["es"],
       fileName: (_format, entryName) => `${entryName}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', '@study/helpers']
+      external: ["react", "react-dom", "@study/helpers"]
     },
-    outDir: 'dist',
+    outDir: "./dist",
     emptyOutDir: true
   },
 
   plugins: [
     dts({
-      entryRoot: 'src',
-      outDir: 'dist',
-      exclude: ['**/*.spec.ts', '**/*.test.ts'],
+      entryRoot: "src",
+      outDir: "dist",
+      exclude: ["**/*.spec.ts", "**/*.test.ts"],
       insertTypesEntry: true
     })
   ],
@@ -35,12 +36,12 @@ export default defineConfig({
   test: {
     watch: false,
     globals: true,
-    environment: 'jsdom',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['default'],
+    environment: "jsdom",
+    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    reporters: ["default"],
     coverage: {
-      reportsDirectory: './test-output/vitest/coverage',
-      provider: 'v8' as const
+      reportsDirectory: "./test-output/vitest/coverage",
+      provider: "v8" as const
     }
   }
 });
