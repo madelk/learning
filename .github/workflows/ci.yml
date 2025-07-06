@@ -37,27 +37,30 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22.16.0
-          cache: "npm"
+          cache: "pnpm"
+
+      # Setup pnpm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
 
       - name: Environment info
         run: |
           node --version
-          npm --version
-          echo "Registry: $(npm config get registry)"
-          echo "Cache location: $(npm config get cache)"
+          pnpm --version
+          echo "Registry: $(pnpm config get registry)"
+          echo "Store location: $(pnpm store path)"
 
       - name: Install dependencies
-        timeout-minutes: 10
+        timeout-minutes: 5
         env:
-          npm_config_progress: false
-          npm_config_loglevel: error
           CI: true
           # Cypress optimizations
           CYPRESS_INSTALL_BINARY: 0
           CYPRESS_RUN_BINARY: 0
           CYPRESS_SKIP_BINARY_INSTALL: true
           CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
-        run: npm ci --no-audit --no-fund --prefer-offline
+        run: pnpm install --frozen-lockfile
 
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
@@ -89,13 +92,13 @@ jobs:
           echo "🚀 Starting CI targets..."
           echo "Affected projects:"
           npx nx show projects --affected
-          
+
           echo "📋 Running typecheck, lint, build..."
           npx nx affected -t typecheck,lint,build --parallel=3 --verbose
-          
+
           echo "🧪 Running tests without distributed execution..."
           NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose
-          
+
           echo "🎭 Running E2E tests sequentially..."
           npx nx affected -t e2e-ci --parallel=1 --verbose || echo "E2E tests failed or skipped"
 
