@@ -47,12 +47,12 @@ The `paths` section defines workspace library aliases:
 
 ```json
 {
-	"paths": {
-		"@study/calculator-logic": ["libs/calculator-logic/src/index.ts"],
-		"@study/helpers": ["libs/helpers/src/index.ts"],
-		"@study/navbar": ["libs/navbar/src/index.ts"],
-		"@study/pagetext": ["libs/pagetext/src/index.ts"]
-	}
+  "paths": {
+    "@study/calculator-logic": ["libs/calculator-logic/src/index.ts"],
+    "@study/helpers": ["libs/helpers/src/index.ts"],
+    "@study/navbar": ["libs/navbar/src/index.ts"],
+    "@study/pagetext": ["libs/pagetext/src/index.ts"]
+  }
 }
 ```
 
@@ -272,13 +272,13 @@ To verify your TypeScript configuration is working correctly:
 
 ```bash
 # Check for type errors across the workspace
-npm run type-check
+pnpm run type-check
 
 # Build all projects to verify project references
 npx tsc --build
 
 # Run tests to verify test configurations
-npm test
+pnpm test
 ```
 
 ### Expected Build Outputs

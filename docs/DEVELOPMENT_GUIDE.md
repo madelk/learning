@@ -109,7 +109,7 @@ This issue occurs because VS Code includes all path-mapped source files as "root
 **Linting Commands:**
 
 ```bash
-npm run lint          # Lint affected projects with auto-fix
+pnpm run lint         # Lint affected projects with auto-fix
 nx lint <project>     # Lint specific project
 nx affected -t lint   # Lint all affected (CI mode)
 ```

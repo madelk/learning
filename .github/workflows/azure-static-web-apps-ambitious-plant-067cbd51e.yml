@@ -24,17 +24,32 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Setup pnpm first
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      # Setup Node.js with pnpm cache
       - uses: actions/setup-node@v4
         with:
           node-version: 22.16.0
-          cache: "npm"
+          cache: "pnpm"
 
-      - run: npm ci
+      - name: Install dependencies
+        timeout-minutes: 5
+        env:
+          CI: true
+          # Cypress optimizations
+          CYPRESS_INSTALL_BINARY: 0
+          CYPRESS_RUN_BINARY: 0
+          CYPRESS_SKIP_BINARY_INSTALL: true
+          CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       - uses: nrwl/nx-set-shas@v4
 
       # Build the applications
-      - run: npx nx run-many --target=build --all --skip-nx-cache
+      - run: npx nx run-many --target=build --all
 
       - name: Ensure dist folder exists
         run: mkdir -p dist

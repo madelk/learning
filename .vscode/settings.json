@@ -10,7 +10,7 @@
     "source.fixAll.eslint"
   ],
   "eslint.useFlatConfig": true,
-  "npm.packageManager": "npm",
+  "npm.packageManager": "pnpm",
   "prettier.requireConfig": true,
   "editor.formatOnSaveMode": "file",
   "[vue]": {

@@ -128,14 +128,14 @@ export default [
 React-specific linting with JSX support:
 
 ```javascript
-import nx from '@nx/eslint-plugin';
-import baseConfig from '../../eslint.config.mjs';
+import nx from "@nx/eslint-plugin";
+import baseConfig from "../../eslint.config.mjs";
 
 export default [
   ...baseConfig, // Inherit root configuration
-  ...nx.configs['flat/react'], // React-specific rules
+  ...nx.configs["flat/react"], // React-specific rules
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
     rules: {
       // React-specific customizations
     }
@@ -155,23 +155,23 @@ export default [
 Vue 3 Composition API with TypeScript support:
 
 ```javascript
-import vue from 'eslint-plugin-vue';
-import prettier from 'eslint-config-prettier';
-import baseConfig from '../../eslint.config.mjs';
+import vue from "eslint-plugin-vue";
+import prettier from "eslint-config-prettier";
+import baseConfig from "../../eslint.config.mjs";
 
 export default [
   ...baseConfig,
-  ...vue.configs['flat/recommended'], // Vue 3 recommended rules
+  ...vue.configs["flat/recommended"], // Vue 3 recommended rules
   {
-    files: ['**/*.vue'],
+    files: ["**/*.vue"],
     languageOptions: {
       parserOptions: {
-        parser: await import('@typescript-eslint/parser') // TypeScript in Vue
+        parser: await import("@typescript-eslint/parser") // TypeScript in Vue
       }
     },
     rules: {
-      'vue/html-self-closing': 'off', // Allow non-self-closing tags
-      'vue/multi-word-component-names': 'off' // Allow single-word components
+      "vue/html-self-closing": "off", // Allow non-self-closing tags
+      "vue/multi-word-component-names": "off" // Allow single-word components
     }
   },
   prettier
@@ -190,23 +190,23 @@ export default [
 Libraries have specialized configurations for dependency checking and JSON linting:
 
 ```javascript
-import baseConfig from '../../eslint.config.mjs';
+import baseConfig from "../../eslint.config.mjs";
 
 export default [
   ...baseConfig,
   {
-    files: ['**/*.json'],
+    files: ["**/*.json"],
     rules: {
-      '@nx/dependency-checks': [
-        'error',
+      "@nx/dependency-checks": [
+        "error",
         {
-          ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'],
-          ignoredDependencies: ['vite', 'vite-plugin-dts']
+          ignoredFiles: ["{projectRoot}/eslint.config.{js,cjs,mjs}"],
+          ignoredDependencies: ["vite", "vite-plugin-dts"]
         }
       ]
     },
     languageOptions: {
-      parser: await import('jsonc-eslint-parser') // JSON with comments support
+      parser: await import("jsonc-eslint-parser") // JSON with comments support
     }
   }
 ];
@@ -303,7 +303,7 @@ tmp/                           # Temporary files
 
 ```bash
 # Lint all affected projects with auto-fix
-npm run lint
+pnpm run lint
 
 # Lint specific project
 nx lint <project-name>
@@ -320,7 +320,7 @@ npx prettier --check .
 
 ### Validation Workflow
 
-1. **Development** - `npm run lint` auto-fixes issues during development
+1. **Development** - `pnpm run lint` auto-fixes issues during development
 2. **Pre-commit** - Linting integrated with git hooks (if configured)
 3. **CI/CD** - `nx affected --target lint` validates all changes
 4. **IDE Integration** - Real-time linting feedback in VS Code/WebStorm
@@ -435,7 +435,7 @@ For project-specific requirements, create custom rule configurations:
 {
   settings: {
     react: {
-      version: 'detect'; // Automatically detect React version
+      version: "detect"; // Automatically detect React version
     }
   }
 }
@@ -462,7 +462,7 @@ For project-specific requirements, create custom rule configurations:
 The configuration enforces strict JavaScript best practices:
 
 - **`eqeqeq: 'always'`** - Always use strict equality (`===`, `!==`)
-- **`no-eval: 'error'`** - Prevent code injection vulnerabilities  
+- **`no-eval: 'error'`** - Prevent code injection vulnerabilities
 - **`no-console: 'warn'`** - Discourage console statements in production
 - **`prefer-const: 'error'`** - Use `const` for immutable bindings
 - **`no-var: 'error'`** - Eliminate `var` declarations

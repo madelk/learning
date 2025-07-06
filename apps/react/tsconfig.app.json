@@ -44,13 +44,16 @@
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
+      "path": "../../libs/pagetext/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/navbar/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/calculator-logic/tsconfig.lib.json"
+      "path": "../../libs/helpers/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/pagetext/tsconfig.lib.json"
+      "path": "../../libs/calculator-logic/tsconfig.lib.json"
     }
   ]
 }
