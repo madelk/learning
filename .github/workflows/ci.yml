@@ -65,6 +65,10 @@ jobs:
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
+      # Debug Nx workspace health
+      - name: Nx Report
+        run: npx nx report
+
       # Debug affected projects
       - name: Show affected projects
         run: |
