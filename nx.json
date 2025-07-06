@@ -158,5 +158,10 @@
       "unitTestRunner": "vitest",
       "e2eTestRunner": "cypress"
     }
+  },
+  "cli": {
+    "sync": {
+      "applyChanges": true
+    }
   }
 }
