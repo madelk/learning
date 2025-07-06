@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "@study/calculator-logic": "workspace:*",
+    "@study/helpers": "workspace:*",
     "@study/navbar": "workspace:*",
     "@study/pagetext": "workspace:*"
   }

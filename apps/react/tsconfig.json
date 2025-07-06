@@ -3,10 +3,13 @@
   "include": [],
   "references": [
     {
+      "path": "../../libs/pagetext"
+    },
+    {
       "path": "../../libs/navbar"
     },
     {
-      "path": "../../libs/pagetext"
+      "path": "../../libs/helpers"
     },
     {
       "path": "../../libs/calculator-logic"

@@ -336,6 +336,9 @@ importers:
       '@study/calculator-logic':
         specifier: workspace:*
         version: link:../../libs/calculator-logic
+      '@study/helpers':
+        specifier: workspace:*
+        version: link:../../libs/helpers
       '@study/navbar':
         specifier: workspace:*
         version: link:../../libs/navbar
@@ -350,6 +353,9 @@ importers:
       '@study/calculator-logic':
         specifier: workspace:*
         version: link:../../libs/calculator-logic
+      '@study/helpers':
+        specifier: workspace:*
+        version: link:../../libs/helpers
       '@study/navbar':
         specifier: workspace:*
         version: link:../../libs/navbar
@@ -361,6 +367,9 @@ importers:
 
   apps/webcomponents:
     devDependencies:
+      '@study/helpers':
+        specifier: workspace:*
+        version: link:../../libs/helpers
       '@study/navbar':
         specifier: workspace:*
         version: link:../../libs/navbar
