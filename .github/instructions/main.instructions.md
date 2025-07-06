@@ -48,8 +48,10 @@ applyTo: "**"
 **Package Management:**
 
 - Use `pnpm` commands consistently (`pnpm test`, `pnpm run lint`, etc.)
+- **ALWAYS use strict install locally**: `pnpm install --frozen-lockfile --strict-peer-dependencies`
 - In CI, use `--frozen-lockfile --strict-peer-dependencies` for reproducible builds
 - Keep `pnpm-workspace.yaml` and `pnpm-lock.yaml` in sync
+- Use Corepack for pnpm version management (`corepack enable`)
 
 **Nx Project Configuration:**
 
