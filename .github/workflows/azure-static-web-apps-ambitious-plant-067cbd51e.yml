@@ -48,8 +48,6 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
-
-
       # Build the applications
       - run: npx nx run-many --target=build --all
 

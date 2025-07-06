@@ -66,8 +66,6 @@ jobs:
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
-
-
       # Check code formatting
       - name: Check code formatting
         run: npx nx format:check
