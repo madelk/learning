@@ -44,12 +44,13 @@ jobs:
           node-version: 22.16.0
           cache: "pnpm"
 
-      - name: Environment info
-        run: |
-          node --version
-          pnpm --version
-          echo "Registry: $(pnpm config get registry)"
-          echo "Store location: $(pnpm store path)"
+      # Environment info (optional, can be removed for less noise)
+      # - name: Environment info
+      #   run: |
+      #     node --version
+      #     pnpm --version
+      #     echo "Registry: $(pnpm config get registry)"
+      #     echo "Store location: $(pnpm store path)"
 
       - name: Install dependencies
         timeout-minutes: 5
@@ -65,18 +66,7 @@ jobs:
       # Configure Nx
       - uses: nrwl/nx-set-shas@v4
 
-      # Debug Nx workspace health
-      - name: Nx Report
-        run: npx nx report
 
-      # Debug affected projects
-      - name: Show affected projects
-        run: |
-          echo "🔍 Showing affected projects and targets..."
-          npx nx show projects --affected || echo "No affected projects"
-          echo "Available targets:"
-          npx nx show projects --with-target=test || echo "No test targets"
-          npx nx show projects --with-target=e2e-ci || echo "No e2e-ci targets"
 
       # Check code formatting
       - name: Check code formatting
@@ -89,22 +79,10 @@ jobs:
           CYPRESS_INSTALL_BINARY: 0
           CYPRESS_RUN_BINARY: 0
           CYPRESS_SKIP_BINARY_INSTALL: true
-          # Debug flags
-          NX_VERBOSE_LOGGING: true
-          NX_CLOUD_DEBUG: true
         run: |
-          echo "🚀 Starting CI targets..."
-          echo "Affected projects:"
-          npx nx show projects --affected
-
-          echo "📋 Running typecheck, lint, build..."
-          npx nx affected -t typecheck,lint,build --parallel=3 --verbose
-
-          echo "🧪 Running tests without distributed execution..."
-          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --verbose
-
-          echo "🎭 Running E2E tests sequentially..."
-          npx nx affected -t e2e-ci --parallel=1 --verbose || echo "E2E tests failed or skipped"
+          npx nx affected -t typecheck,lint,build --parallel=3
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
+          npx nx affected -t e2e-ci --parallel=1 || echo "E2E tests failed or skipped"
 
       # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
