@@ -14,7 +14,7 @@
     "clean:deps": "rm -rf ./node_modules",
     "clean:full": "pnpm run clean:git && pnpm run clean:deps && pnpm install && pnpm run reset:nx",
     "clean:git": "git clean -fdx -e \"!.env\" -e \"node_modules\" && git reset --hard HEAD",
-    "lint": "nx format:check && nx affected --target lint --fix",
+    "lint": "nx format:write && nx affected --target lint --fix",
     "nvm:setup": "nvm use && nvm install && nvm alias default 22.16.0",
     "prepare": "husky install",
     "reset:nx": "npx nx reset",

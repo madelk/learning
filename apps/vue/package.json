@@ -1,5 +1,10 @@
 {
   "name": "@study/vue",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@study/calculator-logic": "workspace:*",
+    "@study/navbar": "workspace:*",
+    "@study/pagetext": "workspace:*"
+  }
 }
