@@ -22,7 +22,7 @@
     "test": "nx format:check && nx affected -t typecheck,lint,test,build"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue,json,md}": [
+    "*.{js,jsx,ts,tsx,vue,json,md,yml}": [
       "nx format:write --uncommitted"
     ],
     "*.{js,jsx,ts,tsx,vue}": [
@@ -138,6 +138,7 @@
     "vite": "^6.0.0",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.0.0",
+    "vue-eslint-parser": "10.2.0",
     "vue-tsc": "^2.2.8",
     "xo": "0.59.3"
   },
