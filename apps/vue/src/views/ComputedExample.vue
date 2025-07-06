@@ -12,7 +12,20 @@
   const firstName = ref("John");
   const lastName = ref("Doe");
 
-  const fullName = computed(() => `${firstName.value} ${lastName.value}`);
+  let fullName = computed({
+    get() {
+      console.log(
+        "fullName: This only gets run when firstName or lastName change"
+      );
+      return `${firstName.value} ${lastName.value}`;
+    },
+    set(value: string) {
+      console.log("fullName setter: This gets run when fullName is set");
+      const names = value.split(" ");
+      firstName.value = names[0] || "";
+      lastName.value = names[1] || "";
+    }
+  });
   const getTotalComputed = computed(() => {
     console.log("getTotalComputed: This only gets run when items change");
     return items.value.reduce((acc, item) => acc + item.price, 0);
@@ -27,6 +40,9 @@
     console.log("expensiveItems: This only gets run when items change");
     return items.value.filter((item) => item.price > 50);
   });
+  const changeFullName = (value: string) => {
+    fullName.value = value;
+  };
 
   // Tailwind class constants for reuse in template
   const computedSubClass =
@@ -73,6 +89,9 @@
       placeholder="Enter last name"
       :class="inputClass"
     />
+    <button :class="inputClass" @click="changeFullName(`Mark Dell`)">
+      Change Full Name
+    </button>
     <h2 :class="h2BaseClass">
       Fullname String Interp -
       <span class="font-mono">{{ firstName }} {{ lastName }}</span>
