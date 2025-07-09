@@ -19,6 +19,7 @@ applyTo: "**"
 
 **Validation commands:**
 
+- `npm lint` - Verify and fix code style
 - `npm test` - Verify all configs work
 - `npx tsc --build --verbose` - Check project references
 

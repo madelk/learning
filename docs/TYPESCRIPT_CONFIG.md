@@ -278,6 +278,7 @@ pnpm run type-check
 npx tsc --build
 
 # Run tests to verify test configurations
+pnpm lint
 pnpm test
 ```
 
