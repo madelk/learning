@@ -28,6 +28,15 @@ jobs:
           fetch-depth: 0
           filter: tree:0
 
+      # Disable Nx Cloud plugin if ENABLENX is false
+      - name: Disable Nx Cloud plugin if ENABLENX is false
+        if: env.ENABLENX != 'true'
+        run: |
+          echo "[DEBUG] Disabling Nx Cloud plugin in nx.json (if present)"
+          if [ -f nx.json ] && grep -q '"@nx/nx-cloud"' nx.json; then
+            cp nx.json nx.json.bak
+            jq 'if .plugins then .plugins |= map(select(. != "@nx/nx-cloud")) else . end' nx.json > nx.json.tmp && mv nx.json.tmp nx.json
+          fi
       - name: Start Nx Cloud CI Run
         if: ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 5
