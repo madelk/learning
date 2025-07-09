@@ -19,16 +19,16 @@ jobs:
   main:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      ENABLENX: ${{ vars.ENABLENX }}
     steps:
       # Checkout code
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           filter: tree:0
-
-      # Start Nx Cloud CI Run
       - name: Start Nx Cloud CI Run
-        if: ${{ vars.ENABLENX == 'true' }}
+        if: ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 5
         run: |
           echo "🌩️ Starting Nx Cloud CI run..."
@@ -82,10 +82,8 @@ jobs:
           npx nx affected -t typecheck,lint,build --parallel=3
           NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
           npx nx affected -t e2e-ci --parallel=1 || echo "E2E tests failed or skipped"
-
-      # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
-        if: always() && ${{ vars.ENABLENX == 'true' }}
+        if: always() && ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 2
         run: |
           echo "🛑 Stopping Nx Cloud agents..."
