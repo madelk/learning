@@ -1,18 +1,22 @@
-import path from 'node:path';
+import path from "node:path";
 
-const { createGlobPatternsForDependencies } = require('@nx/vue/tailwind');
+const { createGlobPatternsForDependencies } = require("@nx/vue/tailwind");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     path.join(
       __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html,vue}'
+      "{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html,vue}"
     ),
     ...createGlobPatternsForDependencies(__dirname)
   ],
   theme: {
     extend: {}
   },
-  plugins: []
+  plugins: [
+    require("@catppuccin/tailwindcss")({
+      defaultFlavour: "mocha"
+    })
+  ]
 };

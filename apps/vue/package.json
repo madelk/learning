@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "@catppuccin/tailwindcss": "0.1.6",
     "@study/calculator-logic": "workspace:*",
     "@study/helpers": "workspace:*",
     "@study/navbar": "workspace:*",
