@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import CardComponent from "../components/CardComponent.vue";
+  import NameList from "../components/NameList.vue";
 </script>
 
 <template>
@@ -24,4 +25,20 @@
       <h4 class="text-lg font-semibold">View Detail</h4>
     </template>
   </CardComponent>
+  <h2 class="text-2xl font-bold mb-2">Name List</h2>
+  <NameList>
+    <template #default="{ firstName, lastName }">
+      <div>
+        <h4 class="text-lg font-semibold">{{ firstName }} {{ lastName }}</h4>
+      </div>
+    </template>
+  </NameList>
+  <h2 class="text-2xl font-bold mb-2">First Names</h2>
+  <NameList>
+    <template #default="{ firstName }">
+      <div>
+        <h4 class="text-lg font-semibold">{{ firstName }}</h4>
+      </div>
+    </template>
+  </NameList>
 </template>
