@@ -20,7 +20,7 @@
     "reset:nx": "npx nx reset",
     "start": "nx run-many --target dev",
     "test": "nx format:check && nx affected -t typecheck,lint,test,build",
-    "testwithoutnxcloud": "nx format:check && nx affected -t typecheck,lint,test,build --skip-nx-cloud"
+    "testwithoutnxcloud": "nx format:check && nx affected -t typecheck,lint,test,build --skip-nx-cache"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue,json,md,yml}": [

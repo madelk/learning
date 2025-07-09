@@ -44,11 +44,11 @@ jobs:
           echo "🌩️ Starting Nx Cloud CI run..."
           npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" || echo "Nx Cloud start failed, continuing without distribution"
 
-      # Set skip-nx-cloud flag for conditional Nx Cloud usage
-      - name: Set skip-nx-cloud flag
+      # Set skip-nx-cache flag for conditional Nx Cloud usage
+      - name: Set skip-nx-cache flag
         run: |
           if [ "${ENABLENX:-false}" != "true" ]; then
-            echo "SKIP_NX_CLOUD=--skip-nx-cloud" >> $GITHUB_ENV
+            echo "SKIP_NX_CLOUD=--skip-nx-cache" >> $GITHUB_ENV
           else
             echo "SKIP_NX_CLOUD=" >> $GITHUB_ENV
           fi
@@ -104,7 +104,7 @@ jobs:
             echo "[DEBUG] Running pnpm run testwithoutnxcloud (bypasses Nx Cloud only for nx affected, not for all executors)"
             pnpm run testwithoutnxcloud || echo "Some targets failed or were skipped"
             # If you want to run e2e-ci as well, add:
-            npx nx affected -t e2e-ci --parallel=1 --skip-nx-cloud || echo "E2E tests failed or skipped"
+            npx nx affected -t e2e-ci --parallel=1 --skip-nx-cache || echo "E2E tests failed or skipped"
           else
             echo "[DEBUG] Running Nx commands with Nx Cloud distributed execution"
             npx nx affected -t typecheck,lint,build --parallel=3
