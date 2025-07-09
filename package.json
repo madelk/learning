@@ -19,8 +19,7 @@
     "prepare": "husky install",
     "reset:nx": "npx nx reset",
     "start": "nx run-many --target dev",
-    "test": "nx format:check && nx affected -t typecheck,lint,test,build",
-    "testwithoutnxcloud": "nx format:check && nx affected -t typecheck,lint,test,build --skip-nx-cloud"
+    "test": "nx format:check && nx affected -t typecheck,lint,test,build"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue,json,md,yml}": [
