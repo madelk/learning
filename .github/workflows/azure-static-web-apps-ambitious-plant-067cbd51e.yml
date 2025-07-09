@@ -19,6 +19,8 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+    env:
+      ENABLENX: ${{ vars.ENABLENX }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,6 +36,15 @@ jobs:
         with:
           node-version: 22.16.0
           cache: "pnpm"
+          
+      # Set skip-nx-cache flag for conditional Nx Cloud usage
+      - name: Set skip-nx-cache flag
+        run: |
+          if [ "$ENABLENX" != "true" ]; then
+            echo "SKIP_NX_CLOUD=--skip-nx-cache" >> $GITHUB_ENV
+          else
+            echo "SKIP_NX_CLOUD=" >> $GITHUB_ENV
+          fi
 
       - name: Install dependencies
         timeout-minutes: 5
@@ -49,7 +60,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       # Build the applications
-      - run: npx nx run-many --target=build --all
+      - run: npx nx run-many --target=build --all $SKIP_NX_CLOUD
 
       - name: Ensure dist folder exists
         run: mkdir -p dist
