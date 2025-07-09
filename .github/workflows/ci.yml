@@ -38,7 +38,7 @@ jobs:
       # Set skip-nx-cloud flag for conditional Nx Cloud usage
       - name: Set skip-nx-cloud flag
         run: |
-          if [ "$ENABLENX" != "true" ]; then
+          if [ "${ENABLENX:-false}" != "true" ]; then
             echo "SKIP_NX_CLOUD=--skip-nx-cloud" >> $GITHUB_ENV
           else
             echo "SKIP_NX_CLOUD=" >> $GITHUB_ENV
@@ -89,9 +89,15 @@ jobs:
           CYPRESS_RUN_BINARY: 0
           CYPRESS_SKIP_BINARY_INSTALL: true
         run: |
-          npx nx affected -t typecheck,lint,build --parallel=3 $SKIP_NX_CLOUD
-          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 $SKIP_NX_CLOUD
-          npx nx affected -t e2e-ci --parallel=1 $SKIP_NX_CLOUD || echo "E2E tests failed or skipped"
+          if [ -n "$SKIP_NX_CLOUD" ]; then
+            npx nx affected -t typecheck,lint,build --parallel=3 --skip-nx-cloud
+            NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --skip-nx-cloud
+            npx nx affected -t e2e-ci --parallel=1 --skip-nx-cloud || echo "E2E tests failed or skipped"
+          else
+            npx nx affected -t typecheck,lint,build --parallel=3
+            NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
+            npx nx affected -t e2e-ci --parallel=1 || echo "E2E tests failed or skipped"
+          fi
       - name: Stop Nx Cloud agents
         if: always() && ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 2
