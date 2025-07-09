@@ -27,12 +27,22 @@ jobs:
         with:
           fetch-depth: 0
           filter: tree:0
+
       - name: Start Nx Cloud CI Run
         if: ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 5
         run: |
           echo "🌩️ Starting Nx Cloud CI run..."
           npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" || echo "Nx Cloud start failed, continuing without distribution"
+
+      # Set skip-nx-cloud flag for conditional Nx Cloud usage
+      - name: Set skip-nx-cloud flag
+        run: |
+          if [ "$ENABLENX" != "true" ]; then
+            echo "SKIP_NX_CLOUD=--skip-nx-cloud" >> $GITHUB_ENV
+          else
+            echo "SKIP_NX_CLOUD=" >> $GITHUB_ENV
+          fi
 
       # Setup pnpm first
       - uses: pnpm/action-setup@v2
@@ -79,9 +89,9 @@ jobs:
           CYPRESS_RUN_BINARY: 0
           CYPRESS_SKIP_BINARY_INSTALL: true
         run: |
-          npx nx affected -t typecheck,lint,build --parallel=3
-          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
-          npx nx affected -t e2e-ci --parallel=1 || echo "E2E tests failed or skipped"
+          npx nx affected -t typecheck,lint,build --parallel=3 $SKIP_NX_CLOUD
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 $SKIP_NX_CLOUD
+          npx nx affected -t e2e-ci --parallel=1 $SKIP_NX_CLOUD || echo "E2E tests failed or skipped"
       - name: Stop Nx Cloud agents
         if: always() && ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 2
