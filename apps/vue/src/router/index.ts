@@ -33,6 +33,11 @@ const router = createRouter({
       path: "/volume",
       name: "volume",
       component: () => import("../views/VolumeExample.vue")
+    },
+    {
+      path: "/component",
+      name: "component",
+      component: () => import("../views/ComponentsExample.vue")
     }
   ]
 });
