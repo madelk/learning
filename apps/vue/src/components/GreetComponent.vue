@@ -9,7 +9,6 @@
     Hello {{ firstName }}
   </h2>
   <p class="text-flamingo animate-fade-in">Nice to meet you, {{ lastName }}</p>
-  <p>Nice to meet you, {{ lastName }}</p>
 </template>
 
 <style scoped>
