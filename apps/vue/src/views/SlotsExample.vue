@@ -13,4 +13,15 @@
     <img src="https://picsum.photos/150" alt="Placeholder image" />
   </CardComponent>
   <CardComponent />
+  <CardComponent>
+    <template #header>
+      <h3 class="text-2xl font-bold">Header</h3>
+    </template>
+    <template #default>
+      <p class="text-gray-700">This is custom content inside the card.</p>
+    </template>
+    <template #footer>
+      <h4 class="text-lg font-semibold">View Detail</h4>
+    </template>
+  </CardComponent>
 </template>
