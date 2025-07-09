@@ -34,11 +34,11 @@ jobs:
           echo "🌩️ Starting Nx Cloud CI run..."
           npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" || echo "Nx Cloud start failed, continuing without distribution"
 
-      # Set skip-nx-cloud flag for conditional Nx Cloud usage
-      - name: Set skip-nx-cloud flag
+      # Set skip-nx-cache flag for conditional Nx Cloud usage
+      - name: Set skip-nx-cache flag
         run: |
           if [ "$ENABLENX" != "true" ]; then
-            echo "SKIP_NX_CLOUD=--skip-nx-cloud" >> $GITHUB_ENV
+            echo "SKIP_NX_CLOUD=--skip-nx-cache" >> $GITHUB_ENV
           else
             echo "SKIP_NX_CLOUD=" >> $GITHUB_ENV
           fi
