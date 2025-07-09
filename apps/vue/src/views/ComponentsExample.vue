@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { provide, ref, onMounted } from "vue";
+  import { onMounted, provide, ref } from "vue";
   import ArticleComponent from "../components/ArticleComponent.vue";
   import ComponentC from "../components/ComponentC.vue";
   import GreetComponent from "../components/GreetComponent.vue";
