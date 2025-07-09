@@ -89,11 +89,15 @@ jobs:
           CYPRESS_RUN_BINARY: 0
           CYPRESS_SKIP_BINARY_INSTALL: true
         run: |
+          echo "[DEBUG] ENABLENX: $ENABLENX"
+          echo "[DEBUG] SKIP_NX_CLOUD: $SKIP_NX_CLOUD"
           if [ -n "$SKIP_NX_CLOUD" ]; then
+            echo "[DEBUG] Running Nx commands with --skip-nx-cloud"
             npx nx affected -t typecheck,lint,build --parallel=3 --skip-nx-cloud
             npx nx affected -t test --parallel=3 --skip-nx-cloud
             npx nx affected -t e2e-ci --parallel=1 --skip-nx-cloud || echo "E2E tests failed or skipped"
           else
+            echo "[DEBUG] Running Nx commands with Nx Cloud distributed execution"
             npx nx affected -t typecheck,lint,build --parallel=3
             NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
             npx nx affected -t e2e-ci --parallel=1 || echo "E2E tests failed or skipped"
