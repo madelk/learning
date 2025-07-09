@@ -33,7 +33,8 @@ export function getNavbarConfig(): NavBarConfig {
     navItems.push(
       { label: "Computed", href: "/vue/computed" },
       { label: "Form", href: "/vue/form" },
-      { label: "Volume", href: "/vue/volume" }
+      { label: "Volume", href: "/vue/volume" },
+      { label: "Component", href: "/vue/component" }
     );
   }
 
