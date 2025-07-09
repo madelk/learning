@@ -4,7 +4,7 @@ applyTo: "**"
 
 # Core Development Guidelines
 
-**ALWAYS verify changes by running `pnpm test` before finishing**
+**ALWAYS verify changes by running `pnpm lint` then `pnpm test` before finishing**
 **ALWAYS review all changed files at the end to ensure no unintended changes**
 **ALWAYS refer to `docs/DEVELOPMENT_GUIDE.md` for development patterns and practices**
 
