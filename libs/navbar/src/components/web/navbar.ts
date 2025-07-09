@@ -95,20 +95,26 @@ export class NavBar extends HTMLElement {
           position: relative;
         }
         .overflow-btn {
-          background: #fff;
-          color: #222;
-          border: 1px solid #bdbdbd;
+          background: #222;
+          color: #fff;
+          border: 2px solid #fff;
           cursor: pointer;
           padding: 0.5em 1em;
           font: inherit;
-          border-radius: 4px;
-          min-width: 80px;
+          border-radius: 6px;
+          min-width: 44px;
+          min-height: 44px;
           text-align: center;
           box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.2s, color 0.2s, border 0.2s;
         }
         .overflow-btn:hover, .overflow-btn[aria-expanded="true"] {
-          background: #f0f0f0;
-          color: #222;
+          background: #444;
+          color: #fff;
+          border-color: #bbb;
         }
         .overflow-menu {
           display: none;
