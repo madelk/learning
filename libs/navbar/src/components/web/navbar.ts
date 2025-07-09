@@ -1,6 +1,8 @@
 import { getNavbarConfig } from "../../config/custom-config.js";
 import type { NavBarConfig } from "../../types/index.js";
 import { generateAppSelectorHTML, generateCSS } from "../../utils/index.js";
+// @ts-expect-error Vite inline CSS import is not typed, but works at runtime
+import navbarStyles from "./navbar.css?inline";
 // --- REWRITTEN NAVBAR WEB COMPONENT ---
 export class NavBar extends HTMLElement {
   private config: NavBarConfig;
@@ -69,87 +71,7 @@ export class NavBar extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         ${generateCSS(this.config.styles)}
-        .navbar-list {
-          display: flex;
-          flex-wrap: nowrap;
-          gap: 0.5rem;
-          align-items: center;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-        .navbar-item a {
-          text-decoration: none;
-          color: #fff;
-          padding: 0.5em 1em;
-          border-radius: 4px;
-          transition: background 0.2s;
-          background: transparent;
-          display: block;
-        }
-        .navbar-item a:hover {
-          background: #222;
-          color: #fff;
-        }
-        .navbar-overflow {
-          position: relative;
-        }
-        .overflow-btn {
-          background: #222;
-          color: #fff;
-          border: 2px solid #fff;
-          cursor: pointer;
-          padding: 0.5em 1em;
-          font: inherit;
-          border-radius: 6px;
-          min-width: 44px;
-          min-height: 44px;
-          text-align: center;
-          box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background 0.2s, color 0.2s, border 0.2s;
-        }
-        .overflow-btn:hover, .overflow-btn[aria-expanded="true"] {
-          background: #444;
-          color: #fff;
-          border-color: #bbb;
-        }
-        .overflow-menu {
-          display: none;
-          position: absolute;
-          top: 100%;
-          right: 0;
-          min-width: 160px;
-          background: #222;
-          color: #fff;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-          border-radius: 4px;
-          z-index: 10;
-          margin: 0;
-          padding: 0.5em 0;
-          list-style: none;
-        }
-        .overflow-menu li {
-          padding: 0;
-        }
-        .overflow-menu a {
-          color: #fff;
-          background: none;
-          padding: 0.5em 1em;
-          display: block;
-          border-radius: 4px;
-          text-decoration: none;
-          transition: background 0.2s;
-        }
-        .overflow-menu a:hover {
-          background: #444;
-          color: #fff;
-        }
-        .navbar-overflow.open .overflow-menu {
-          display: block;
-        }
+        ${navbarStyles}
       </style>
       <nav>
         ${appSelectorHTML}

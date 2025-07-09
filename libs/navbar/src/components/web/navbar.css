@@ -34,13 +34,14 @@
   min-width: 44px;
   min-height: 44px;
   text-align: center;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background 0.2s, color 0.2s, border 0.2s;
 }
-.overflow-btn:hover, .overflow-btn[aria-expanded="true"] {
+.overflow-btn:hover,
+.overflow-btn[aria-expanded="true"] {
   background: #444;
   color: #fff;
   border-color: #bbb;
@@ -53,7 +54,7 @@
   min-width: 160px;
   background: #222;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   z-index: 10;
   margin: 0;
