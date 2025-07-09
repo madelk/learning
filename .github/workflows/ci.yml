@@ -27,16 +27,6 @@ jobs:
         with:
           fetch-depth: 0
           filter: tree:0
-
-      # Disable Nx Cloud plugin if ENABLENX is false
-      - name: Disable Nx Cloud plugin if ENABLENX is false
-        if: env.ENABLENX != 'true'
-        run: |
-          echo "[DEBUG] Disabling Nx Cloud plugin in nx.json (if present)"
-          if [ -f nx.json ] && grep -q '"@nx/nx-cloud"' nx.json; then
-            cp nx.json nx.json.bak
-            jq 'if .plugins then .plugins |= map(select(. != "@nx/nx-cloud")) else . end' nx.json > nx.json.tmp && mv nx.json.tmp nx.json
-          fi
       - name: Start Nx Cloud CI Run
         if: ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 5
@@ -44,11 +34,11 @@ jobs:
           echo "🌩️ Starting Nx Cloud CI run..."
           npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" || echo "Nx Cloud start failed, continuing without distribution"
 
-      # Set skip-nx-cache flag for conditional Nx Cloud usage
-      - name: Set skip-nx-cache flag
+      # Set skip-nx-cloud flag for conditional Nx Cloud usage
+      - name: Set skip-nx-cloud flag
         run: |
-          if [ "${ENABLENX:-false}" != "true" ]; then
-            echo "SKIP_NX_CLOUD=--skip-nx-cache" >> $GITHUB_ENV
+          if [ "$ENABLENX" != "true" ]; then
+            echo "SKIP_NX_CLOUD=--skip-nx-cloud" >> $GITHUB_ENV
           else
             echo "SKIP_NX_CLOUD=" >> $GITHUB_ENV
           fi
@@ -98,19 +88,9 @@ jobs:
           CYPRESS_RUN_BINARY: 0
           CYPRESS_SKIP_BINARY_INSTALL: true
         run: |
-          echo "[DEBUG] ENABLENX: $ENABLENX"
-          echo "[DEBUG] SKIP_NX_CLOUD: $SKIP_NX_CLOUD"
-          if [ -n "$SKIP_NX_CLOUD" ]; then
-            echo "[DEBUG] Running pnpm run testwithoutnxcloud (bypasses Nx Cloud only for nx affected, not for all executors)"
-            pnpm run testwithoutnxcloud || echo "Some targets failed or were skipped"
-            # If you want to run e2e-ci as well, add:
-            npx nx affected -t e2e-ci --parallel=1 --skip-nx-cache || echo "E2E tests failed or skipped"
-          else
-            echo "[DEBUG] Running Nx commands with Nx Cloud distributed execution"
-            npx nx affected -t typecheck,lint,build --parallel=3
-            NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3
-            npx nx affected -t e2e-ci --parallel=1 || echo "E2E tests failed or skipped"
-          fi
+          npx nx affected -t typecheck,lint,build --parallel=3 $SKIP_NX_CLOUD
+          NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 $SKIP_NX_CLOUD
+          npx nx affected -t e2e-ci --parallel=1 $SKIP_NX_CLOUD || echo "E2E tests failed or skipped"
       - name: Stop Nx Cloud agents
         if: always() && ${{ env.ENABLENX == 'true' }}
         timeout-minutes: 2
