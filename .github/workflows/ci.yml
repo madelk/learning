@@ -28,6 +28,7 @@ jobs:
 
       # Start Nx Cloud CI Run
       - name: Start Nx Cloud CI Run
+        if: ${{ vars.ENABLENX == 'true' }}
         timeout-minutes: 5
         run: |
           echo "🌩️ Starting Nx Cloud CI run..."
@@ -84,7 +85,7 @@ jobs:
 
       # Stop Nx Cloud agents
       - name: Stop Nx Cloud agents
-        if: always()
+        if: always() && ${{ vars.ENABLENX == 'true' }}
         timeout-minutes: 2
         run: |
           echo "🛑 Stopping Nx Cloud agents..."
