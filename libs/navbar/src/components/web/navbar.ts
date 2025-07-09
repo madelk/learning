@@ -1,6 +1,6 @@
 import { getNavbarConfig } from "../../config/custom-config.js";
 import type { NavBarConfig } from "../../types/index.js";
-import { generateCSS, generateAppSelectorHTML } from "../../utils/index.js";
+import { generateAppSelectorHTML, generateCSS } from "../../utils/index.js";
 // --- REWRITTEN NAVBAR WEB COMPONENT ---
 export class NavBar extends HTMLElement {
   private config: NavBarConfig;
@@ -41,13 +41,22 @@ export class NavBar extends HTMLElement {
     }
     const visible = items.slice(0, this.maxVisible - 1);
     const overflow = items.slice(this.maxVisible - 1);
+    // Hamburger SVG icon
+    const hamburgerIcon = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <rect y="4" width="24" height="2" rx="1" fill="currentColor"/>
+        <rect y="11" width="24" height="2" rx="1" fill="currentColor"/>
+        <rect y="18" width="24" height="2" rx="1" fill="currentColor"/>
+      </svg>
+    `;
     return `<ul class="navbar-list">${visible
       .map((item) => this.generateNavItem(item))
-      .join(
-        ""
-      )}<li class="navbar-overflow"><button class="overflow-btn" aria-haspopup="true" aria-expanded="false">More ▾</button><ul class="overflow-menu">${this.generateOverflowMenu(
-      overflow
-    )}</ul></li></ul>`;
+      .join("")}
+      <li class="navbar-overflow">
+        <button class="overflow-btn" aria-haspopup="true" aria-expanded="false" title="More navigation">${hamburgerIcon}</button>
+        <ul class="overflow-menu">${this.generateOverflowMenu(overflow)}</ul>
+      </li>
+    </ul>`;
   }
 
   private render() {
@@ -94,7 +103,7 @@ export class NavBar extends HTMLElement {
           font: inherit;
           border-radius: 4px;
           min-width: 80px;
-          text-align: left;
+          text-align: center;
           box-shadow: 0 1px 2px rgba(0,0,0,0.04);
         }
         .overflow-btn:hover, .overflow-btn[aria-expanded="true"] {
@@ -107,8 +116,8 @@ export class NavBar extends HTMLElement {
           top: 100%;
           right: 0;
           min-width: 160px;
-          background: #fff;
-          color: #222;
+          background: #222;
+          color: #fff;
           box-shadow: 0 2px 8px rgba(0,0,0,0.12);
           border-radius: 4px;
           z-index: 10;
@@ -120,7 +129,7 @@ export class NavBar extends HTMLElement {
           padding: 0;
         }
         .overflow-menu a {
-          color: #222;
+          color: #fff;
           background: none;
           padding: 0.5em 1em;
           display: block;
@@ -129,8 +138,8 @@ export class NavBar extends HTMLElement {
           transition: background 0.2s;
         }
         .overflow-menu a:hover {
-          background: #f0f0f0;
-          color: #222;
+          background: #444;
+          color: #fff;
         }
         .navbar-overflow.open .overflow-menu {
           display: block;
@@ -166,7 +175,7 @@ export class NavBar extends HTMLElement {
       });
       const appItems =
         this.shadowRoot.querySelectorAll<HTMLElement>(".app-selector-item");
-      for (const item of appItems) {
+      Array.prototype.forEach.call(appItems, (item: HTMLElement) => {
         item.addEventListener("click", (event: Event) => {
           event.stopPropagation();
           const url = item.dataset["url"];
@@ -174,7 +183,7 @@ export class NavBar extends HTMLElement {
             globalThis.location.href = url;
           }
         });
-      }
+      });
     }
 
     // Overflow menu toggle
