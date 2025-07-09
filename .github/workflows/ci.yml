@@ -91,7 +91,7 @@ jobs:
         run: |
           if [ -n "$SKIP_NX_CLOUD" ]; then
             npx nx affected -t typecheck,lint,build --parallel=3 --skip-nx-cloud
-            NX_CLOUD_DISTRIBUTED_EXECUTION=false npx nx affected -t test --parallel=3 --skip-nx-cloud
+            npx nx affected -t test --parallel=3 --skip-nx-cloud
             npx nx affected -t e2e-ci --parallel=1 --skip-nx-cloud || echo "E2E tests failed or skipped"
           else
             npx nx affected -t typecheck,lint,build --parallel=3
