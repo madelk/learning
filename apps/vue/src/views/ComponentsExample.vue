@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { provide, ref } from "vue";
+  import { provide, ref, onMounted } from "vue";
   import ArticleComponent from "../components/ArticleComponent.vue";
   import ComponentC from "../components/ComponentC.vue";
   import GreetComponent from "../components/GreetComponent.vue";
@@ -13,10 +13,64 @@
     console.log("Popup closed with payload:", payload);
     showPopup.value = false;
   };
+  // Theme detection for Latte vs Mocha, with manual override (lightswitch)
+  const isLightTheme = ref(false);
+  const themeOverride = ref<"auto" | "light" | "dark">("auto");
+  const updateTheme = () => {
+    if (themeOverride.value === "auto") {
+      isLightTheme.value = window.matchMedia(
+        "(prefers-color-scheme: light)"
+      ).matches;
+    } else {
+      isLightTheme.value = themeOverride.value === "light";
+    }
+  };
+  onMounted(() => {
+    updateTheme();
+    window
+      .matchMedia("(prefers-color-scheme: light)")
+      .addEventListener("change", updateTheme);
+  });
 </script>
 
 <template>
-  <div class="mocha min-h-screen bg-base text-text p-6">
+  <div
+    class="min-h-screen bg-base text-text p-6"
+    :class="isLightTheme ? 'latte' : 'mocha'"
+  >
+    <div class="flex items-center gap-2 mb-4">
+      <label class="font-semibold">Theme:</label>
+      <button
+        class="px-2 py-1 rounded border border-mauve bg-mauve/10 hover:bg-mauve/30 transition"
+        :class="themeOverride === 'auto' ? 'font-bold underline' : ''"
+        @click="
+          themeOverride = 'auto';
+          updateTheme();
+        "
+      >
+        Auto
+      </button>
+      <button
+        class="px-2 py-1 rounded border border-mauve bg-mauve/10 hover:bg-mauve/30 transition"
+        :class="themeOverride === 'light' ? 'font-bold underline' : ''"
+        @click="
+          themeOverride = 'light';
+          updateTheme();
+        "
+      >
+        Latte
+      </button>
+      <button
+        class="px-2 py-1 rounded border border-mauve bg-mauve/10 hover:bg-mauve/30 transition"
+        :class="themeOverride === 'dark' ? 'font-bold underline' : ''"
+        @click="
+          themeOverride = 'dark';
+          updateTheme();
+        "
+      >
+        Mocha
+      </button>
+    </div>
     <h1 class="text-3xl font-bold mb-4 text-mauve">Components Example</h1>
     <div class="mb-4">
       <GreetComponent first-name="Alice" last-name="George" />
