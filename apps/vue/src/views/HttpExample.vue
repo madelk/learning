@@ -33,25 +33,31 @@
   import PopupComponent from "../components/PopupComponent.vue";
   const posts = ref<Post[] | null>(null);
   const users = ref<User[] | null>(null);
+  const error = ref<string | null>(null);
   const showPopup = ref(false);
   const togglePopup = () => {
     showPopup.value = !showPopup.value;
   };
+  const basePath = "https://jsonplaceholder.typicode.com";
   onMounted(async () => {
-    const postsPromise = axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
-    const usersPromise = axios.get(
-      "https://jsonplaceholder.typicode.com/users"
-    );
-    const [postsResponse, usersResponse] = await Promise.all([
-      postsPromise,
-      usersPromise
-    ]);
+    try {
+      const postsPromise = axios.get(`${basePath}/posts`);
+      const usersPromise = axios.get(`${basePath}/users`);
+      const [postsResponse, usersResponse] = await Promise.all([
+        postsPromise,
+        usersPromise
+      ]);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    posts.value = postsResponse.data;
-    users.value = usersResponse.data;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      posts.value = postsResponse.data;
+      users.value = usersResponse.data;
+    } catch (err) {
+      if (err instanceof Error) {
+        error.value = err.message;
+      } else {
+        error.value = String(err);
+      }
+    }
   });
   const findUserById = (userId: number) => {
     return users.value?.find((user) => user.id === userId) || null;
@@ -119,7 +125,7 @@
         </button>
       </li>
     </ul>
-    <div v-else class="flex items-center justify-center h-32">
+    <div v-else-if="!error" class="flex items-center justify-center h-32">
       <svg
         class="animate-spin h-6 w-6 text-blue-400 mr-2"
         xmlns="http://www.w3.org/2000/svg"
@@ -141,6 +147,13 @@
         ></path>
       </svg>
       <span class="text-blue-500 font-medium">Loading posts...</span>
+    </div>
+    <div
+      v-else
+      class="max-w-2xl mx-auto p-6 bg-red-50 rounded-lg shadow-md mt-8"
+    >
+      <h1 class="text-3xl font-bold mb-4 text-red-700">Error</h1>
+      <p class="text-red-600">{{ error }}</p>
     </div>
   </div>
   <PopupComponent :show-popup="showPopup" @close-popup="togglePopup">
