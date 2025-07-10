@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { onMounted, provide, ref } from "vue";
   import ArticleComponent from "../components/ArticleComponent.vue";
+  import BaseButton from "../components/BaseButton.vue";
   import ComponentC from "../components/ComponentC.vue";
   import GreetComponent from "../components/GreetComponent.vue";
   import PopupComponent from "../components/PopupComponent.vue";
-  import BaseButton from "../components/BaseButton.vue";
   const myName = ref("Mark");
   const myOtherName = ref("Dell");
   const username = ref("Mark Dell");

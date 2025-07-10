@@ -1,5 +1,9 @@
 <script setup lang="ts">
+  import axios from "axios";
+  import { onMounted, ref } from "vue";
   import BaseButton from "../components/BaseButton.vue";
+  import CreatePost from "../components/CreatePost.vue";
+  import PopupComponent from "../components/PopupComponent.vue";
   interface Post {
     userId: number;
     id: number;
@@ -29,10 +33,6 @@
       bs: string;
     };
   }
-  import axios from "axios";
-  import { onMounted, ref } from "vue";
-  import CreatePost from "../components/CreatePost.vue";
-  import PopupComponent from "../components/PopupComponent.vue";
   const posts = ref<Post[] | null>(null);
   const users = ref<User[] | null>(null);
   const error = ref<string | null>(null);

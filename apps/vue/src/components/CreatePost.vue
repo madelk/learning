@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import axios from "axios";
   import { ref } from "vue";
-  import Input from "./InputComponent.vue";
   import BaseButton from "./BaseButton.vue";
+  import Input from "./InputComponent.vue";
   const userId = ref<string>("");
   const title = ref<string>("");
   const body = ref<string>("");

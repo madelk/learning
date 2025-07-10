@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   import { ref } from "vue";
+  import BaseButton from "./BaseButton.vue";
   import TabA from "./TabA.vue";
   import TabB from "./TabB.vue";
   import TabC from "./TabC.vue";
-  import BaseButton from "./BaseButton.vue";
   const selectedTab = ref("A");
 </script>
 

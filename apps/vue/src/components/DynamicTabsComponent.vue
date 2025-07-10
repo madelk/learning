@@ -1,9 +1,9 @@
 <script lang="ts" setup>
   import { ref, type Component } from "vue";
+  import BaseButton from "./BaseButton.vue";
   import TabA from "./TabA.vue";
   import TabB from "./TabB.vue";
   import TabC from "./TabC.vue";
-  import BaseButton from "./BaseButton.vue";
 
   type TabKey = "TabA" | "TabB" | "TabC";
   const tabComponents: Record<TabKey, Component> = { TabA, TabB, TabC };
