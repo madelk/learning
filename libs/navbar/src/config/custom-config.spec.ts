@@ -113,7 +113,7 @@ describe("customNavbarConfig", () => {
       // Vue should have 7 items (Home, About, Calculator, Computed, Form, Volume, Component)
       vi.spyOn(helpers, "getCurrentApp").mockReturnValue("vue");
       const vueConfig = getNavbarConfig();
-      expect(vueConfig.items.length).toBe(9);
+      expect(vueConfig.items.length).toBe(10);
     });
   });
 });
