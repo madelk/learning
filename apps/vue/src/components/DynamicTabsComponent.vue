@@ -3,6 +3,7 @@
   import TabA from "./TabA.vue";
   import TabB from "./TabB.vue";
   import TabC from "./TabC.vue";
+  import BaseButton from "./BaseButton.vue";
 
   type TabKey = "TabA" | "TabB" | "TabC";
   const tabComponents: Record<TabKey, Component> = { TabA, TabB, TabC };
@@ -15,24 +16,9 @@
       Dynamic Tabs Example
     </h1>
     <div class="flex gap-2 mb-6">
-      <button
-        class="px-4 py-2 rounded font-semibold bg-gradient-to-r from-pink-400 via-blue-400 to-purple-400 text-white shadow-md transition-all duration-200 border-none outline-none cursor-pointer opacity-85 hover:opacity-100 focus:opacity-100 focus:ring-2 focus:ring-purple-300"
-        @click="selectedTab = 'TabA'"
-      >
-        Tab A
-      </button>
-      <button
-        class="px-4 py-2 rounded font-semibold bg-gradient-to-r from-pink-400 via-blue-400 to-purple-400 text-white shadow-md transition-all duration-200 border-none outline-none cursor-pointer opacity-85 hover:opacity-100 focus:opacity-100 focus:ring-2 focus:ring-purple-300"
-        @click="selectedTab = 'TabB'"
-      >
-        Tab B
-      </button>
-      <button
-        class="px-4 py-2 rounded font-semibold bg-gradient-to-r from-pink-400 via-blue-400 to-purple-400 text-white shadow-md transition-all duration-200 border-none outline-none cursor-pointer opacity-85 hover:opacity-100 focus:opacity-100 focus:ring-2 focus:ring-purple-300"
-        @click="selectedTab = 'TabC'"
-      >
-        Tab C
-      </button>
+      <BaseButton @click="selectedTab = 'TabA'">Tab A</BaseButton>
+      <BaseButton @click="selectedTab = 'TabB'">Tab B</BaseButton>
+      <BaseButton @click="selectedTab = 'TabC'">Tab C</BaseButton>
     </div>
     <h2 class="text-xl font-semibold mt-6 text-purple-700">
       Dynamic Component Rendering

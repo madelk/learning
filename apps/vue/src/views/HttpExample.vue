@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import BaseButton from "../components/BaseButton.vue";
   interface Post {
     userId: number;
     id: number;
@@ -112,10 +113,7 @@
           {{ item.title }}
         </h2>
         <p class="text-gray-700 mb-2">{{ item.body }}</p>
-        <button
-          class="text-blue-500 hover:text-blue-700 font-medium"
-          @click="selectUser(item.userId)"
-        >
+        <BaseButton variant="secondary" @click="selectUser(item.userId)">
           <span class="font-medium text-blue-700">Author:</span>
           <span class="ml-1">
             {{
@@ -124,7 +122,8 @@
                 : "Unknown User"
             }}
           </span>
-        </button>
+        </BaseButton>
+        <!-- End BaseButton -->
       </li>
     </ul>
     <div v-else-if="!error" class="flex items-center justify-center h-32">

@@ -2,6 +2,7 @@
   import axios from "axios";
   import { ref } from "vue";
   import Input from "./InputComponent.vue";
+  import BaseButton from "./BaseButton.vue";
   const userId = ref<string>("");
   const title = ref<string>("");
   const body = ref<string>("");
@@ -27,6 +28,6 @@
     <Input id="userId" v-model="userId" placeholder="User ID" label="User ID" />
     <Input id="title" v-model="title" placeholder="Title" label="Title" />
     <Input id="body" v-model="body" placeholder="Body" label="Body" />
-    <button>Create Post</button>
+    <BaseButton type="submit">Create Post</BaseButton>
   </form>
 </template>

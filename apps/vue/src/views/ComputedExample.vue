@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { computed, ref } from "vue";
+  import BaseButton from "../components/BaseButton.vue";
 
   const items = ref([
     {
@@ -51,10 +52,7 @@
     "ml-2 px-2 py-0.5 rounded bg-purple-100 text-purple-700 text-xs align-middle font-mono";
   const inputClass =
     "w-full mb-4 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400";
-  const buttonCheapClass =
-    "bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded shadow";
-  const buttonExpensiveClass =
-    "bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded shadow";
+  // Removed unused buttonCheapClass and buttonExpensiveClass (now using BaseButton)
   const cardClass = "max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8";
   const h2MainClass = "text-lg font-semibold mb-2 text-gray-700";
   const h2BaseClass = "text-base font-medium text-gray-600 mb-1";
@@ -89,9 +87,9 @@
       placeholder="Enter last name"
       :class="inputClass"
     />
-    <button :class="inputClass" @click="changeFullName(`Mark Dell`)">
+    <BaseButton @click="changeFullName(`Mark Dell`)">
       Change Full Name
-    </button>
+    </BaseButton>
     <h2 :class="h2BaseClass">
       Fullname String Interp -
       <span class="font-mono">{{ firstName }} {{ lastName }}</span>
@@ -101,8 +99,7 @@
       <span class="font-mono">{{ fullName }}</span>
     </h2>
     <div class="flex gap-4 mb-6">
-      <button
-        :class="buttonCheapClass"
+      <BaseButton
         @click="
           items.push({
             id: items.length + 1,
@@ -112,9 +109,9 @@
         "
       >
         Add Cheap Item
-      </button>
-      <button
-        :class="buttonExpensiveClass"
+      </BaseButton>
+      <BaseButton
+        variant="danger"
         @click="
           items.push({
             id: items.length + 1,
@@ -124,7 +121,7 @@
         "
       >
         Add Expensive Item
-      </button>
+      </BaseButton>
     </div>
     <h2 :class="h2TotalComputedClass">
       Items total Computed:
