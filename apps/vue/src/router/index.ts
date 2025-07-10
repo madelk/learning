@@ -43,6 +43,11 @@ const router = createRouter({
       path: "/slots",
       name: "slots",
       component: () => import("../views/SlotsExample.vue")
+    },
+    {
+      path: "/dynamic",
+      name: "dynamic",
+      component: () => import("../views/DynamicComponentExample.vue")
     }
   ]
 });
