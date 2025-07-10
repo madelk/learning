@@ -38,13 +38,19 @@
     showPopup.value = !showPopup.value;
   };
   onMounted(async () => {
-    const postsResponse = await axios.get(
+    const postsPromise = axios.get(
       "https://jsonplaceholder.typicode.com/posts"
     );
-    posts.value = postsResponse.data;
-    const usersResponse = await axios.get(
+    const usersPromise = axios.get(
       "https://jsonplaceholder.typicode.com/users"
     );
+    const [postsResponse, usersResponse] = await Promise.all([
+      postsPromise,
+      usersPromise
+    ]);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    posts.value = postsResponse.data;
     users.value = usersResponse.data;
   });
   const findUserById = (userId: number) => {
