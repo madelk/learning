@@ -48,6 +48,11 @@ const router = createRouter({
       path: "/dynamic",
       name: "dynamic",
       component: () => import("../views/DynamicComponentExample.vue")
+    },
+    {
+      path: "/http",
+      name: "http",
+      component: () => import("../views/HttpExample.vue")
     }
   ]
 });

@@ -36,7 +36,8 @@ export function getNavbarConfig(): NavBarConfig {
       { label: "Volume", href: "/vue/volume" },
       { label: "Component", href: "/vue/component" },
       { label: "Slots", href: "/vue/slots" },
-      { label: "Dynamic", href: "/vue/dynamic" }
+      { label: "Dynamic", href: "/vue/dynamic" },
+      { label: "http", href: "/vue/http" }
     );
   }
 
