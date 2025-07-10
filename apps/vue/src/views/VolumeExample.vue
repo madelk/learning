@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { ref, watch } from "vue";
+  import BaseButton from "../components/BaseButton.vue";
   // add watch property to track volume changes
   const volume = ref(0);
   const movie = ref("Batman");
@@ -62,24 +63,9 @@
     </h2>
     <h3 class="mb-6 text-lg text-slate-700">Current volume: {{ volume }}</h3>
     <div class="flex gap-4">
-      <button
-        class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-5 py-2 text-base font-medium transition-colors"
-        @click="volume += 2"
-      >
-        Increase
-      </button>
-      <button
-        class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-5 py-2 text-base font-medium transition-colors"
-        @click="volume -= 2"
-      >
-        Decrease
-      </button>
-      <button
-        class="bg-gray-400 hover:bg-gray-500 text-white rounded-lg px-5 py-2 text-base font-medium transition-colors"
-        @click="volume = 0"
-      >
-        Reset
-      </button>
+      <BaseButton @click="volume += 2">Increase</BaseButton>
+      <BaseButton @click="volume -= 2">Decrease</BaseButton>
+      <BaseButton variant="secondary" @click="volume = 0">Reset</BaseButton>
     </div>
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-input">
       Movie name:
@@ -102,13 +88,13 @@
       placeholder="Enter movie actor"
     />
     <div>
-      <button @click="movieList.push('Wonder Woman')">
+      <BaseButton @click="movieList.push('Wonder Woman')">
         Add Movie same ref
-      </button>
+      </BaseButton>
       <!-- This will create a new reference to the array and so doesn't require deep on the watch -->
-      <button @click="movieList = movieList.concat(['Wonder Woman'])">
+      <BaseButton @click="movieList = movieList.concat(['Wonder Woman'])">
         Add Movie new ref
-      </button>
+      </BaseButton>
     </div>
   </main>
 </template>

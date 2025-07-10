@@ -3,7 +3,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import * as helpers from "@study/helpers";
 
-import { getNavbarConfig } from "./custom-config.js";
+import {
+  baseNavbarConfig,
+  getNavbarConfig,
+  vueNavbarConfig
+} from "./custom-config.js";
 
 vi.mock("@study/helpers", () => ({
   getCurrentApp: vi.fn()
@@ -103,17 +107,24 @@ describe("customNavbarConfig", () => {
       // React should have 3 items (Home, About, Calculator)
       vi.spyOn(helpers, "getCurrentApp").mockReturnValue("react");
       const reactConfig = getNavbarConfig();
-      expect(reactConfig.items.length).toBe(3);
+      expect(reactConfig.items.length).toBe(
+        baseNavbarConfig("react").length + 1
+      ); // +1 for Calculator
 
       // Webcomponents should have 2 items (Home, About)
       vi.spyOn(helpers, "getCurrentApp").mockReturnValue("webcomponents");
       const webcomponentsConfig = getNavbarConfig();
-      expect(webcomponentsConfig.items.length).toBe(2);
+      expect(webcomponentsConfig.items.length).toBe(
+        baseNavbarConfig("webcomponents").length
+      );
 
-      // Vue should have 7 items (Home, About, Calculator, Computed, Form, Volume, Component)
+      // Vue should have Home, About, Calculator, and all vue-specific items
       vi.spyOn(helpers, "getCurrentApp").mockReturnValue("vue");
       const vueConfig = getNavbarConfig();
-      expect(vueConfig.items.length).toBe(9);
+
+      expect(vueConfig.items.length).toBe(
+        baseNavbarConfig("vue").length + vueNavbarConfig.length + 1 // +1 for Calculator
+      );
     });
   });
 });

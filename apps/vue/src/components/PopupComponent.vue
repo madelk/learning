@@ -20,6 +20,7 @@
   <teleport v-if="showPopup" to="#portal-root">
     <div
       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
+      @click.self="$emit('closePopup', userInput)"
     >
       <div
         class="bg-mantle rounded-lg shadow-2xl p-8 w-full max-w-sm border-2 border-pink relative"
@@ -29,6 +30,7 @@
         >
           This is a popup
         </h2>
+        <slot></slot>
         <InputComponent
           id="user-input"
           v-model="userInput"

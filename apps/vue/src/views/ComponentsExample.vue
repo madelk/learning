@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { onMounted, provide, ref } from "vue";
   import ArticleComponent from "../components/ArticleComponent.vue";
+  import BaseButton from "../components/BaseButton.vue";
   import ComponentC from "../components/ComponentC.vue";
   import GreetComponent from "../components/GreetComponent.vue";
   import PopupComponent from "../components/PopupComponent.vue";
@@ -40,36 +41,33 @@
   >
     <div class="flex items-center gap-2 mb-4">
       <label class="font-semibold">Theme:</label>
-      <button
-        class="px-2 py-1 rounded border border-mauve bg-mauve/10 hover:bg-mauve/30 transition"
-        :class="themeOverride === 'auto' ? 'font-bold underline' : ''"
+      <BaseButton
+        :variant="themeOverride === 'auto' ? 'primary' : 'secondary'"
         @click="
           themeOverride = 'auto';
           updateTheme();
         "
       >
         Auto
-      </button>
-      <button
-        class="px-2 py-1 rounded border border-mauve bg-mauve/10 hover:bg-mauve/30 transition"
-        :class="themeOverride === 'light' ? 'font-bold underline' : ''"
+      </BaseButton>
+      <BaseButton
+        :variant="themeOverride === 'light' ? 'primary' : 'secondary'"
         @click="
           themeOverride = 'light';
           updateTheme();
         "
       >
         Latte
-      </button>
-      <button
-        class="px-2 py-1 rounded border border-mauve bg-mauve/10 hover:bg-mauve/30 transition"
-        :class="themeOverride === 'dark' ? 'font-bold underline' : ''"
+      </BaseButton>
+      <BaseButton
+        :variant="themeOverride === 'dark' ? 'primary' : 'secondary'"
         @click="
           themeOverride = 'dark';
           updateTheme();
         "
       >
         Mocha
-      </button>
+      </BaseButton>
     </div>
     <h1 class="text-3xl font-bold mb-4 text-mauve">Components Example</h1>
     <div class="mb-4">
@@ -93,12 +91,7 @@
       <ComponentC />
     </div>
     <div>
-      <button
-        class="bg-mauve text-base px-4 py-2 rounded hover:bg-pink transition-colors duration-200 shadow"
-        @click="showPopup = !showPopup"
-      >
-        Toggle Popup
-      </button>
+      <BaseButton @click="showPopup = !showPopup">Toggle Popup</BaseButton>
       <PopupComponent
         v-show="showPopup"
         :show-popup="showPopup"
