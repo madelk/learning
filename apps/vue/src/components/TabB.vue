@@ -4,6 +4,7 @@
   onActivated(() => {
     timesLoaded.value++;
   });
+  const timeLoaded = new Date().toLocaleTimeString();
 </script>
 
 <template>
@@ -11,5 +12,6 @@
     <h2 class="text-xl font-semibold text-purple-700">Tab B Content</h2>
     <p class="text-gray-700">This is the content for Tab B.</p>
     <p class="text-gray-700">Tab B has been loaded {{ timesLoaded }} times.</p>
+    <p class="text-gray-700">Tab B was last loaded at {{ timeLoaded }}.</p>
   </div>
 </template>
