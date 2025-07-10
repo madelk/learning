@@ -99,7 +99,11 @@
       >
         Toggle Popup
       </button>
-      <PopupComponent v-show="showPopup" @close-popup="closePopup" />
+      <PopupComponent
+        v-show="showPopup"
+        :show-popup="showPopup"
+        @close-popup="closePopup"
+      />
     </div>
   </div>
 </template>
