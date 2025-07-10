@@ -90,6 +90,7 @@
     "@vue/eslint-config-typescript": "^14",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "10.4.13",
+    "axios": "1.10.0",
     "babel-jest": "^29.7.0",
     "babel-plugin-styled-components": "1.10.7",
     "cypress": "^14.2.1",
