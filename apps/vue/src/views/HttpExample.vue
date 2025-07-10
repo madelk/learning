@@ -30,6 +30,7 @@
   }
   import axios from "axios";
   import { onMounted, ref } from "vue";
+  import CreatePost from "../components/CreatePost.vue";
   import PopupComponent from "../components/PopupComponent.vue";
   const posts = ref<Post[] | null>(null);
   const users = ref<User[] | null>(null);
@@ -77,6 +78,7 @@
 </script>
 
 <template>
+  <CreatePost />
   <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
     <h1 class="text-3xl font-bold mb-4 text-blue-700 flex items-center gap-2">
       <svg
