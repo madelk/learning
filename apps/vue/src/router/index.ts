@@ -58,6 +58,11 @@ const router = createRouter({
       path: "/lifecycle",
       name: "lifecycle",
       component: () => import("../views/LifecycleExample.vue")
+    },
+    {
+      path: "/cheat-sheet",
+      name: "cheat-sheet",
+      component: () => import("../views/CheatSheet.vue")
     }
   ]
 });

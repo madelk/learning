@@ -51,5 +51,6 @@ export const vueNavbarConfig: NavBarItem[] = [
   { label: "Slots", href: "/vue/slots" },
   { label: "Dynamic", href: "/vue/dynamic" },
   { label: "http", href: "/vue/http" },
-  { label: "Lifecycle", href: "/vue/lifecycle" }
+  { label: "Lifecycle", href: "/vue/lifecycle" },
+  { label: "Cheat Sheet", href: "/vue/cheat-sheet" }
 ];
