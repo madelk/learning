@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { reactive } from "vue";
+  import { onMounted, reactive, ref } from "vue";
   import BaseButton from "../components/BaseButton.vue";
 
   const formValues = reactive({
@@ -15,7 +15,10 @@
   function submitForm() {
     console.log("Form submitted with values:", formValues);
   }
-
+  const nameInput = ref<HTMLInputElement | null>(null);
+  onMounted(() => {
+    nameInput.value?.focus();
+  });
   // No public properties to expose
   defineExpose({});
 </script>
@@ -55,6 +58,7 @@
             </label>
             <input
               id="name"
+              ref="nameInput"
               v-model="formValues.name"
               type="text"
               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"

@@ -1,14 +1,17 @@
 <script lang="ts" setup>
-  import { ref, watch } from "vue";
+  import { reactive, toRefs, watch } from "vue";
   import BaseButton from "../components/BaseButton.vue";
   // add watch property to track volume changes
-  const volume = ref(0);
-  const movie = ref("Batman");
-  const movieInfo = ref({
-    title: "",
-    actor: ""
+  const state = reactive({
+    volume: 0,
+    movie: "Batman",
+    movieInfo: {
+      title: "",
+      actor: ""
+    },
+    movieList: ["Batman", "Superman"]
   });
-  const movieList = ref(["Batman", "Superman"]);
+  const { volume, movie, movieInfo, movieList } = toRefs(state);
   watch(volume, (newVolume, oldVolume) => {
     if (newVolume === 16 && newVolume > oldVolume) {
       // only show alert when volume increases to 16 and not when it decreases
