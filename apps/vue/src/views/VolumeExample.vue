@@ -1,24 +1,29 @@
 <script lang="ts" setup>
-  import { ref, watch } from "vue";
+  import { reactive, watch } from "vue";
   import BaseButton from "../components/BaseButton.vue";
   // add watch property to track volume changes
-  const volume = ref(0);
-  const movie = ref("Batman");
-  const movieInfo = ref({
-    title: "",
-    actor: ""
-  });
-  const movieList = ref(["Batman", "Superman"]);
-  watch(volume, (newVolume, oldVolume) => {
-    if (newVolume === 16 && newVolume > oldVolume) {
-      // only show alert when volume increases to 16 and not when it decreases
-      alert(
-        "Listening to a high volume for a long time can damage your hearing"
-      );
-    }
+  const state = reactive({
+    volume: 0,
+    movie: "Batman",
+    movieInfo: {
+      title: "",
+      actor: ""
+    },
+    movieList: ["Batman", "Superman"]
   });
   watch(
-    movie,
+    () => state.volume,
+    (newVolume, oldVolume) => {
+      if (newVolume === 16 && newVolume > oldVolume) {
+        // only show alert when volume increases to 16 and not when it decreases
+        alert(
+          "Listening to a high volume for a long time can damage your hearing"
+        );
+      }
+    }
+  );
+  watch(
+    () => state.movie,
     (newMovie) => {
       // will run on page load because of immediate: true
       console.log("calling API with movie name = ", newMovie);
@@ -28,7 +33,7 @@
     }
   );
   watch(
-    movieInfo,
+    () => state.movieInfo,
     (newMovieInfo) => {
       // only works because deep = true
       console.log(
@@ -40,7 +45,7 @@
     }
   );
   watch(
-    movieList,
+    () => state.movieList,
     (newMovieList) => {
       // also only works because deep = true
       console.log("Updated movie list with deep:", newMovieList);
@@ -49,9 +54,12 @@
       deep: true
     }
   );
-  watch(movieList, (newMovieList) => {
-    console.log("Updated movie list without deep:", newMovieList);
-  });
+  watch(
+    () => state.movieList,
+    (newMovieList) => {
+      console.log("Updated movie list without deep:", newMovieList);
+    }
+  );
 </script>
 
 <template>
@@ -61,22 +69,30 @@
     <h2 class="mb-2 text-2xl font-semibold text-blue-600">
       Volume tracker (0 -200)
     </h2>
-    <h3 class="mb-6 text-lg text-slate-700">Current volume: {{ volume }}</h3>
+    <h3 class="mb-6 text-lg text-slate-700">
+      Current volume: {{ state.volume }}
+    </h3>
     <div class="flex gap-4">
-      <BaseButton @click="volume += 2">Increase</BaseButton>
-      <BaseButton @click="volume -= 2">Decrease</BaseButton>
-      <BaseButton variant="secondary" @click="volume = 0">Reset</BaseButton>
+      <BaseButton @click="state.volume += 2">Increase</BaseButton>
+      <BaseButton @click="state.volume -= 2">Decrease</BaseButton>
+      <BaseButton variant="secondary" @click="state.volume = 0">
+        Reset
+      </BaseButton>
     </div>
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-input">
       Movie name:
     </label>
-    <input id="movie-input" v-model="movie" placeholder="Enter movie name" />
+    <input
+      id="movie-input"
+      v-model="state.movie"
+      placeholder="Enter movie name"
+    />
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-title-input">
       Movie title:
     </label>
     <input
       id="movie-title-input"
-      v-model="movieInfo.title"
+      v-model="state.movieInfo.title"
       placeholder="Enter movie title"
     />
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-actor-input">
@@ -84,15 +100,17 @@
     </label>
     <input
       id="movie-actor-input"
-      v-model="movieInfo.actor"
+      v-model="state.movieInfo.actor"
       placeholder="Enter movie actor"
     />
     <div>
-      <BaseButton @click="movieList.push('Wonder Woman')">
+      <BaseButton @click="state.movieList.push('Wonder Woman')">
         Add Movie same ref
       </BaseButton>
       <!-- This will create a new reference to the array and so doesn't require deep on the watch -->
-      <BaseButton @click="movieList = movieList.concat(['Wonder Woman'])">
+      <BaseButton
+        @click="state.movieList = state.movieList.concat(['Wonder Woman'])"
+      >
         Add Movie new ref
       </BaseButton>
     </div>
