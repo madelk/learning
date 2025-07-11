@@ -1,70 +1,24 @@
 <script setup lang="ts">
-  import axios from "axios";
-  import { onMounted, ref } from "vue";
   import BaseButton from "../components/BaseButton.vue";
   import CreatePost from "../components/CreatePost.vue";
   import PopupComponent from "../components/PopupComponent.vue";
-  interface Post {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
-  }
-  interface User {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    address: {
-      street: string;
-      suite: string;
-      city: string;
-      zipcode: string;
-      geo: {
-        lat: string;
-        lng: string;
-      };
-    };
-    phone: string;
-    website: string;
-    company: {
-      name: string;
-      catchPhrase: string;
-      bs: string;
-    };
-  }
-  const posts = ref<Post[] | null>(null);
-  const users = ref<User[] | null>(null);
-  const error = ref<string | null>(null);
-  const showPopup = ref(false);
+  import { useHttpExampleFetch } from "./HttpExample.fetch";
+  import {
+    useHttpExampleHelpers,
+    useHttpExampleState
+  } from "./HttpExample.types";
+
+  const { posts, users, error, showPopup, selectedUser } =
+    useHttpExampleState();
+
   const togglePopup = () => {
     showPopup.value = !showPopup.value;
   };
-  const basePath = "https://jsonplaceholder.typicode.com";
-  onMounted(async () => {
-    try {
-      const postsPromise = axios.get(`${basePath}/posts`);
-      const usersPromise = axios.get(`${basePath}/users`);
-      const [postsResponse, usersResponse] = await Promise.all([
-        postsPromise,
-        usersPromise
-      ]);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      posts.value = postsResponse.data;
-      users.value = usersResponse.data;
-    } catch (err) {
-      if (err instanceof Error) {
-        error.value = err.message;
-      } else {
-        error.value = String(err);
-      }
-    }
-  });
-  const findUserById = (userId: number) => {
-    return users.value?.find((user) => user.id === userId) || null;
-  };
-  const selectedUser = ref<User | null>(null);
+  useHttpExampleFetch(posts, users, error);
+
+  const { findUserById } = useHttpExampleHelpers(users);
+
   const selectUser = (userId?: number) => {
     if (!userId) {
       return;
