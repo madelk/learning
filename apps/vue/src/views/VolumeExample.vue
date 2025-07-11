@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { reactive, watch } from "vue";
+  import { reactive, toRefs, watch } from "vue";
   import BaseButton from "../components/BaseButton.vue";
   // add watch property to track volume changes
   const state = reactive({
@@ -11,19 +11,17 @@
     },
     movieList: ["Batman", "Superman"]
   });
-  watch(
-    () => state.volume,
-    (newVolume, oldVolume) => {
-      if (newVolume === 16 && newVolume > oldVolume) {
-        // only show alert when volume increases to 16 and not when it decreases
-        alert(
-          "Listening to a high volume for a long time can damage your hearing"
-        );
-      }
+  const { volume, movie, movieInfo, movieList } = toRefs(state);
+  watch(volume, (newVolume, oldVolume) => {
+    if (newVolume === 16 && newVolume > oldVolume) {
+      // only show alert when volume increases to 16 and not when it decreases
+      alert(
+        "Listening to a high volume for a long time can damage your hearing"
+      );
     }
-  );
+  });
   watch(
-    () => state.movie,
+    movie,
     (newMovie) => {
       // will run on page load because of immediate: true
       console.log("calling API with movie name = ", newMovie);
@@ -33,7 +31,7 @@
     }
   );
   watch(
-    () => state.movieInfo,
+    movieInfo,
     (newMovieInfo) => {
       // only works because deep = true
       console.log(
@@ -45,7 +43,7 @@
     }
   );
   watch(
-    () => state.movieList,
+    movieList,
     (newMovieList) => {
       // also only works because deep = true
       console.log("Updated movie list with deep:", newMovieList);
@@ -54,12 +52,9 @@
       deep: true
     }
   );
-  watch(
-    () => state.movieList,
-    (newMovieList) => {
-      console.log("Updated movie list without deep:", newMovieList);
-    }
-  );
+  watch(movieList, (newMovieList) => {
+    console.log("Updated movie list without deep:", newMovieList);
+  });
 </script>
 
 <template>
@@ -70,12 +65,12 @@
       Volume tracker (0 -200)
     </h2>
     <h3 class="mb-6 text-lg text-slate-700">
-      Current volume: {{ state.volume }}
+      Current volume: {{ volume.value }}
     </h3>
     <div class="flex gap-4">
-      <BaseButton @click="state.volume += 2">Increase</BaseButton>
-      <BaseButton @click="state.volume -= 2">Decrease</BaseButton>
-      <BaseButton variant="secondary" @click="state.volume = 0">
+      <BaseButton @click="volume.value += 2">Increase</BaseButton>
+      <BaseButton @click="volume.value -= 2">Decrease</BaseButton>
+      <BaseButton variant="secondary" @click="volume.value = 0">
         Reset
       </BaseButton>
     </div>
@@ -84,7 +79,7 @@
     </label>
     <input
       id="movie-input"
-      v-model="state.movie"
+      v-model="movie.value"
       placeholder="Enter movie name"
     />
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-title-input">
@@ -92,7 +87,7 @@
     </label>
     <input
       id="movie-title-input"
-      v-model="state.movieInfo.title"
+      v-model="movieInfo.value.title"
       placeholder="Enter movie title"
     />
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-actor-input">
@@ -100,16 +95,16 @@
     </label>
     <input
       id="movie-actor-input"
-      v-model="state.movieInfo.actor"
+      v-model="movieInfo.value.actor"
       placeholder="Enter movie actor"
     />
     <div>
-      <BaseButton @click="state.movieList.push('Wonder Woman')">
+      <BaseButton @click="movieList.value.push('Wonder Woman')">
         Add Movie same ref
       </BaseButton>
       <!-- This will create a new reference to the array and so doesn't require deep on the watch -->
       <BaseButton
-        @click="state.movieList = state.movieList.concat(['Wonder Woman'])"
+        @click="movieList.value = movieList.value.concat(['Wonder Woman'])"
       >
         Add Movie new ref
       </BaseButton>
