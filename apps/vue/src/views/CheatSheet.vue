@@ -313,9 +313,7 @@
       <ul class="list-disc pl-6 text-blue-600">
         <li v-for="link in feature.links" :key="link.file">
           <a
-            :href="`vscode://file/${$route.path.replace(/\\/g, '/')}/../${
-              link.path
-            }#L${link.line}`"
+            :href="`https://github.com/madelk/learning/blob/main/apps/vue/src/${link.path}#L${link.line}`"
             target="_blank"
             rel="noopener noreferrer"
             class="underline"
