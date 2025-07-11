@@ -44,6 +44,7 @@ export function baseNavbarConfig(appType: string): NavBarItem[] {
   ];
 }
 export const vueNavbarConfig: NavBarItem[] = [
+  { label: "Cheat Sheet", href: "/vue/cheat-sheet" },
   { label: "Computed", href: "/vue/computed" },
   { label: "Form", href: "/vue/form" },
   { label: "Volume", href: "/vue/volume" },
