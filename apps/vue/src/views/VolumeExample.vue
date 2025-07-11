@@ -64,30 +64,22 @@
     <h2 class="mb-2 text-2xl font-semibold text-blue-600">
       Volume tracker (0 -200)
     </h2>
-    <h3 class="mb-6 text-lg text-slate-700">
-      Current volume: {{ volume.value }}
-    </h3>
+    <h3 class="mb-6 text-lg text-slate-700">Current volume: {{ volume }}</h3>
     <div class="flex gap-4">
-      <BaseButton @click="volume.value += 2">Increase</BaseButton>
-      <BaseButton @click="volume.value -= 2">Decrease</BaseButton>
-      <BaseButton variant="secondary" @click="volume.value = 0">
-        Reset
-      </BaseButton>
+      <BaseButton @click="volume += 2">Increase</BaseButton>
+      <BaseButton @click="volume -= 2">Decrease</BaseButton>
+      <BaseButton variant="secondary" @click="volume = 0">Reset</BaseButton>
     </div>
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-input">
       Movie name:
     </label>
-    <input
-      id="movie-input"
-      v-model="movie.value"
-      placeholder="Enter movie name"
-    />
+    <input id="movie-input" v-model="movie" placeholder="Enter movie name" />
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-title-input">
       Movie title:
     </label>
     <input
       id="movie-title-input"
-      v-model="movieInfo.value.title"
+      v-model="movieInfo.title"
       placeholder="Enter movie title"
     />
     <label class="mt-6 mb-2 text-lg text-slate-700" for="movie-actor-input">
@@ -95,17 +87,15 @@
     </label>
     <input
       id="movie-actor-input"
-      v-model="movieInfo.value.actor"
+      v-model="movieInfo.actor"
       placeholder="Enter movie actor"
     />
     <div>
-      <BaseButton @click="movieList.value.push('Wonder Woman')">
+      <BaseButton @click="movieList.push('Wonder Woman')">
         Add Movie same ref
       </BaseButton>
       <!-- This will create a new reference to the array and so doesn't require deep on the watch -->
-      <BaseButton
-        @click="movieList.value = movieList.value.concat(['Wonder Woman'])"
-      >
+      <BaseButton @click="movieList = movieList.concat(['Wonder Woman'])">
         Add Movie new ref
       </BaseButton>
     </div>
