@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, ref } from "vue";
+  import { onMounted, computed, ref } from "vue";
   import BaseButton from "../components/BaseButton.vue";
 
   const items = ref([
@@ -70,6 +70,9 @@
     items,
     getTotalComputed,
     getTotalWithoutComputed
+  });
+  onMounted(() => {
+    document.title = "Computed Example | Vue App";
   });
 </script>
 

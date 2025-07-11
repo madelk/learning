@@ -1,6 +1,9 @@
-<script lang="ts" setup>
-  import { reactive, toRefs, watch } from "vue";
+<script setup lang="ts">
+  import { onMounted, reactive, toRefs, watch } from "vue";
   import BaseButton from "../components/BaseButton.vue";
+  onMounted(() => {
+    document.title = "Volume Example | Vue App";
+  });
   // add watch property to track volume changes
   const state = reactive({
     volume: 0,

@@ -1,6 +1,10 @@
 <script setup lang="ts">
+  import { onMounted } from "vue";
   import CardComponent from "../components/CardComponent.vue";
   import NameList from "../components/NameList.vue";
+  onMounted(() => {
+    document.title = "Slots Example | Vue App";
+  });
 </script>
 
 <template>

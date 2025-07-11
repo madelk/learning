@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { getHomepageText } from '@study/pagetext';
-const text = getHomepageText();
+  import { onMounted } from "vue";
+  import { getHomepageText } from "@study/pagetext";
+  const text = getHomepageText();
+  onMounted(() => {
+    document.title = "Home | Vue App";
+  });
 </script>
 
 <template>

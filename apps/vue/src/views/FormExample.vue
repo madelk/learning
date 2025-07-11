@@ -18,6 +18,7 @@
   const nameInput = ref<HTMLInputElement | null>(null);
   onMounted(() => {
     nameInput.value?.focus();
+    document.title = "Form Example | Vue App";
   });
   // No public properties to expose
   defineExpose({});

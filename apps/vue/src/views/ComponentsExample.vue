@@ -31,6 +31,7 @@
     window
       .matchMedia("(prefers-color-scheme: light)")
       .addEventListener("change", updateTheme);
+    document.title = "Components Example | Vue App";
   });
 </script>
 

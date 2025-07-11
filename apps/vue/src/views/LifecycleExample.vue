@@ -8,7 +8,8 @@
     onMounted,
     onUnmounted,
     onUpdated,
-    ref
+    ref,
+    watch
   } from "vue";
 
   const messages = ref<string[]>([]);
@@ -29,6 +30,7 @@
     addMessage(
       "onMounted called - runs after the component is mounted. Useful for making HTTP requests, DOM measurements, or starting timers."
     );
+    document.title = "Lifecycle Example | Vue App";
   });
   onBeforeUpdate(() => {
     addMessage(
@@ -42,7 +44,6 @@
     );
   });
   // Watch count for demonstration, and push a message when it changes
-  import { watch } from "vue";
   watch(count, (newVal, oldVal) => {
     addMessage(`count changed from ${oldVal} to ${newVal}`);
   });

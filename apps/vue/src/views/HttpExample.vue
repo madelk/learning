@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { onMounted } from "vue";
   import BaseButton from "../components/BaseButton.vue";
   import CreatePost from "../components/CreatePost.vue";
   import PopupComponent from "../components/PopupComponent.vue";
@@ -30,6 +31,9 @@
     selectedUser.value = user;
     showPopup.value = true;
   };
+  onMounted(() => {
+    document.title = "HTTP Example | Vue App";
+  });
 </script>
 
 <template>
